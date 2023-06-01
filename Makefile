@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/01 12:52:12 by framos-p         ###   ########.fr        #
+#    Updated: 2023/06/01 15:47:29 by framos-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,10 @@ BUILT			=	src/builtins/
 
 SRCS_FILES		=	$(SRC)main.c $(BUILT)echo.c $(BUILT)pwd.c
 
-CC				=	gcc
-FLAGS			=	-g -Wall -Wextra -Werror -MMD -lreadline
-RM				=	rm -rf
+CC				:=	gcc
+CFLAGS			:=	-g -Wall -Wextra -Werror -MMD 
+LDFLAGS			:=	-lreadline
+RM				:=	rm -rf
 
 OBJS			=	$(SRCS_FILES:%.c=%.o)
 
@@ -33,19 +34,18 @@ NOCOLOR			=	\033[0m
 BOLD_PURPLE		=	\033[1;35m
 BOLD_CYAN		=	\033[1;36m
 RED				=	\033[0;91m
-YELLOW			=	\033[5;93m
+YELLOW			=	\033[1;93m
 BLUE			=	\033[0;94m
 GREEN			=	\033[0;32m
 
-all:
-				@$(MAKE) $(NAME)
+all: $(NAME)
 
 %.o: %.c
 				@echo "$(BOLD_CYAN)compiling: [$(RED)$<$(BOLD_PURPLE)]"
-				@$(CC) $(FLAGS) -I $(INC) -c $< -o $@
+				@$(CC) -I $(INC) $(CFLAGS) -c $< -o $@
 
-$(NAME)::		$(OBJS) Makefile
-				@$(CC) $(FLAGS) $(OBJS) -o $(NAME)
+$(NAME)::		$(OBJS) #Makefile
+				@$(CC) $(OBJS) $(CFLAGS) $(LDFLAGS) -o $(NAME)
 
 $(NAME)::
 				@echo "\n$(RED)Minishell Compiled ✅$(DEF_COLOR)\n"
