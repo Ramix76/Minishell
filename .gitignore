@@ -1,0 +1,16 @@
+*.a
+*.o
+*.d
+*.swo
+*.swp
+*.swn
+*.swm
+a.out
+*.dylib
+build/
+.DS_Store
+LICENSE
+README.md
+README
+.config/*
+minishell
