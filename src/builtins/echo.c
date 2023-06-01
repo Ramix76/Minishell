@@ -6,11 +6,11 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 15:32:57 by framos-p          #+#    #+#             */
-/*   Updated: 2023/05/31 15:34:49 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:34:42 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/builtin.h"
+#include "builtin.h"
 
 void	ft_echo(char *text)
 {

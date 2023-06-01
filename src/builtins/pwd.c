@@ -6,11 +6,11 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:54:40 by framos-p          #+#    #+#             */
-/*   Updated: 2023/05/31 15:32:41 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:34:55 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/builtin.h"
+#include "builtin.h"
 
 int	ft_pwd()
 {
