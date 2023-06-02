@@ -1,13 +1,20 @@
 #!/bin/bash
 
-TEST_FILE=test_ft_getenv.c
+INC="-I ../src/ -I ../src/libft/src -I ../src/builtins -L ../src/libft -lft"
+OUT=a.out
 
-echo Compiling\ "$TEST_FILE"...
-echo
+function execute_test() {
+	if [[ "$1" ]]
+	then
+		gcc $INC $TEST_FILE -o $OUT
+		./$OUT
+		rm $OUT
+	fi
+}
 
-gcc "$TEST_FILE" -I ../src/ -I ../src/libft/src -I ../src/builtins -L ../src/libft -lft 
-./a.out
-rm a.out
+# Main
 
-echo
-echo OK
+for TEST_FILE in test_*.c
+do
+	execute_test "$TEST_FILE"
+done
