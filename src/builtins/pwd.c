@@ -6,11 +6,11 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:54:40 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/01 16:34:55 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/02 14:37:30 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "builtins.h"
 
 int	ft_pwd()
 {
@@ -20,7 +20,7 @@ int	ft_pwd()
 	if (cwd == NULL)
 	{
 		perror("malloc");
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	if (getcwd(cwd, PATH_MAX) != NULL)
 		printf("%s\n", cwd);
@@ -28,8 +28,8 @@ int	ft_pwd()
 	{
 		perror("Error al obtener el directorio actual");
 		free(cwd);
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	free(cwd);
-	return (0);
+	return (EXIT_SUCCESS);
 }

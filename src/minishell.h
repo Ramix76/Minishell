@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/01 16:36:08 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/02 14:33:33 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 
-#include "builtin.h"
+#include "builtins.h"
 
 #include <sys/errno.h>
 #include <stdio.h>
@@ -27,10 +27,5 @@
 #include <readline/history.h>
 
 #include "libft.h"
-
-typedef struct s_cmd
-{
-	char	*command;
-}				t_cmd;
 
 #endif
