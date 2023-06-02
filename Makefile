@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/01 18:11:01 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/02 14:31:55 by framos-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ GREEN			=	\033[0;32m
 BOLD_CYAN		=	\033[1;36m
 
 define message =
-@printf "$(BOLD_CYAN)%-10s: $(GREEN)%s$(NOSTYLE)\n" "$(1)" "$(2)"
+@printf "$(BOLD_CYAN)%-20s: $(GREEN)%s$(NOSTYLE)\n" "$(1)" "$(2)"
 endef
 
 .PHONY: all clean fclean re
@@ -62,11 +62,14 @@ $(LIBFT):
 
 clean:
 	@$(RM) $(BUILD_DIR)
-	@$(MAKE) fclean -C $(LIBFT_DIR)
+	@$(MAKE) fclean -sC $(LIBFT_DIR)
+	@$(RM) $(NAME)
+	@$(RM) bonus
+	$(call message,"Files",$(basename $@))
+	$(call message,Directory Built,$(basename $@))
+	$(call message,"Program",$(basename $@))
 
 fclean: clean
-	$(RM) $(NAME)
-	$(RM) bonus
 
 re: fclean
 	@$(MAKE)
