@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/02 14:31:55 by framos-p         ###   ########.fr        #
+#    Updated: 2023/06/02 15:15:08 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,11 @@ CFLAGS			:=	-Wall -Wextra -Werror -MMD
 CFLAGS			+=	-g -fsanitize='address,undefined'# uncomment for debugging
 LDFLAGS			:=	-L src/libft -lft -lreadline
 INC				:=	-I src -I src/builtins -I src/libft/src
-RM				:=	rm -rf
+RM				:=	-rm -rf
 
 SRC_FILES		:=	$(SRC_DIR)/main.c $(SRC_DIR)/builtins/echo.c $(SRC_DIR)/builtins/pwd.c
-OBJ_FILES		=	$(SRC_FILES:%.c=$(BUILD_DIR)/%.o)
-DEP_FILES		=	$(SRC_FILES:%.c=$(BUILD_DIR)/%.d)
+OBJ_FILES		=	$(SRC_FILES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+DEP_FILES		=	$(OBJ_FILES:.o=.d)
 
 # Colors
 
@@ -44,11 +44,6 @@ endef
 
 all: $(NAME)
 
-$(BUILD_DIR)/%.o: %.c
-	@mkdir -p $(@D)
-	$(call message,"compiling",$<)
-	@$(CC) $(INC) $(CFLAGS) -c $< -o $@
-
 $(NAME): $(LIBFT) $(OBJ_FILES) $(DEP_FILES) #header?
 	@$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ_FILES) -o $(basename $@)
 	$(call message,"compiled",$(basename $@))
@@ -57,19 +52,24 @@ bonus: $(LIBFT) $(BOJB_FILES) $(BDEP_FILES) #header?
 	@$(CC) $(INC) $(CFLAGS) $(LDFLAGS) $(BOBJ_FILES) -o $(basename $@)
 	$(call message,"compiled",$(basename $@))
 
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(call message,"compiling",$<)
+	@$(CC) $(INC) $(CFLAGS) -c $< -o $@
+
 $(LIBFT):
 	@$(MAKE) -C $(dir $@)
 
 clean:
 	@$(RM) $(BUILD_DIR)
 	@$(MAKE) fclean -sC $(LIBFT_DIR)
-	@$(RM) $(NAME)
-	@$(RM) bonus
 	$(call message,"Files",$(basename $@))
-	$(call message,Directory Built,$(basename $@))
-	$(call message,"Program",$(basename $@))
+	$(call message,Directory $(BUILD_DIR),$(basename $@))
 
 fclean: clean
+	@$(RM) $(NAME)
+	@$(RM) bonus
+	$(call message,"Program",$(basename $@))
 
 re: fclean
 	@$(MAKE)
