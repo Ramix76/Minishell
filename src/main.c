@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/01 16:33:28 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/02 15:48:34 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,18 @@ int	ft_prompt(t_cmd *cmd)
 {
 	while (1)
 	{
-		cmd->command = readline("MiniYo$> ");
-		if (strcmp(cmd->command, "pwd") == 0)
+		cmd->command = readline("Homersh$> ");
+		cmd->tokens = ft_split(cmd->command, ' ');
+		if (ft_strncmp(cmd->tokens[0], "pwd", 3) == 0)
 			ft_pwd(cmd->command);
-		else if (strcmp(cmd->command, "echo") == 0)
-			ft_echo(cmd->command);
-		else if (strcmp(cmd->command, "exit") == 0)
+		else if (ft_strncmp(cmd->tokens[0], "echo", 4) == 0)
+			ft_echo(cmd);
+		else if (ft_strncmp(cmd->tokens[0], "exit", 4) == 0)
 			break;
 		add_history(cmd->command);
 		free(cmd->command);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int main(int argc, char **argv)
@@ -42,7 +43,6 @@ int main(int argc, char **argv)
 	t_cmd	*cmd;
 	(void)argc;
 	(void)argv;
-	(void) ft_strlen;
 
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
