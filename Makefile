@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/02 15:15:08 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/02 17:52:16 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ define message =
 @printf "$(BOLD_CYAN)%-20s: $(GREEN)%s$(NOSTYLE)\n" "$(1)" "$(2)"
 endef
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re tests
 
 all: $(NAME)
 
@@ -51,6 +51,9 @@ $(NAME): $(LIBFT) $(OBJ_FILES) $(DEP_FILES) #header?
 bonus: $(LIBFT) $(BOJB_FILES) $(BDEP_FILES) #header?
 	@$(CC) $(INC) $(CFLAGS) $(LDFLAGS) $(BOBJ_FILES) -o $(basename $@)
 	$(call message,"compiled",$(basename $@))
+
+tests:
+	@make -C tests
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
