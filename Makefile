@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/02 17:58:37 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/02 18:44:11 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ LIBFT			:=	$(LIBFT_DIR)/libft.a
 CC				:=	gcc
 CFLAGS			:=	-Wall -Wextra -Werror -MMD
 CFLAGS			+=	-g -fsanitize='address,undefined'# uncomment for debugging
-LDFLAGS			:=	-L $(SRC_DIR)/libft -lft -lreadline
+LDFLAGS			:=	-L $(SRC_DIR)/libft 
+LDLIBS			:=	-lft -lreadline
 INC				:=	-I $(SRC_DIR) -I $(SRC_DIR)/builtins -I $(SRC_DIR)/libft/src
 RM				:=	-rm -rf
 
@@ -45,11 +46,11 @@ endef
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ_FILES) $(DEP_FILES) #header?
-	@$(CC) $(INC) $(CFLAGS) $(LDFLAGS) $(OBJ_FILES) -o $(basename $@)
+	@$(CC) $(INC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(OBJ_FILES) -o $(basename $@)
 	$(call message,"compiled",$(basename $@))
 
 bonus: $(LIBFT) $(BOJB_FILES) $(BDEP_FILES) #header?
-	@$(CC) $(INC) $(CFLAGS) $(LDFLAGS) $(BOBJ_FILES) -o $(basename $@)
+	@$(CC) $(INC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(BOBJ_FILES) -o $(basename $@)
 	$(call message,"compiled",$(basename $@))
 
 tests:
