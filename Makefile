@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/02 18:44:11 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/05 12:08:31 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,11 +45,11 @@ endef
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ_FILES) $(DEP_FILES) #header?
+$(NAME): $(LIBFT) $(OBJ_FILES) $(DEP_FILES) $(SRC_DIR)/$(NAME).h
 	@$(CC) $(INC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(OBJ_FILES) -o $(basename $@)
 	$(call message,"compiled",$(basename $@))
 
-bonus: $(LIBFT) $(BOJB_FILES) $(BDEP_FILES) #header?
+bonus: $(LIBFT) $(BOJB_FILES) $(BDEP_FILES) $(SRC_DIR)/$(NAME).h
 	@$(CC) $(INC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(BOBJ_FILES) -o $(basename $@)
 	$(call message,"compiled",$(basename $@))
 
