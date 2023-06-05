@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/05 15:00:22 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/05 16:46:15 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@
 # define SH_NAME "homersh"
 # define PROMPT "homersh$ "
 # define SH_VERSION "homersh, version 0.1-alpha"
+
+char	*shell_expand(char *str);
 
 #endif /* minishell.h */
