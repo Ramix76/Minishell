@@ -6,13 +6,13 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:54:40 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/02 14:37:30 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:13:09 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ft_pwd()
+int	ft_pwd(void)
 {
 	char	*cwd;
 
