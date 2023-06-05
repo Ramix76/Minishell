@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/05 10:44:34 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:08:17 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include "builtins.h"
 # include "libft.h"
 
+# define SH_NAME "homersh"
 # define PROMPT "homersh$ "
+# define SH_VERSION "0.homer"
 
 #endif /* minishell.h */
