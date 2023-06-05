@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   test_ft_getenv.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
+/*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/29 12:52:51 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/01 16:36:50 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/06/02 16:43:29 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/06/02 18:32:45 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
-
 #include "minishell.h"
+#include "libft.h"
+#include "test.utils.h"
 
-int	ft_pwd(char *cwd);
-//char	*ft_cd(char *path);
-void	ft_echo(char *text);
-
-#endif
+int	main(int argc, char **argv, char **envp)
+{
+	init_log(argc, argv, envp);	
+	printf("with envp: %s\n", ft_getenv("PATH", (const char **) envp));
+	return (0);
+}
