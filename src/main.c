@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/05 16:42:40 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/05 16:47:32 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_data
 int				init_args(int argc, char **argv, char **envp, t_data *data);
 int				shell_do(t_data *data);
 int				command_do(char *line, t_data *data);
-static char		*cmd_path(char *argv, const char **envp);
+char			*cmd_path(char *argv, const char **envp);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -62,14 +62,6 @@ int	shell_do(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-char	*shell_expand(char *str)
-{
-	char	*expanded;
-
-	expanded = str;
-	return (expanded);
-}
-
 int	command_do(char *line, t_data *data)
 {
 	t_cmd	cmd;
@@ -100,7 +92,7 @@ int	command_do(char *line, t_data *data)
 }
 
 /* imported from puyma/pipex */
-static char	*cmd_path(char *argv, const char **envp)
+char	*cmd_path(char *argv, const char **envp)
 {
 	char	*exec_name;
 	char	*cmd;
