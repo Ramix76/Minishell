@@ -6,13 +6,12 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 15:32:57 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/02 15:48:32 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/05 16:43:31 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "minishell.h"
-
 
 void	echo(const char *message, int newline)
 {

@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:54:40 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/05 13:13:09 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/05 16:44:00 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_pwd(void)
 {
 	char	*cwd;
 
-	cwd = (char*)malloc(PATH_MAX * sizeof(char));
+	cwd = (char *) malloc(PATH_MAX * sizeof(char));
 	if (cwd == NULL)
 	{
 		perror("malloc");
