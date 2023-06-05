@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/05 13:13:32 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/05 15:14:17 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ int	init_args(int argc, char **argv, char **envp, t_data *data)
 		printf("%s\n", SH_VERSION);
 		exit(EXIT_SUCCESS);
 	}
-	(void) argc;
-	(void) argv;
-	(void) envp;
+	data->path = ft_getenv("PATH", (const char **) envp);
 	data->exit_code = 0;
 	return (EXIT_SUCCESS);
 }
