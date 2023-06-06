@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   test_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
+/*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 14:30:49 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/06 16:46:01 by framos-p         ###   ########.fr       */
+/*   Created: 2023/06/02 17:41:09 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/06/02 18:32:29 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "test.utils.h"
 
-# include "minishell.h"
-
-typedef struct s_cmd
+void	init_log(int argc, char **argv, char **envp)
 {
-	char		*command;
-	char		**tokens;
-}				t_cmd;
+	int	i;
 
-int		ft_echo(t_cmd *cmd);
-int		ft_pwd(void);
-
-#endif /* builtins.h */
+	i = 0;
+	while (i < argc)
+	{
+		printf(" %s ", argv[i]);
+		++i;
+	}
+	printf("\n");
+	(void) envp;
+}
