@@ -5,34 +5,53 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/31 15:32:57 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/02 15:48:32 by framos-p         ###   ########.fr       */
+/*   Created: 2023/06/06 14:52:40 by framos-p          #+#    #+#             */
+/*   Updated: 2023/06/06 16:45:15 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "minishell.h"
 
-
-void	echo(const char *message, int newline)
+static void	echo(char **tokens, int newline)
 {
-	if (newline)
-		printf("%s\n", message);
-	else
-		printf("%s", message);
+	int	i;
+
+	i = -1;
+	while (tokens[++i])
+	{
+		ft_putstr_fd(tokens[i], 1);
+		if (tokens[i + 1] && write(1, " ", 1) < 1)
+		{
+			printf("Error\n");
+			return ;
+		}
+	}
+	if (tokens == NULL || (newline && write(1, "\n", 1) < 0))
+	{
+		printf("Error\n");
+		exit(EXIT_FAILURE);
+	}
 }
 
-void	ft_echo(t_cmd *cmd)
+int	ft_echo(t_cmd *cmd)
 {
+	int		i;
+	int		j;
 	int		newline;
-	char	*message;
 
+	i = 0;
 	newline = 1;
-	message = cmd->tokens[1];
-	if (cmd->tokens[1] && strcmp(cmd->tokens[1], "-n") == 0)
+	while (cmd->tokens[++i] && cmd->tokens[i][0] == '-'
+		&& cmd->tokens[i][1] == 'n')
 	{
+		j = 1;
+		while (cmd->tokens[i][j] == 'n')
+			j++;
+		if (!(cmd->tokens[i][j] == '\0'))
+			break ;
 		newline = 0;
-		message = cmd->tokens[2];
 	}
-	echo(message, newline);
+	echo(&cmd->tokens[i], newline);
+	return (EXIT_SUCCESS);
 }

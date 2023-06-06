@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/02 18:44:11 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/05 16:46:59 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,11 @@ LDLIBS			:=	-lft -lreadline
 INC				:=	-I $(SRC_DIR) -I $(SRC_DIR)/builtins -I $(SRC_DIR)/libft/src
 RM				:=	-rm -rf
 
-SRC_FILES		:=	$(SRC_DIR)/main.c $(SRC_DIR)/builtins/echo.c $(SRC_DIR)/builtins/pwd.c
+SRC_FILES		:=	$(SRC_DIR)/main.c \
+					$(SRC_DIR)/shell_expand.c \
+					$(SRC_DIR)/builtins/echo.c \
+					$(SRC_DIR)/builtins/pwd.c
+
 OBJ_FILES		=	$(SRC_FILES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEP_FILES		=	$(OBJ_FILES:.o=.d)
 
@@ -45,11 +49,11 @@ endef
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ_FILES) $(DEP_FILES) #header?
+$(NAME): $(LIBFT) $(OBJ_FILES) $(DEP_FILES) $(SRC_DIR)/$(NAME).h
 	@$(CC) $(INC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(OBJ_FILES) -o $(basename $@)
 	$(call message,"compiled",$(basename $@))
 
-bonus: $(LIBFT) $(BOJB_FILES) $(BDEP_FILES) #header?
+bonus: $(LIBFT) $(BOJB_FILES) $(BDEP_FILES) $(SRC_DIR)/$(NAME).h
 	@$(CC) $(INC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(BOBJ_FILES) -o $(basename $@)
 	$(call message,"compiled",$(basename $@))
 
