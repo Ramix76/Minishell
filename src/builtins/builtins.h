@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 14:30:49 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/02 14:40:03 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:24:51 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_cmd
 }				t_cmd;
 
 int		ft_pwd();
-void	ft_echo(t_cmd *cmd);
+int		ft_echo(t_cmd *cmd);
 
 
 
