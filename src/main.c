@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/07 13:33:46 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:42:54 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,4 @@ void	free_str_arr(char **split)
 		free(split[i]);
 		++i;
 	}
-}
-
-/* imported from puyma/pipex */
-/* should do with ft_which only (instead of all this function) */
-char	*cmd_path(char *argv, const char **envp)
-{
-	char	*exec_name;
-	char	*cmd;
-
-	if (ft_strchr(argv, ' ') == NULL)
-		exec_name = argv;
-	else
-		exec_name = ft_strndup(argv, ft_strchr(argv, ' ') - argv);
-	cmd = ft_which(exec_name, ft_getenv("PATH", envp));
-	if (ft_strchr(argv, ' ') != NULL)
-		free(exec_name);
-	if (cmd == NULL)
-		return (NULL);
-	return (cmd);
 }
