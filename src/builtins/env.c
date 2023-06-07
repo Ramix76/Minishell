@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
+/*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 14:30:49 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/07 12:17:20 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/06/07 12:12:12 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/06/07 13:26:54 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtins.h"
 
-# include "minishell.h"
-
-typedef struct s_cmd
+int	ft_env(t_data *data)
 {
-	char	*command;
-	char	**tokens;
-}			t_cmd;
-
-int			ft_echo(t_cmd *cmd);
-int			ft_pwd(void);
-int			ft_env(t_data *data);
-
-#endif /* builtins.h */
+	(void) data;
+	return (EXIT_SUCCESS);
+}
