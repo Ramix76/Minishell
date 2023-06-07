@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/05 16:46:15 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:27:03 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,27 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# include "builtins.h"
 # include "libft.h"
+
+typedef struct s_data
+{
+	char	*path;
+	char	**envp;
+	int		exit_code;
+}			t_data;
+
+# include "builtins.h"
 
 # define SH_NAME "homersh"
 # define PROMPT "homersh$ "
 # define SH_VERSION "homersh, version 0.1-alpha"
 
 char	*shell_expand(char *str);
+int		shell_do(t_data *data);
+int		command_do(char *line, t_data *data);
+
+char	*cmd_path(char *argv, const char **envp);
+void	free_str_arr(char **split);
+
 
 #endif /* minishell.h */
