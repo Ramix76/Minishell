@@ -6,7 +6,11 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2023/06/07 12:13:08 by mpuig-ma         ###   ########.fr        #
+=======
+#    Updated: 2023/06/07 15:48:10 by mpuig-ma         ###   ########.fr        #
+>>>>>>> makefile-readline
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +27,18 @@ CC				:=	gcc
 CFLAGS			:=	-Wall -Wextra -Werror -MMD
 #CFLAGS			+=	-g -fsanitize='address,undefined'# uncomment for debugging
 LDFLAGS			:=	-L $(SRC_DIR)/libft 
-LDLIBS			:=	-lft -lreadline
+LDLIBS			=	-lft $(LREADLINE)
+LREADLINE		:=	-lreadline
 INC				:=	-I $(SRC_DIR) -I $(SRC_DIR)/builtins -I $(SRC_DIR)/libft/src
 RM				:=	-rm -rf
+
+# Use pkg-config --libs to find where readline library is.
+
+ifneq (, $(shell pkg-config --libs readline))
+	LREADLINE	=	$(shell pkg-config --libs readline)
+else
+	LREADLINE	=	-lreadline
+endif
 
 SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/command_do.c \
@@ -44,11 +57,13 @@ NOSTYLE			:=	\033[0m
 GREEN			:=	\033[0;32m
 BOLD_CYAN		:=	\033[1;36m
 
+# Function to standarize printing stuff.
+
 define message =
 @printf "$(BOLD_CYAN)%-20s: $(GREEN)%s$(NOSTYLE)\n" "$(1)" "$(2)"
 endef
 
-.PHONY: all clean fclean re tests
+.PHONY: all clean fclean re tests check_libs
 
 all: $(NAME)
 
@@ -62,6 +77,10 @@ bonus: $(LIBFT) $(BOJB_FILES) $(BDEP_FILES) $(SRC_DIR)/$(NAME).h
 
 tests:
 	@make -C tests
+
+check_libs:
+	@echo $(LREADLINE)
+	@echo $(LDLIBS)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
