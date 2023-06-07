@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/07 15:46:51 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/07 15:48:10 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,8 @@ DEP_FILES		=	$(OBJ_FILES:.o=.d)
 NOSTYLE			:=	\033[0m
 GREEN			:=	\033[0;32m
 BOLD_CYAN		:=	\033[1;36m
+
+# Function to standarize printing stuff.
 
 define message =
 @printf "$(BOLD_CYAN)%-20s: $(GREEN)%s$(NOSTYLE)\n" "$(1)" "$(2)"
