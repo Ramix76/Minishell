@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/05 16:46:59 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/07 15:46:51 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,18 @@ CC				:=	gcc
 CFLAGS			:=	-Wall -Wextra -Werror -MMD
 CFLAGS			+=	-g -fsanitize='address,undefined'# uncomment for debugging
 LDFLAGS			:=	-L $(SRC_DIR)/libft 
-LDLIBS			:=	-lft -lreadline
+LDLIBS			=	-lft $(LREADLINE)
+LREADLINE		:=	-lreadline
 INC				:=	-I $(SRC_DIR) -I $(SRC_DIR)/builtins -I $(SRC_DIR)/libft/src
 RM				:=	-rm -rf
+
+# Use pkg-config --libs to find where readline library is.
+
+ifneq (, $(shell pkg-config --libs readline))
+	LREADLINE	=	$(shell pkg-config --libs readline)
+else
+	LREADLINE	=	-lreadline
+endif
 
 SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/shell_expand.c \
@@ -45,7 +54,7 @@ define message =
 @printf "$(BOLD_CYAN)%-20s: $(GREEN)%s$(NOSTYLE)\n" "$(1)" "$(2)"
 endef
 
-.PHONY: all clean fclean re tests
+.PHONY: all clean fclean re tests check_libs
 
 all: $(NAME)
 
@@ -59,6 +68,10 @@ bonus: $(LIBFT) $(BOJB_FILES) $(BDEP_FILES) $(SRC_DIR)/$(NAME).h
 
 tests:
 	@make -C tests
+
+check_libs:
+	@echo $(LREADLINE)
+	@echo $(LDLIBS)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
