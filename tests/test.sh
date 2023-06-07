@@ -7,9 +7,9 @@ OUT=a.out
 function execute_test() {
 	if [[ "$1" ]]
 	then
-		gcc $INC $TEST_FILE "test.utils.c" -o $OUT
-		./$OUT
-		rm $OUT
+		gcc $INC $TEST_FILE "test.utils.c" -o "${TEST_FILE%.*}"
+		./"${TEST_FILE%.*}"
+		rm "${TEST_FILE%.*}"
 	fi
 }
 
