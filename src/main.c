@@ -6,39 +6,25 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/05 17:13:08 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/07 12:18:14 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-typedef struct s_data
-{
-	char	*path;
-	char	**envp;
-	int		exit_code;
-}			t_data;
-
-int				init_args(int argc, char **argv, char **envp, t_data *data);
-int				shell_do(t_data *data);
-int				command_do(char *line, t_data *data);
-char			*cmd_path(char *argv, const char **envp);
+static int	init_args(int argc, char **argv, char **envp, t_data *data);
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
 	init_args(argc, argv, envp, &data);
+	//init_data(&data);
 	data.exit_code = shell_do(&data);
 	return (data.exit_code);
 }
 
-void	free_data(t_data *data)
-{
-	free(data->path);
-}
-
-int	init_args(int argc, char **argv, char **envp, t_data *data)
+static int	init_args(int argc, char **argv, char **envp, t_data *data)
 {
 	if (argc >= 2 && ft_strcmp(argv[1], "--version") == 0)
 	{
@@ -48,22 +34,6 @@ int	init_args(int argc, char **argv, char **envp, t_data *data)
 	data->envp = envp;
 	data->path = ft_getenv("PATH", (const char **) envp);
 	data->exit_code = 0;
-	return (EXIT_SUCCESS);
-}
-
-int	shell_do(t_data *data)
-{
-	char	*line;
-
-	line = readline(PROMPT);
-	while (line != NULL)
-	{
-		add_history(line);
-		command_do(line, data);
-		free(line);
-		rl_on_new_line();
-		line = readline(PROMPT);
-	}
 	return (EXIT_SUCCESS);
 }
 
@@ -79,44 +49,8 @@ void	free_str_arr(char **split)
 	}
 }
 
-int	command_do(char *line, t_data *data)
-{
-	t_cmd	cmd;
-	int		i;
-	char	*cmd_str;
-
-	i = 0;
-	//printf("line: %s\n", line);
-	cmd.command = shell_expand(line);
-	cmd.tokens = ft_split(line, ' ');
-	cmd_str = cmd_path(cmd.tokens[0], (const char **) data->envp);
-	if (ft_strncmp(cmd.tokens[0], "pwd", 3) == 0)
-		ft_pwd();
-	else if (ft_strncmp(cmd.tokens[0], "echo", 4) == 0)
-		ft_echo(&cmd);
-	else if (ft_strncmp(cmd.tokens[0], "exit", 4) == 0)
-	{
-		free(cmd_str);
-		free_str_arr(cmd.tokens);
-		exit(EXIT_SUCCESS); // should send KILL SIGNAL ?
-	}
-	//else if (cmd_str != NULL)
-	//{
-	//	printf("- %s\n", cmd_str);
-	//}
-	else
-	{
-		ft_putstr_fd(SH_NAME, STDERR_FILENO);
-		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putstr_fd(cmd.tokens[0], STDERR_FILENO);
-		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-	}
-	free(cmd_str);
-	free_str_arr(cmd.tokens);
-	return (EXIT_SUCCESS);
-}
-
 /* imported from puyma/pipex */
+/* should do with ft_which only (instead of all this function) */
 char	*cmd_path(char *argv, const char **envp)
 {
 	char	*exec_name;
