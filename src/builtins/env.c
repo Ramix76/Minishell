@@ -6,13 +6,13 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:12:12 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/07 13:26:54 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:37:13 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ft_env(t_data *data)
+int	ft_env(void *data)
 {
 	(void) data;
 	return (EXIT_SUCCESS);

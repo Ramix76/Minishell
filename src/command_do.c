@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:40 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/07 13:27:01 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:38:40 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	command_do(char *line, t_data *data)
 	char	*cmd_str;
 
 	i = 0;
-	//printf("line: %s\n", line);
 	cmd.command = shell_expand(line);
 	cmd.tokens = ft_split(line, ' ');
 	cmd_str = cmd_path(cmd.tokens[0], (const char **) data->envp);
@@ -33,12 +32,8 @@ int	command_do(char *line, t_data *data)
 	{
 		free(cmd_str);
 		free_str_arr(cmd.tokens);
-		exit(EXIT_SUCCESS); // should send KILL SIGNAL ?
+		exit(EXIT_SUCCESS);
 	}
-	//else if (cmd_str != NULL)
-	//{
-	//	printf("- %s\n", cmd_str);
-	//}
 	else
 	{
 		ft_putstr_fd(SH_NAME, STDERR_FILENO);

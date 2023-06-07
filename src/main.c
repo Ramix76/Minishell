@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/07 12:18:14 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:33:46 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	init_args(argc, argv, envp, &data);
-	//init_data(&data);
 	data.exit_code = shell_do(&data);
 	return (data.exit_code);
 }
