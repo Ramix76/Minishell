@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:31:50 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/08 12:59:16 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:14:15 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int	builtin_do(t_cmd *cmd, t_data *data)
 	else if (ft_strncmp(exec_name, "env", 3) == 0
 		|| ft_strncmp(exec_name, "ENV", 3) == 0)
 		ft_env(data);
+	else if (ft_strncmp(exec_name, "cd", 2) == 0
+		|| ft_strncmp(exec_name, "CD", 2) == 0)
+		ft_cd(cmd, data);
 	return (EXIT_SUCCESS);
 }
 
@@ -38,6 +41,9 @@ int	is_builtin(char *str)
 		return (EXIT_SUCCESS);
 	else if (ft_strncmp(str, "env", 3) == 0
 		|| ft_strncmp(str, "ENV", 3) == 0)
+		return (EXIT_SUCCESS);
+	else if (ft_strncmp(str, "cd", 2) == 0
+		|| ft_strncmp(str, "CD", 2) == 0)
 		return (EXIT_SUCCESS);
 	return (EXIT_FAILURE);
 }

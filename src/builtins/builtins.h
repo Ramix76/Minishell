@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 14:30:49 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/08 15:39:00 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:19:23 by framos-p         ###   ########.fr       */
 /*   Updated: 2023/06/08 15:13:10 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -20,6 +20,7 @@ typedef struct s_cmd
 {
 	char	*command;
 	char	**tokens;
+	int		tokens_count;
 }			t_cmd;
 
 int		builtin_do(t_cmd *cmd, t_data *data);
