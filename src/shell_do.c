@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/07 13:27:00 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/08 12:07:15 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ int	shell_do(t_data *data)
 	while (line != NULL)
 	{
 		add_history(line);
-		command_do(line, data);
+		if (ft_strcmp("exit", line) == 0)
+		{
+			free(line);
+			return (EXIT_SUCCESS);
+		}
+		else
+			command_do(line, data);
 		free(line);
 		rl_on_new_line();
 		line = readline(PROMPT);
