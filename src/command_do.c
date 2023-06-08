@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:40 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/08 16:02:19 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:47:11 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	command_do(char *line, t_data *data)
 	cmd_str = ft_which(cmd.tokens[0], data->path);
 	if (is_builtin(cmd.tokens[0]) == EXIT_SUCCESS)
 		builtin_do(&cmd, data);
-	else if (ft_strncmp(cmd.tokens[0], "exit", 4) == 0)
+	else if (ft_strcmp("exit", cmd.tokens[0]) == 0)
 	{
 		free(cmd_str);
 		free_str_arr(cmd.tokens);
