@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/08 16:43:17 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:48:13 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,11 @@ static void	change_to_directory(const char *directory)
 
 int	ft_cd(t_cmd *cmd, t_data *data)
 {
-	(void)data;
 	int	i;
 
 	i = 0;
 	cmd->tokens_count = 0;
-	while(cmd->tokens[i] != NULL)
+	while (cmd->tokens[i] != NULL)
 	{
 		cmd->tokens_count++;
 		i++;
