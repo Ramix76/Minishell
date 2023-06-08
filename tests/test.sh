@@ -7,7 +7,7 @@ OUT=a.out
 function execute_test() {
 	if [[ "$1" ]]
 	then
-		gcc $INC $TEST_FILE "test.utils.c" -o "${TEST_FILE%.*}"
+		gcc $INC $TEST_FILE "test.utils.c" -ltermcap -o "${TEST_FILE%.*}"
 		./"${TEST_FILE%.*}"
 		rm "${TEST_FILE%.*}"
 	fi
