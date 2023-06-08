@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_utils.c                                       :+:      :+:    :+:   */
+/*   shell_do.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 17:41:09 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/07 16:51:14 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/06/07 11:56:15 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/06/08 12:30:06 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.utils.h"
+#include "minishell.h"
 
-void	init_log(int argc, char **argv, char **envp)
+int	shell_do(t_data *data)
 {
-	int	i;
+	char	*line;
 
-	i = 0;
-	while (i < argc)
+	line = readline(PROMPT);
+	while (line != NULL)
 	{
-		printf(" \033[1;36m%s \033[0m", argv[i]);
-		++i;
+		add_history(line);
+		data->exit_code = command_do(line, data);
+		free(line);
+		rl_on_new_line();
+		line = readline(PROMPT);
 	}
-	printf("\n");
-	(void) envp;
+	return (EXIT_SUCCESS);
 }

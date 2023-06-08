@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_ft_getenv.c                                   :+:      :+:    :+:   */
+/*   test_ft_which.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 16:43:29 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/05 17:14:23 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/06/08 13:11:17 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/06/08 13:11:25 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,19 @@
 #include "libft.h"
 #include "test.utils.h"
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, const char **envp)
 {
-	init_log(argc, argv, envp);
-	printf("with envp: %s\n", ft_getenv("PATH", (const char **) envp));
+	char	*name;
+	char	*path;
+
+	init_log(argc, argv, (char **) envp);
+	path = ft_getenv("PATH", envp);
+	printf("og_getenv: %s\n", getenv("PATH"));
+	printf("og_getenv: %s\n", getenv(NULL));
+	printf("ft_getenv: %s\n", path);
+	name = "cat -e";
+	printf("ft_which: %s\n", ft_which(name, ft_getenv("PATH", envp)));
+	printf("ft_which: %s\n", ft_which(name, NULL));
+	printf("ft_which: %s\n", ft_which(NULL, path));
 	return (0);
 }
