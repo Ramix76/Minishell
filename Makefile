@@ -6,7 +6,11 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2023/06/07 15:48:10 by mpuig-ma         ###   ########.fr        #
+=======
+#    Updated: 2023/06/05 17:00:00 by mpuig-ma         ###   ########.fr        #
+>>>>>>> origin/tests
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +25,7 @@ LIBFT			:=	$(LIBFT_DIR)/libft.a
 
 CC				:=	gcc
 CFLAGS			:=	-Wall -Wextra -Werror -MMD
-CFLAGS			+=	-g -fsanitize='address,undefined'# uncomment for debugging
+#CFLAGS			+=	-g -fsanitize='address,undefined'# uncomment for debugging
 LDFLAGS			:=	-L $(SRC_DIR)/libft 
 LDLIBS			=	-lft $(LREADLINE)
 LREADLINE		:=	-lreadline

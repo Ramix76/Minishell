@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/05 16:47:32 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:13:08 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ int	main(int argc, char **argv, char **envp)
 	init_args(argc, argv, envp, &data);
 	data.exit_code = shell_do(&data);
 	return (data.exit_code);
+}
+
+void	free_data(t_data *data)
+{
+	free(data->path);
 }
 
 int	init_args(int argc, char **argv, char **envp, t_data *data)
@@ -62,25 +67,43 @@ int	shell_do(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
+void	free_str_arr(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i] != NULL)
+	{
+		free(split[i]);
+		++i;
+	}
+}
+
 int	command_do(char *line, t_data *data)
 {
 	t_cmd	cmd;
 	int		i;
+	char	*cmd_str;
 
 	i = 0;
-	printf("line: %s\n", line);
+	//printf("line: %s\n", line);
 	cmd.command = shell_expand(line);
 	cmd.tokens = ft_split(line, ' ');
+	cmd_str = cmd_path(cmd.tokens[0], (const char **) data->envp);
 	if (ft_strncmp(cmd.tokens[0], "pwd", 3) == 0)
 		ft_pwd();
 	else if (ft_strncmp(cmd.tokens[0], "echo", 4) == 0)
 		ft_echo(&cmd);
 	else if (ft_strncmp(cmd.tokens[0], "exit", 4) == 0)
-		exit(EXIT_SUCCESS);
-	else if (cmd_path(cmd.tokens[0], (const char **) data->envp) != NULL)
 	{
-		printf("- %s\n", cmd_path(cmd.tokens[0], (const char **) data->envp));
+		free(cmd_str);
+		free_str_arr(cmd.tokens);
+		exit(EXIT_SUCCESS); // should send KILL SIGNAL ?
 	}
+	//else if (cmd_str != NULL)
+	//{
+	//	printf("- %s\n", cmd_str);
+	//}
 	else
 	{
 		ft_putstr_fd(SH_NAME, STDERR_FILENO);
@@ -88,6 +111,8 @@ int	command_do(char *line, t_data *data)
 		ft_putstr_fd(cmd.tokens[0], STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	}
+	free(cmd_str);
+	free_str_arr(cmd.tokens);
 	return (EXIT_SUCCESS);
 }
 
