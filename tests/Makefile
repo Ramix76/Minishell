@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 17:52:52 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/06/02 18:05:41 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/08 13:32:23 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT			:=	$(LIBFT_DIR)/libft.a
 CC				:=	gcc
 CFLAGS			:=	-Wall -Wextra -Werror -MMD
 CFLAGS			+=	-g -fsanitize='address,undefined'# uncomment for debugging
-LDFLAGS			:=	-L $(SRC_DIR)/libft -lft -lreadline
+LDFLAGS			:=	-L $(SRC_DIR)/libft -lft -lreadline -lncurses
 INC				:=	-I $(SRC_DIR) -I $(SRC_DIR)/builtins -I $(SRC_DIR)/libft/src
 RM				:=	-rm -rf
 

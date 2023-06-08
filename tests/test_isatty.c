@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_ft_which.c                                    :+:      :+:    :+:   */
+/*   test_isatty.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 13:11:17 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/08 13:11:25 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/06/08 13:10:59 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/06/08 13:29:35 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,11 @@
 #include "libft.h"
 #include "test.utils.h"
 
-int	main(int argc, char **argv, const char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	char	*name;
-	char	*path;
-
-	init_log(argc, argv, (char **) envp);
-	path = ft_getenv("PATH", envp);
-	printf("og_getenv: %s\n", getenv("PATH"));
-	printf("og_getenv: %s\n", getenv(NULL));
-	printf("ft_getenv: %s\n", path);
-	name = "cat -e";
-	printf("ft_which: %s\n", ft_which(name, ft_getenv("PATH", envp)));
-	printf("ft_which: %s\n", ft_which(name, NULL));
-	printf("ft_which: %s\n", ft_which(NULL, path));
+	init_log(argc, argv, envp);
+	printf("result: %d\n", isatty(STDOUT_FILENO));
+	printf("result: %d\n", isatty(7));
+	printf("result: %s\n", ttyname(STDOUT_FILENO));
 	return (0);
 }
