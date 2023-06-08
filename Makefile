@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/08 11:38:26 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/08 13:00:04 by mpuig-ma         ###   ########.fr        #
 #    Updated: 2023/06/07 15:48:10 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -42,7 +42,7 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/shell_expand.c \
 					$(SRC_DIR)/shell_do.c \
 					$(SRC_DIR)/utils.c \
-					$(SRC_DIR)/builtin_do.c \
+					$(SRC_DIR)/builtins/builtin_do.c \
 					$(SRC_DIR)/builtins/echo.c \
 					$(SRC_DIR)/builtins/pwd.c \
 					$(SRC_DIR)/builtins/env.c
