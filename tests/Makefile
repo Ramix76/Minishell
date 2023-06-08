@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 17:52:52 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/06/08 16:44:54 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/08 16:48:10 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ $(BUILD_DIR)/%.o: %.c
 tests: $(LIBFT) $(OBJ_FILES)
 	@for file in $(SRC_FILES); do \
 		gcc $(INC) $(LDFLAGS) test.utils.c $$file -o $$(basename $$file .c); \
-		./$$(basename $$file .c); rm $$(basename $$file .c); done
+		./$$(basename $$file .c); rm $$(basename $$file .c); \
+		done
 
 $(LIBFT):
 	$(MAKE) -C $(dir $@)
