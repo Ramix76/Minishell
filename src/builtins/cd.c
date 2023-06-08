@@ -6,14 +6,14 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/08 15:13:14 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:43:17 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "minishell.h"
 
-static void	changeToParentDirectory()
+static void	change_to_parent_directory(void)
 {
 	char	path[PATH_MAX];
 
@@ -28,7 +28,7 @@ static void	changeToParentDirectory()
 		perror("No such file or directory\n");
 }
 
-static void	changeToHomeDirectory()
+static void	change_to_home_directory(void)
 {
 	char		path[PATH_MAX];
 	const char	*home_dir;
@@ -47,7 +47,7 @@ static void	changeToHomeDirectory()
 		perror("Error changing directory\n");
 }
 
-static void	changeToPreviousDirectory()
+static void	change_to_previous_directory(void)
 {
 	char		path[PATH_MAX];
 	const char	*prev_dir;
@@ -66,7 +66,7 @@ static void	changeToPreviousDirectory()
 		perror("Error changing dirctory\n");
 }
 
-static void	changeToDirectory(const char *directory)
+static void	change_to_directory(const char *directory)
 {
 	char	path[PATH_MAX];
 
@@ -91,13 +91,13 @@ int	ft_cd(t_cmd *cmd, t_data *data)
 		return (EXIT_FAILURE);
 	}
 	if (strcmp(argv[1], "..") == 0)
-		changeToParentDirectory();
+		change_to_parent_directory();
 	else if (strcmp(argv[1], "~") == 0)
-		changeToHomeDirectory();
+		change_to_home_directory();
 	else if (strcmp(argv[1], "-") == 0)
-		changeToPreviousDirectory();
+		change_to_previous_directory();
 	else
-		changeToDirectory(argv[1]);
+		change_to_directory(argv[1]);
 	if (getcwd(path, sizeof(path)) != NULL)
 		printf("Current directory: %s\n", path);
 	return (EXIT_SUCCESS);
