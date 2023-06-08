@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:31:50 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/08 12:57:30 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/08 12:57:50 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ int	builtin_do(t_cmd *cmd, t_data *data)
 		ft_env(data);
 	return (EXIT_SUCCESS);
 }
-
-	//if (isbuiltin(exec_name) == EXIT_SUCCESS)
-	// execute it
-	//else
-	//	return (EXIT_FAILURE);
 
 int	is_builtin(char *str)
 {
