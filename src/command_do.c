@@ -19,10 +19,8 @@
 int	command_do(char *line, t_data *data)
 {
 	t_cmd	cmd;
-	int		i;
 	char	*cmd_str;
 
-	i = 0;
 	cmd.command = shell_expand(line);
 	cmd.tokens = ft_split(line, ' ');
 	cmd_str = ft_which(cmd.tokens[0], data->path);
