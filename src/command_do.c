@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:40 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/08 16:02:19 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:28:43 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	command_do(char *line, t_data *data)
 	char	*cmd_str;
 
 	i = 0;
+	if (line == NULL || *line == '\0')
+		return (EXIT_SUCCESS);
 	cmd.command = shell_expand(line);
 	cmd.tokens = ft_split(line, ' ');
 	cmd_str = ft_which(cmd.tokens[0], data->path);
