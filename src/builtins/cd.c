@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/08 16:48:13 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:33:38 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	change_to_parent_directory(void)
 		if (getcwd(path, sizeof(path)) != NULL)
 			printf("New current directory: %s\n", path);
 		else
-			perror("No such file or directory\n");
+			printf("No such file or directory\n");
 	}
 	else
 		perror("No such file or directory\n");
@@ -75,10 +75,10 @@ static void	change_to_directory(const char *directory)
 		if (getcwd(path, sizeof(path)) != NULL)
 			printf("New current directory: %s\n", path);
 		else
-			perror("No such file or directory\n");
+			printf("cd: %s: No such file or directory\n", directory);
 	}
 	else
-		perror("Error changing directory\n");
+		printf("cd: %s: No such file or directory\n", directory);
 }
 
 int	ft_cd(t_cmd *cmd, t_data *data)

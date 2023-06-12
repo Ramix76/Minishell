@@ -6,6 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:31:50 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/06/12 17:32:08 by framos-p         ###   ########.fr       */
 /*   Updated: 2023/06/12 15:27:06 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -22,12 +23,12 @@ int	builtin_do(t_cmd *cmd, t_data *data)
 	else if (ft_strncmp(exec_name, "echo", 4) == 0
 		|| ft_strncmp(exec_name, "ECHO", 4) == 0)
 		ft_echo(cmd);
-	else if (ft_strncmp(exec_name, "env", 3) == 0
-		|| ft_strncmp(exec_name, "ENV", 3) == 0)
-		ft_env(data);
 	else if (ft_strncmp(exec_name, "cd", 2) == 0
 		|| ft_strncmp(exec_name, "CD", 2) == 0)
 		ft_cd(cmd, data);
+	else if (ft_strncmp(exec_name, "env", 3) == 0
+		|| ft_strncmp(exec_name, "ENV", 3) == 0)
+		ft_env(data);
 	return (EXIT_SUCCESS);
 }
 
@@ -41,11 +42,11 @@ int	is_builtin(char *str)
 	else if (ft_strncmp(str, "echo", 4) == 0
 		|| ft_strncmp(str, "ECHO", 4) == 0)
 		return (EXIT_SUCCESS);
-	else if (ft_strncmp(str, "env", 3) == 0
-		|| ft_strncmp(str, "ENV", 3) == 0)
-		return (EXIT_SUCCESS);
 	else if (ft_strncmp(str, "cd", 2) == 0
 		|| ft_strncmp(str, "CD", 2) == 0)
+		return (EXIT_SUCCESS);
+	else if (ft_strncmp(str, "env", 3) == 0
+		|| ft_strncmp(str, "ENV", 3) == 0)
 		return (EXIT_SUCCESS);
 	return (EXIT_FAILURE);
 }
