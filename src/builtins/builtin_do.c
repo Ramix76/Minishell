@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:31:50 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/08 16:14:15 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:27:06 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	builtin_do(t_cmd *cmd, t_data *data)
 
 int	is_builtin(char *str)
 {
+	if (str == NULL)
+		return (EXIT_FAILURE);
 	if (ft_strncmp(str, "pwd", 3) == 0
 		|| ft_strncmp(str, "PWD", 3) == 0)
 		return (EXIT_SUCCESS);
