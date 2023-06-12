@@ -6,11 +6,8 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:31:50 by mpuig-ma          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/06/12 15:51:10 by framos-p         ###   ########.fr       */
-=======
+/*   Updated: 2023/06/12 17:32:08 by framos-p         ###   ########.fr       */
 /*   Updated: 2023/06/12 15:27:06 by mpuig-ma         ###   ########.fr       */
->>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +28,7 @@ int	builtin_do(t_cmd *cmd, t_data *data)
 		ft_cd(cmd, data);
 	else if (ft_strncmp(exec_name, "env", 3) == 0
 		|| ft_strncmp(exec_name, "ENV", 3) == 0)
-		ft_gettingenv(data->envp);
+		ft_env(data);
 	return (EXIT_SUCCESS);
 }
 
