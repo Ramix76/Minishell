@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 14:30:49 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/12 17:31:51 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:19:23 by framos-p         ###   ########.fr       */
 /*   Updated: 2023/06/08 15:13:10 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ typedef struct s_cmd
 int		builtin_do(t_cmd *cmd, t_data *data);
 int		is_builtin(char *str);
 
-void	ft_env(t_data *data);
+int		ft_env(void *data);
 int		ft_echo(t_cmd *cmd);
 int		ft_pwd(void);
 int		ft_cd(t_cmd *cmd, t_data *data);
