@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/12 15:12:56 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:20:34 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static int	init_env(char **envp, t_data *data)
 		return (EXIT_FAILURE);
 	while (len-- > 0)
 		new_envp[len] = ft_strdup(envp[len]);
+	new_envp[len + 1] = NULL;
 	data->envp = new_envp;
 	return (EXIT_SUCCESS);
 }
