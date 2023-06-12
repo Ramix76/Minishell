@@ -6,14 +6,22 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:12:12 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/07 13:37:13 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:42:21 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ft_env(void *data)
+int	ft_env(t_data *data)
 {
-	(void) data;
+	int	i;
+
+	i = 0;
+	while (data->envp[i])
+	{
+		if (ft_putendl_fd(data->envp[i], STDOUT_FILENO) == -1)
+			return (EXIT_FAILURE);
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }
