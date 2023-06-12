@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/08 16:10:42 by framos-p         ###   ########.fr        #
+#    Updated: 2023/06/12 12:02:29 by mpuig-ma         ###   ########.fr        #
 #    Updated: 2023/06/10 16:13:46 by mpuig-ma         ###   ########.fr        #
 #    Updated: 2023/06/07 15:48:10 by mpuig-ma         ###   ########.fr        #
 #    Updated: 2023/06/05 17:00:00 by mpuig-ma         ###   ########.fr        #
@@ -33,7 +33,7 @@ RM				:=	-rm -rf
 
 # Use pkg-config --libs to find where readline library is.
 
-LREADLINE		:=	$(shell 2>/dev/null pkg-config --libs readlines)
+LREADLINE		:=	$(shell 2>/dev/null pkg-config --libs readline)
 
 ifeq (,$(LREADLINE))
 	LREADLINE	:=	-lreadline
