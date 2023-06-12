@@ -1,35 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_expand.c                                     :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 16:45:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/12 14:53:13 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/06/12 12:58:40 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/06/12 14:48:50 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-char	*shell_expand(char *str)
+void	*ft_realloc(void *ptr, size_t size);
+
+void	*ft_realloc(void *ptr, size_t size)
 {
-	char	*expanded;
+	void			*realloc_mem;
+	unsigned char	*s;
 
-	expanded = str;
-	return (expanded);
+	realloc_mem = NULL;
+	if (ptr == NULL)
+		realloc_mem = (void *) malloc(size);
+	(void) s;
+	return (NULL);
 }
 
-/*
 #include "test.utils.h"
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*str;
+	char	*a;
+	//char	*b;
 
 	init_log(argc, argv, envp);
-	str = "visca \"barsa\"";
-	ft_printf("%s\n", str);
+	a = (char *) malloc(sizeof(char) * 5);
+	ft_memcpy(a, "hola", 5);
+	ft_realloc(a, sizeof(char) * 10);
+	ft_printf("%s\n", a);
 	return (0);
 }
-*/
