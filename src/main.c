@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/08 16:01:24 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:48:53 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	init_args(int argc, char **argv, char **envp);
 static int	init_data(int argc, char **argv, char **envp, t_data *data);
+static int	init_env(char **envp, t_data *data);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -40,10 +41,28 @@ static int	init_data(int argc, char **argv, char **envp, t_data *data)
 {
 	(void) argc;
 	(void) argv;
-	data->envp = envp;
+	init_env(envp, data);
 	data->path = ft_getenv("PATH", (const char **) envp);
 	if (data->path == NULL)
 		data->path = _PATH_DEFPATH;
 	data->exit_code = 0;
+	return (EXIT_SUCCESS);
+}
+
+static int	init_env(char **envp, t_data *data)
+{
+	char	**new_envp;
+	int		len;
+
+	len = 0;
+	while (envp[len] != NULL)
+		++len;
+	new_envp = (char **) malloc(sizeof(char *) * len + 1);
+	if (new_envp == NULL)
+		return (EXIT_FAILURE);
+	while (len-- > 0)
+		new_envp[len] = ft_strdup(envp[len]);
+	new_envp[len] = NULL;
+	data->envp = new_envp;
 	return (EXIT_SUCCESS);
 }
