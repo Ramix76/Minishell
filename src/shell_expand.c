@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:45:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/12 17:36:10 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:52:31 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	*shell_expand(char *str)
 	return (expanded);
 }
 
-/*
 #include "test.utils.h"
 
 int	main(int argc, char **argv, char **envp)
@@ -32,4 +31,3 @@ int	main(int argc, char **argv, char **envp)
 	ft_printf("%s\n", str);
 	return (0);
 }
-*/
