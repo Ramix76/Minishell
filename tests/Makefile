@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 17:52:52 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/06/12 19:11:16 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/13 12:48:05 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ define message =
 @printf "$(BOLD_CYAN)%-20s: $(GREEN)%s$(NOSTYLE)\n" "$(1)" "$(2)"
 endef
 
-.PHONY: all run_tests
+.PHONY: all tests re
 
 define run_test =
 echo $1
@@ -60,3 +60,7 @@ leaks: $(LIBFT) $(OBJ_FILES)
 
 $(LIBFT):
 	$(MAKE) -C $(dir $@)
+
+re:
+	@make re -C $(SRC_DIR)/libft
+	$(MAKE)

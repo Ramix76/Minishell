@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:52:45 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/13 12:14:57 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:43:43 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	init_env(char **envp, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-void	print_env(char **envp)
+static void	print_env(char **envp)
 {
 	int	i;
 
@@ -46,9 +46,22 @@ int	main(int argc, char **argv, char **envp)
 
 	init_log(argc, argv, envp);
 	init_env(envp, &data);
+	if (ft_unsetenv("PATH", data.envp) == EXIT_FAILURE)
+		ft_fprintf(stderr, "ft_unset failed\n");
+	if (ft_unsetenv("PKG_CONFIG_PATH", data.envp) == EXIT_FAILURE)
+		ft_fprintf(stderr, "ft_unset failed\n");
+
+	ft_setenv("USER", "me", 1, (const char **) data.envp);
+
 	if (ft_setenv("TEST", "42", 1, (const char **) data.envp) == EXIT_FAILURE)
 		ft_fprintf(stderr, "ft_setenv failed\n");
-	if (ft_setenv("TEST", "0042", 1, (const char **) data.envp) == EXIT_FAILURE)
+	if (ft_setenv("TEST", "0042", 0, (const char **) data.envp) == EXIT_FAILURE)
 		ft_fprintf(stderr, "ft_setenv failed\n");
+
+	//ft_unsetenv("TMPDIR", data.envp);
+	//ft_unsetenv("DYLD_LIBRARY_PATH", data.envp);
+	ft_setenv("DYLD_LIBRARY_PATH", "verycool", 1, (const char **) data.envp);
+	ft_setenv("TMPDIR", "verybool", 1, (const char **) data.envp);
+
 	print_env(data.envp);
 }
