@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:01:04 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/12 12:24:30 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/13 20:47:09 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 #include "libft.h"
 #include "test.utils.h"
 
-# define WR 1
-# define RD	0
+#define WR 1
+#define RD	0
 
 static int	pipe_do(char *line, t_data *data);
 static int	pipex(int argc, char **argv, t_data *data);
 static void	execute_command(char *argv, char **envp, int *fd);
 
-int	here_doc(char *limiter);
-int	read_stdin(int wr_fd, char *limiter);
-int	write_output_fd(char *output, int fd);
+int			here_doc(char *limiter);
+int			read_stdin(int wr_fd, char *limiter);
+int			write_output_fd(char *output, int fd);
 
 int	main(int argc, char **argv, char **envp)
 {

@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:52:45 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/13 20:42:12 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/13 20:43:10 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	main(int argc, char **argv, char **envp)
 	if (ft_unsetenv("PKG_CONFIG_PATH", data.envp) == EXIT_FAILURE)
 		ft_fprintf(stderr, "ft_unset failed\n");
 	ft_setenv("USER", "me", 1, &data.envp);
-	
 	if (ft_setenv("TEST", "42", 1, &data.envp) == EXIT_FAILURE)
 		ft_fprintf(stderr, "ft_setenv failed\n");
 	if (ft_setenv("TEST", "0042", 1, &data.envp) == EXIT_FAILURE)

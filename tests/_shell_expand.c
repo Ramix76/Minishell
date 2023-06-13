@@ -6,11 +6,12 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:45:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/13 16:19:47 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/13 20:46:03 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "test.utils.h"
 
 char	*shell_expand(char *str)
 {
@@ -19,8 +20,6 @@ char	*shell_expand(char *str)
 	expanded = str;
 	return (expanded);
 }
-
-#include "test.utils.h"
 
 int	main(int argc, char **argv, char **envp)
 {

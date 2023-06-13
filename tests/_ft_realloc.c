@@ -6,13 +6,12 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:58:40 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/12 17:52:19 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/13 20:46:35 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-void	*ft_realloc(void *ptr, size_t size);
+#include "test.utils.h"
 
 void	*ft_realloc(void *ptr, size_t size)
 {
@@ -26,12 +25,9 @@ void	*ft_realloc(void *ptr, size_t size)
 	return (NULL);
 }
 
-#include "test.utils.h"
-
 int	main(int argc, char **argv, char **envp)
 {
 	char	*a;
-	//char	*b;
 
 	init_log(argc, argv, envp);
 	a = (char *) malloc(sizeof(char) * 5);
