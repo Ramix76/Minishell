@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 17:52:52 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/06/13 12:48:05 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/14 17:03:17 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,8 @@ BOLD_CYAN		:=	\033[1;36m
 
 SRC_FILES		=	$(wildcard test_*.c)
 OBJ_FILES		=	$(SRC_FILES:%.c=$(BUILD_DIR)/%.o)
+
+.SILENT:
 
 define message =
 @printf "$(BOLD_CYAN)%-20s: $(GREEN)%s$(NOSTYLE)\n" "$(1)" "$(2)"

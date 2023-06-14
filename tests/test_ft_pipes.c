@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:01:04 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/13 20:47:09 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/14 19:41:39 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "test.utils.h"
 
-#define WR 1
+#define WR	1
 #define RD	0
 
 static int	pipe_do(char *line, t_data *data);
@@ -31,8 +31,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	init_log(argc, argv, envp);
-	line = "cat infile | cat -n > outfile";
-	//line = "command -v brew | echo hola";
+	line = "echo infile || echo -n outfile";
 	pipe_do(line, &data);
 	return (0);
 }
@@ -43,10 +42,6 @@ static int	pipe_do(char *line, t_data *data)
 	char	*str;
 	int		i;
 
-	if (ft_strnstr(line, " || ", ft_strlen(line)) != 0)
-		ft_printf("found ||\n");
-	else if (ft_strnstr(line, " && ", ft_strlen(line)) != 0)
-		ft_printf("found &&\n", ft_strlen(line));
 	pipe_split = ft_split(line, '|');
 	i = 0;
 	while (pipe_split[i] != NULL)
@@ -99,9 +94,9 @@ static void	execute_command(char *argv, char **envp, int *fd)
 	if (pid == 0)
 	{
 		cmd = ft_split(argv, ' ');
-		dup2(fildes[WR], STDOUT_FILENO);
-		close(fildes[RD]);
-		close(fildes[WR]);
+		//dup2(fildes[WR], STDOUT_FILENO);
+		//close(fildes[RD]);
+		//close(fildes[WR]);
 		ft_execvpe(cmd[0], (char const **) cmd, (const char **) envp);
 		exit (1);
 	}
