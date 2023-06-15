@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:40 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/15 16:21:44 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:24:48 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ int	command_do(char *line, t_data *data)
 	cmd.command = shell_expand(line, data);
 	cmd.tokens = ft_split(line, ' ');
 	if (cmd.tokens[0] == NULL)
-	{
-		free_str_arr(cmd.tokens);
-		return (EXIT_SUCCESS);
-	}
+		return (free_str_arr(cmd.tokens), EXIT_SUCCESS);
 	cmd_str = ft_which(cmd.tokens[0], data->path);
 	if (is_builtin(cmd.tokens[0]) == EXIT_SUCCESS)
 		builtin_do(&cmd, data);
@@ -41,9 +38,7 @@ int	command_do(char *line, t_data *data)
 		ft_fprintf(stderr, "%s: %s: command not found\n",
 			SH_NAME, cmd.tokens[0]);
 	else
-	{
 		pipe_do(line, data);
-	}
 	free(cmd_str);
 	free_str_arr(cmd.tokens);
 	return (EXIT_SUCCESS);
