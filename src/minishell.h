@@ -6,8 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/15 16:15:59 by mpuig-ma         ###   ########.fr       */
-/*   Updated: 2023/06/08 15:13:07 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:58:18 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +20,6 @@
 # include <string.h>
 # include <unistd.h> /* write, isatty */
 
-//# include "readline.h"
-//# include "history.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 

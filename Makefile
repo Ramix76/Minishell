@@ -6,10 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/15 16:17:26 by mpuig-ma         ###   ########.fr        #
-#    Updated: 2023/06/10 16:13:46 by mpuig-ma         ###   ########.fr        #
-#    Updated: 2023/06/07 15:48:10 by mpuig-ma         ###   ########.fr        #
-#    Updated: 2023/06/05 17:00:00 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/15 17:58:00 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +67,7 @@ endef
 
 .PHONY: all clean fclean re tests check_libs
 
-all: $(LIBFT) $(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJ_FILES) $(DEP_FILES) $(SRC_DIR)/$(NAME).h
 	@$(CC) $(INC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(OBJ_FILES) -o $(basename $@)
