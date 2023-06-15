@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/12 12:02:29 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/15 11:22:58 by mpuig-ma         ###   ########.fr        #
 #    Updated: 2023/06/10 16:13:46 by mpuig-ma         ###   ########.fr        #
 #    Updated: 2023/06/07 15:48:10 by mpuig-ma         ###   ########.fr        #
 #    Updated: 2023/06/05 17:00:00 by mpuig-ma         ###   ########.fr        #
@@ -65,7 +65,7 @@ define message =
 @printf "$(BOLD_CYAN)%-20s: $(GREEN)%s$(NOSTYLE)\n" "$(1)" "$(2)"
 endef
 
-.PHONY: all clean fclean re tests check_libs
+.PHONY: all clean fclean re tests $(LIBFT) check_libs
 
 all: $(NAME)
 
