@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:40 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/12 16:01:18 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/15 11:27:34 by mpuig-ma         ###   ########.fr       */
 /*   Updated: 2023/06/12 15:32:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -17,12 +17,16 @@
 // execute comand (either builtin or not)
 // all builtins should accept as arguments (t_cmd *cmd, t_data *data) ??
 
+static int	pipe_do(char *line, t_data *data);
+static int	pipex(int argc, char **argv, t_data *data);
+static void	execute_command(char *argv, char **envp, int *fd);
+
 int	command_do(char *line, t_data *data)
 {
 	t_cmd	cmd;
 	char	*cmd_str;
 
-	cmd.command = shell_expand(line);
+	cmd.command = shell_expand(line, data);
 	cmd.tokens = ft_split(line, ' ');
 	if (cmd.tokens[0] == NULL)
 	{
@@ -42,8 +46,80 @@ int	command_do(char *line, t_data *data)
 		ft_fprintf(stderr, "%s: %s: command not found\n",
 			SH_NAME, cmd.tokens[0]);
 	else
-		ft_printf("Should execute %s\n", cmd_str);
+	{
+		pipe_do(cmd_str, data);
+	}
 	free(cmd_str);
 	free_str_arr(cmd.tokens);
 	return (EXIT_SUCCESS);
+}
+
+static int	pipe_do(char *line, t_data *data)
+{
+	char	**pipe_split;
+	char	*str;
+	int		i;
+
+	pipe_split = ft_split(line, '|');
+	i = 0;
+	while (pipe_split[i] != NULL)
+	{
+		str = ft_strtrim(pipe_split[i], " ");
+		free(pipe_split[i]);
+		pipe_split[i] = str;
+		++i;
+	}
+	pipex(i, pipe_split, data);
+	i = 0;
+	while (pipe_split[i] != NULL)
+		free(pipe_split[i++]);
+	free(pipe_split);
+	return (EXIT_SUCCESS);
+}
+
+static int	pipex(int argc, char **argv, t_data *data)
+{
+	int	i;
+	int	fd;
+
+	i = 0;
+	fd = STDIN_FILENO;
+	while (i < argc)
+	{
+		//dup2(fd, STDIN_FILENO);
+		//close(fd);
+		execute_command(argv[i], data->envp, &fd);
+		++i;
+	}
+	//close(fd);
+	return (EXIT_SUCCESS);
+}
+
+static void	execute_command(char *argv, char **envp, int *fd)
+{
+	int		fildes[2];
+	char	**cmd;
+	pid_t	pid;
+
+	if (pipe(fildes) == -1)
+		exit (4);
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("pipex");
+		exit(1);
+	}
+	if (pid == 0)
+	{
+		cmd = ft_split(argv, ' ');
+		//dup2(fildes[WR], STDOUT_FILENO);
+		//close(fildes[RD]);
+		//close(fildes[WR]);
+		ft_execvpe(cmd[0], (char const **) cmd, (const char **) envp);
+		exit (1);
+	}
+	waitpid(pid, NULL, 0);
+	//close(fildes[WR]);
+	//*fd = fildes[RD];
+	(void) fd;
 }
