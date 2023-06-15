@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/13 11:01:00 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:48:25 by mpuig-ma         ###   ########.fr       */
 /*   Updated: 2023/06/12 15:48:53 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -40,12 +40,16 @@ static int	init_args(int argc, char **argv, char **envp)
 
 static int	init_data(int argc, char **argv, char **envp, t_data *data)
 {
+	int	sh_lvl;
+
 	(void) argc;
 	(void) argv;
 	init_env(envp, data);
 	data->path = ft_getenv("PATH", (const char **) envp);
 	if (data->path == NULL)
 		data->path = _PATH_DEFPATH;
+	sh_lvl = ft_atoi(ft_getenv("SHLVL", (const char **) envp));
+	ft_setenv("SHLVL", ft_itoa(++sh_lvl), 1, (char ***) &data->envp);
 	data->exit_code = 0;
 	return (EXIT_SUCCESS);
 }
