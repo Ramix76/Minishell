@@ -6,16 +6,17 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:45:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/13 12:17:21 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:53:06 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*shell_expand(char *str)
+char	*shell_expand(char *str, t_data *data)
 {
 	char	*expanded;
 
+	(void) data;
 	expanded = str;
 	return (expanded);
 }
