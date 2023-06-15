@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:01:04 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/14 19:41:39 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/15 11:18:31 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,44 @@ int			here_doc(char *limiter);
 int			read_stdin(int wr_fd, char *limiter);
 int			write_output_fd(char *output, int fd);
 
+static int	init_env(char **envp, t_data *data)
+{
+	char	**new_envp;
+	int		len;
+
+	len = 0;
+	while (envp[len] != NULL)
+		++len;
+	new_envp = (char **) malloc(sizeof(char *) * (len + 1));
+	if (new_envp == NULL)
+		return (EXIT_FAILURE);
+	while (len-- > 0)
+		new_envp[len] = ft_strdup(envp[len]);
+	new_envp[len] = NULL;
+	data->envp = new_envp;
+	return (EXIT_SUCCESS);
+}
+
+static int	init_data(int argc, char **argv, char **envp, t_data *data)
+{
+	(void) argc;
+	(void) argv;
+	init_env(envp, data);
+	data->path = ft_getenv("PATH", (const char **) envp);
+	if (data->path == NULL)
+		data->path = _PATH_DEFPATH;
+	data->exit_code = 0;
+	return (EXIT_SUCCESS);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_data	data;
 
 	init_log(argc, argv, envp);
-	line = "echo infile || echo -n outfile";
+	init_data(argc, argv, envp, &data);
+	line = "echo hnfile | cat -n";
 	pipe_do(line, &data);
 	return (0);
 }
@@ -68,12 +99,12 @@ static int	pipex(int argc, char **argv, t_data *data)
 	fd = STDIN_FILENO;
 	while (i < argc)
 	{
-		ft_printf("Will execute %s\n", argv[i]);
-		dup2(fd, STDIN_FILENO);
+		//dup2(fd, STDIN_FILENO);
 		close(fd);
 		execute_command(argv[i], data->envp, &fd);
 		++i;
 	}
+	close(fd);
 	return (EXIT_SUCCESS);
 }
 
@@ -95,8 +126,8 @@ static void	execute_command(char *argv, char **envp, int *fd)
 	{
 		cmd = ft_split(argv, ' ');
 		//dup2(fildes[WR], STDOUT_FILENO);
-		//close(fildes[RD]);
-		//close(fildes[WR]);
+		close(fildes[RD]);
+		close(fildes[WR]);
 		ft_execvpe(cmd[0], (char const **) cmd, (const char **) envp);
 		exit (1);
 	}

@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 17:52:52 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/06/14 17:03:17 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/15 10:59:51 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ define message =
 @printf "$(BOLD_CYAN)%-20s: $(GREEN)%s$(NOSTYLE)\n" "$(1)" "$(2)"
 endef
 
-.PHONY: all tests re
+.PHONY: all tests re $(LIBFT)
 
 define run_test =
 echo $1
