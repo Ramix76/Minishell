@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:40 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/12 15:32:22 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:58:29 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,30 @@
 int	command_do(char *line, t_data *data)
 {
 	t_cmd	cmd;
-	int		i;
-	char	*cmd_str;
+	char	*cmd_path;
 
-	i = 0;
-	cmd.command = shell_expand(line);
+	line = shell_expand(line, data);
+	cmd.command = shell_expand(line, data);
 	cmd.tokens = ft_split(line, ' ');
 	if (cmd.tokens[0] == NULL)
-	{
-		free_str_arr(cmd.tokens);
-		return (EXIT_SUCCESS);
-	}
-	cmd_str = ft_which(cmd.tokens[0], data->path);
+		return (free_str_arr(cmd.tokens), EXIT_SUCCESS);
+	cmd_path = ft_which(cmd.tokens[0], data->path);
 	if (is_builtin(cmd.tokens[0]) == EXIT_SUCCESS)
 		builtin_do(&cmd, data);
 	else if (ft_strncmp(cmd.tokens[0], "exit", 4) == 0)
 	{
-		free(cmd_str);
+		free(line);
+		free(cmd_path);
 		free_str_arr(cmd.tokens);
 		exit (EXIT_SUCCESS);
 	}
-	else if (cmd_str == NULL)
+	else if (cmd_path == NULL)
 		ft_fprintf(stderr, "%s: %s: command not found\n",
 			SH_NAME, cmd.tokens[0]);
 	else
-		ft_printf("Should execute %s\n", cmd_str);
-	free(cmd_str);
+		pipe_do(line, data);
+	free(line);
+	free(cmd_path);
 	free_str_arr(cmd.tokens);
 	return (EXIT_SUCCESS);
 }

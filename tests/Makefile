@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 17:52:52 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/06/08 13:32:23 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/15 10:59:51 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT			:=	$(LIBFT_DIR)/libft.a
 CC				:=	gcc
 CFLAGS			:=	-Wall -Wextra -Werror -MMD
 CFLAGS			+=	-g -fsanitize='address,undefined'# uncomment for debugging
-LDFLAGS			:=	-L $(SRC_DIR)/libft -lft -lreadline -lncurses
+LDFLAGS			:=	-L $(SRC_DIR)/libft -lft -lreadline -ltermcap
 INC				:=	-I $(SRC_DIR) -I $(SRC_DIR)/builtins -I $(SRC_DIR)/libft/src
 RM				:=	-rm -rf
 
@@ -26,19 +26,43 @@ NOSTYLE			:=	\033[0m
 GREEN			:=	\033[0;32m
 BOLD_CYAN		:=	\033[1;36m
 
-SRC_FILES		:=	test_*.c
-#OBJ_FILES		=	$(SRC_FILES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+SRC_FILES		=	$(wildcard test_*.c)
+OBJ_FILES		=	$(SRC_FILES:%.c=$(BUILD_DIR)/%.o)
+
+.SILENT:
 
 define message =
 @printf "$(BOLD_CYAN)%-20s: $(GREEN)%s$(NOSTYLE)\n" "$(1)" "$(2)"
 endef
 
-.PHONY: all tests
+.PHONY: all tests re $(LIBFT)
 
-all: $(LIBFT) tests
+define run_test =
+echo $1
+endef
 
-tests: $(LIBFT)
-	@./test.sh
+all: tests
+
+$(BUILD_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	@echo $@
+	$(CC) $(INC) $(CFLAGS) -c $< -o $@
+
+tests: $(LIBFT) $(OBJ_FILES)
+	@for file in $(SRC_FILES); do \
+		gcc $(INC) $(LDFLAGS) test.utils.c $(SRC_DIR)/utils.c $$file -o $$(basename $$file .c); \
+		./$$(basename $$file .c); rm $$(basename $$file .c); \
+		done
+
+leaks: $(LIBFT) $(OBJ_FILES)
+	@for file in $(SRC_FILES); do \
+		gcc $(INC) $(LDFLAGS) test.utils.c $$file -o $$(basename $$file .c); \
+		leaks --atExit -- ./$$(basename $$file .c); rm $$(basename $$file .c); \
+		done
 
 $(LIBFT):
 	$(MAKE) -C $(dir $@)
+
+re:
+	@make re -C $(SRC_DIR)/libft
+	$(MAKE)

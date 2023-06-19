@@ -6,30 +6,27 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/12 12:02:29 by mpuig-ma         ###   ########.fr        #
-#    Updated: 2023/06/10 16:13:46 by mpuig-ma         ###   ########.fr        #
-#    Updated: 2023/06/07 15:48:10 by mpuig-ma         ###   ########.fr        #
-#    Updated: 2023/06/05 17:00:00 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/15 17:58:00 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 AUTHOR			?=	framos-p, mpuig-ma
-
-MAKE			:=	make --no-print-directory
-NAME			:=	minishell
 BUILD_DIR		:=	build
-SRC_DIR			:=	src
-LIBFT_DIR		:=	$(SRC_DIR)/libft
-LIBFT			:=	$(LIBFT_DIR)/libft.a
-
 CC				:=	gcc
 CFLAGS			:=	-Wall -Wextra -Werror -MMD
 #CFLAGS			+=	-g -fsanitize='address,undefined'# uncomment for debugging
-LDFLAGS			:=	-L $(SRC_DIR)/libft 
+INC				=	-I $(SRC_DIR) -I $(SRC_DIR)/builtins -I $(SRC_DIR)/libft/src
+INC				+=	$(shell pkg-config --cflags readline)
+LDFLAGS			=	-L $(SRC_DIR)/libft 
 LDLIBS			=	-lft $(LREADLINE)
 LREADLINE		:=	-lreadline
-INC				:=	-I $(SRC_DIR) -I $(SRC_DIR)/builtins -I $(SRC_DIR)/libft/src
+LIBFT			=	$(LIBFT_DIR)/libft.a
+LIBFT_DIR		=	$(SRC_DIR)/libft
+MAKE			:=	make --no-print-directory
+NAME			:=	minishell
 RM				:=	-rm -rf
+SHELL			:=	/bin/sh
+SRC_DIR			:=	src
 
 # Use pkg-config --libs to find where readline library is.
 
@@ -39,10 +36,13 @@ ifeq (,$(LREADLINE))
 	LREADLINE	:=	-lreadline
 endif
 
+#/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+
 SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/command_do.c \
-					$(SRC_DIR)/shell_expand.c \
+					$(SRC_DIR)/pipe_do.c \
 					$(SRC_DIR)/shell_do.c \
+					$(SRC_DIR)/shell_expand.c \
 					$(SRC_DIR)/utils.c \
 					$(SRC_DIR)/builtins/builtin_do.c \
 					$(SRC_DIR)/builtins/echo.c \
@@ -69,7 +69,7 @@ endef
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ_FILES) $(DEP_FILES) $(SRC_DIR)/$(NAME).h
+$(NAME): $(OBJ_FILES) $(DEP_FILES) $(SRC_DIR)/$(NAME).h
 	@$(CC) $(INC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(OBJ_FILES) -o $(basename $@)
 	$(call message,"compiled",$(basename $@))
 
@@ -81,8 +81,9 @@ tests:
 	@make -C tests
 
 check_libs:
-	@echo $(LREADLINE)
+	@echo $(CFLAGS)
 	@echo $(LDLIBS)
+	@echo $(INC)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
@@ -95,13 +96,12 @@ $(LIBFT):
 clean:
 	@$(RM) $(BUILD_DIR)
 	@$(MAKE) fclean -sC $(LIBFT_DIR)
-	$(call message,"Files",$(basename $@))
-	$(call message,Directory $(BUILD_DIR),$(basename $@))
+	$(call message,$(BUILD_DIR),$(basename $@))
 
 fclean: clean
 	@$(RM) $(NAME)
 	@$(RM) bonus
-	$(call message,"Program",$(basename $@))
+	$(call message,$(NAME),$(basename $@))
 
 re: fclean
 	@$(MAKE)

@@ -6,8 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/08 15:38:45 by mpuig-ma         ###   ########.fr       */
-/*   Updated: 2023/06/08 15:13:07 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:58:18 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +27,18 @@
 # include "_minishell.h"
 # include "builtins.h"
 
+# define WR	1
+# define RD	0
+
 # define SH_NAME		"homersh"
 # define PROMPT			"homersh$ "
 # define SH_VERSION		"homersh, version 0.1-alpha"
 
-char	*shell_expand(char *str);
+char	*shell_expand(char *str, t_data *data);
 int		shell_do(t_data *data);
 int		command_do(char *line, t_data *data);
+
+int		pipe_do(char *line, t_data *data);
 
 char	*cmd_path(char *argv, const char **envp);
 void	free_str_arr(char **split);
