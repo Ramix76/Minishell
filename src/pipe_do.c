@@ -6,45 +6,37 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:29:41 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/15 16:59:38 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:24:53 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	pipex(char **argv, t_data *data);
 static int	execute_command(char *argv, char **envp, int *fd);
 
 int	pipe_do(char *line, t_data *data)
 {
 	char	**pipe_split;
+	int		fd;
 	int		i;
-
-	pipe_split = ft_split(line, '|');
-	pipex(pipe_split, data);
-	i = 0;
-	while (pipe_split[i] != NULL)
-		free(pipe_split[i++]);
-	free(pipe_split);
-	return (EXIT_SUCCESS);
-}
-
-static int	pipex(char **argv, t_data *data)
-{
-	int	i;
-	int	fd;
 
 	i = 0;
 	fd = STDIN_FILENO;
-	while (argv[i] != NULL)
+	pipe_split = ft_split(line, '|');
+	while (pipe_split[i] != NULL)
 	{
-		//dup2(fd, STDIN_FILENO);
-		//close(fd);
-		data->exit_code = execute_command(argv[i], data->envp, &fd);
-		++i;
+		if (ft_strchr(pipe_split[i], '<') != 0)
+			ft_printf("redir\n");
+		data->exit_code = execute_command(pipe_split[i++], data->envp, &fd);
 	}
-	//close(fd);
+	close(fd);
+	free_str_arr(pipe_split);
 	return (EXIT_SUCCESS);
+}
+
+int	set_in_redirect(void)
+{
+	return (0);
 }
 
 static int	execute_command(char *argv, char **envp, int *fd)
@@ -76,6 +68,6 @@ static int	execute_command(char *argv, char **envp, int *fd)
 		exit_code = WEXITSTATUS(exit_code);
 	close(fildes[WR]);
 	*fd = fildes[RD];
-	ft_printf("exit_code: %d\n", exit_code);
+	//ft_printf("exit_code: %d\n", exit_code);
 	return (exit_code);
 }
