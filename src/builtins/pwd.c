@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:54:40 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/08 15:22:47 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:30:42 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,22 @@
 int	ft_pwd(void)
 {
 	char	*cwd;
+	char	*logicalcwd;
 
+	logicalcwd = ft_strrchr(cwd, '/');
 	cwd = (char *) malloc(PATH_MAX * sizeof(char));
 	if (cwd == NULL)
 	{
-		perror("malloc");
+		ft_fprintf(stderr, "Bas allocation\n");
 		return (EXIT_FAILURE);
 	}
-	else if (getcwd(cwd, PATH_MAX) != NULL)
-		printf("%s\n", cwd);
-	else
+	if (getcwd(cwd, PATH_MAX) != NULL)
 	{
-		perror("Error al obtener el directorio actual");
-		free(cwd);
-		return (EXIT_FAILURE);
+		if (logicalcwd != NULL)
+		{
+			*logicalcwd = '\0';
+			printf("%s\n", cwd);
+		}
 	}
 	free(cwd);
 	return (EXIT_SUCCESS);
