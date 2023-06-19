@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/13 13:29:53 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/19 17:15:42 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static int	change_to_home_directory(t_cmd *cmd, t_data *data)
 		printf("Failed to set PWD\n");
 		return (EXIT_FAILURE);
 	}
-	printf("HOME set to: %s\n", path);
 	return (EXIT_SUCCESS);
 }
 
@@ -93,6 +92,8 @@ static int	change_to_directory(const char *directory)
 {
 	char	path[PATH_MAX];
 
+	if (directory == NULL || directory[0] == '\0')
+		return (EXIT_SUCCESS);
 	if (chdir(directory) == 0)
 	{
 		if (getcwd(path, sizeof(path)) != NULL)
@@ -100,7 +101,7 @@ static int	change_to_directory(const char *directory)
 	}
 	else if (access(directory, F_OK) == -1)
 	{
-		printf("miinishell: cd: %s: No such file or directory\n", directory);
+		printf("minishell: cd: %s: No such file or directory\n", directory);
 		return (EXIT_FAILURE);
 	}
 	else
@@ -130,14 +131,29 @@ int	ft_cd(t_cmd *cmd, t_data *data)
 		printf("Use: %s <directory's name>\n", cmd->tokens[0]);
 		return (EXIT_FAILURE);
 	}
-	if (cmd->tokens[1] == NULL
-		|| (ft_strncmp(cmd->tokens[1], "~", 1) == 0))
+	if (cmd->tokens[1] == NULL || cmd->tokens[1][0] == '\0' || ft_strncmp(cmd->tokens[1], "~", 1) == 0
+		|| ft_strncmp(cmd->tokens[1], "", 0) == 0)
+	{
 		change_to_home_directory(cmd, data);
+		return (EXIT_SUCCESS);
+	}
 	else if (ft_strncmp(cmd->tokens[1], "..", 2) == 0)
+	{
 		change_to_parent_directory();
+		return (EXIT_SUCCESS);
+	}
 	else if (ft_strncmp(cmd->tokens[1], "-", 1) == 0)
+	{
 		change_to_previous_directory(data);
-	else
-		change_to_directory(cmd->tokens[1]);
-	return (EXIT_SUCCESS);
+		return (EXIT_SUCCESS);
+	}
+	else if (cmd->tokens[1][0] != '\0')
+	{
+		if (change_to_directory(cmd->tokens[1]) != EXIT_SUCCESS)
+		{
+			printf("No such file or directory\n");
+		}
+		return (EXIT_SUCCESS);
+	}
+	return (EXIT_FAILURE);
 }
