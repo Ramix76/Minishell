@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:29:41 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/19 18:24:53 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:35:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	pipe_do(char *line, t_data *data)
 	pipe_split = ft_split(line, '|');
 	while (pipe_split[i] != NULL)
 	{
-		if (ft_strchr(pipe_split[i], '<') != 0)
-			ft_printf("redir\n");
+		//if (ft_strchr(pipe_split[i], '<') != 0)
+		//	ft_printf("redir\n");
 		data->exit_code = execute_command(pipe_split[i++], data->envp, &fd);
 	}
 	close(fd);

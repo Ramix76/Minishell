@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/15 17:48:25 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:56:07 by mpuig-ma         ###   ########.fr       */
 /*   Updated: 2023/06/12 15:48:53 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -24,6 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	init_args(argc, argv, envp);
 	init_data(argc, argv, envp, &data);
 	data.exit_code = shell_do(&data);
+	free_str_arr(data.envp);
 	return (data.exit_code);
 }
 
@@ -40,7 +41,8 @@ static int	init_args(int argc, char **argv, char **envp)
 
 static int	init_data(int argc, char **argv, char **envp, t_data *data)
 {
-	int	sh_lvl;
+	int		sh_lvl;
+	char	*temp;
 
 	(void) argc;
 	(void) argv;
@@ -49,7 +51,9 @@ static int	init_data(int argc, char **argv, char **envp, t_data *data)
 	if (data->path == NULL)
 		data->path = _PATH_DEFPATH;
 	sh_lvl = ft_atoi(ft_getenv("SHLVL", (const char **) envp));
-	ft_setenv("SHLVL", ft_itoa(++sh_lvl), 1, (char ***) &data->envp);
+	temp = ft_itoa(++sh_lvl);
+	ft_setenv("SHLVL", temp, 1, (char ***) &data->envp);
+	free(temp);
 	data->exit_code = 0;
 	return (EXIT_SUCCESS);
 }
