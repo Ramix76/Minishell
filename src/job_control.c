@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/20 17:42:51 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:58:42 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 #define REDIRECTOP		"<>"
 
 static int	simple_command(char *job, t_data *data);
-int	here_doc(char *limiter);
-int	read_stdin(int wr_fd, char *limiter);
-int	write_output(int fd, char *output);
+int			here_doc(char *limiter);
+int			read_stdin(int wr_fd, char *limiter);
+int			write_output(int fd, char *output);
+int			redirect_in(char *line, int *fd);
 
 int	redirect_in(char *line, int *fd)
 {
@@ -83,10 +84,7 @@ static int	simple_command(char *job, t_data *data)
 			here_doc("--");
 			temp += 3;
 		}
-		else if (*temp == '<')
-		{
-
-		}
+		//else if (*temp == '<')
 		//ft_printf("-%c\n", *temp);
 		temp = strpbrk(temp + 1, REDIRECTOP);
 	}
