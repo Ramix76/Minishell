@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/20 17:58:42 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:03:41 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ static int	simple_command(char *job, t_data *data)
 			temp += 3;
 		}
 		//else if (*temp == '<')
-		//ft_printf("-%c\n", *temp);
 		temp = strpbrk(temp + 1, REDIRECTOP);
 	}
 	printf("job is \"%s\"\n", job + n);
@@ -97,7 +96,7 @@ int	here_doc(char *limiter)
 {
 	int	fildes[2];
 
-	pipe(fildes);
+	pipe(fildes); //??
 	read_stdin(fildes[WR], limiter);
 	close(fildes[WR]);
 	return (fildes[RD]);
