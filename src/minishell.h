@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/20 11:52:04 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:01:43 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include <errno.h> /* errno */
-# include <limits.h> /* */ 
+# include <limits.h> /* */
 # include <stdio.h> /* readline, printf */
 # include <stdlib.h> /* */
 # include <string.h> /* */
