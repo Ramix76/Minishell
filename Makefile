@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/20 11:44:04 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/06/20 17:46:38 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ endif
 #/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 
 SRC_FILES		:=	$(SRC_DIR)/main.c \
-					$(SRC_DIR)/command_do.c \
 					$(SRC_DIR)/job_control.c \
 					$(SRC_DIR)/pipe_do.c \
 					$(SRC_DIR)/shell_do.c \

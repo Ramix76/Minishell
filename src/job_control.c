@@ -6,45 +6,70 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/20 17:01:50 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:42:51 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#define METACHARACTERS	" \n\t|&;()<>"
+#define METACHARACTERS	" \n\t|&;()<>\0"
 #define OPERATORS		"\n|&;()<>"
 #define CONTROLOP		"\n|&"
 #define REDIRECTOP		"<>"
 
-static int	job_do(char *job, t_data *data);
+static int	simple_command(char *job, t_data *data);
 int	here_doc(char *limiter);
 int	read_stdin(int wr_fd, char *limiter);
 int	write_output(int fd, char *output);
 
+int	redirect_in(char *line, int *fd)
+{
+	char	*temp;
+	char	*word;
+
+	temp = line;
+	while (temp != NULL)
+	{
+		word = temp;
+		temp = ft_strchr(temp + 1, '<');
+	}
+	if (word == NULL)
+		return (EXIT_FAILURE);
+	++word;
+	while (word != NULL && *word != '\0' && ft_isspace(*word) != 0)
+		++word;
+	word = ft_strndup(word, strcspn(word, METACHARACTERS));
+	*fd = open(word, O_RDONLY);
+	free(word);
+	return (EXIT_SUCCESS);
+}
+
 int	job_control(char *line, t_data *data)
 {
+	int		n;
+	int		fd;
 	char	*temp;
 	char	*job;
 	size_t	cspn;
-	int		n;
 
 	temp = line;
+	fd = STDIN_FILENO;
 	while (temp != NULL)
 	{
 		n = 0;
 		cspn = strcspn(temp + 1, CONTROLOP);
 		job = ft_strndup(temp, cspn + 1);
+		redirect_in(job, &fd);
 		if (*job == '|')
 			n = strspn(job, METACHARACTERS);
 		temp = strpbrk(temp + 1, CONTROLOP);
-		job_do(job + n, data);
+		simple_command(job + n, data);
 		free(job);
 	}
 	return (EXIT_SUCCESS);
 }
 
-static int	job_do(char *job, t_data *data)
+static int	simple_command(char *job, t_data *data)
 {
 	int		n;
 	char	*temp;
@@ -62,7 +87,7 @@ static int	job_do(char *job, t_data *data)
 		{
 
 		}
-		ft_printf("-%c\n", *temp);
+		//ft_printf("-%c\n", *temp);
 		temp = strpbrk(temp + 1, REDIRECTOP);
 	}
 	printf("job is \"%s\"\n", job + n);
