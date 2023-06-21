@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/20 18:03:41 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:32:27 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int			here_doc(char *limiter);
 int			read_stdin(int wr_fd, char *limiter);
 int			write_output(int fd, char *output);
 int			redirect_in(char *line, int *fd);
+static int	execute_command(char *argv, char **envp, int *fd);
 
 int	redirect_in(char *line, int *fd)
 {
@@ -39,7 +40,7 @@ int	redirect_in(char *line, int *fd)
 	++word;
 	while (word != NULL && *word != '\0' && ft_isspace(*word) != 0)
 		++word;
-	word = ft_strndup(word, strcspn(word, METACHARACTERS));
+	word = ft_strndup(word, ft_strcspn(word, METACHARACTERS));
 	*fd = open(word, O_RDONLY);
 	free(word);
 	return (EXIT_SUCCESS);
@@ -58,11 +59,11 @@ int	job_control(char *line, t_data *data)
 	while (temp != NULL)
 	{
 		n = 0;
-		cspn = strcspn(temp + 1, CONTROLOP);
+		cspn = ft_strcspn(temp + 1, CONTROLOP);
 		job = ft_strndup(temp, cspn + 1);
 		redirect_in(job, &fd);
 		if (*job == '|')
-			n = strspn(job, METACHARACTERS);
+			n = ft_strspn(job, METACHARACTERS);
 		temp = strpbrk(temp + 1, CONTROLOP);
 		simple_command(job + n, data);
 		free(job);
@@ -163,4 +164,57 @@ int	command_do(char *line, t_data *data)
 	free(cmd_path);
 	free_str_arr(cmd.tokens);
 	return (EXIT_SUCCESS);
+}
+
+int	pipe_do(char *line, t_data *data)
+{
+	char	**pipe_split;
+	int		fd;
+	int		i;
+
+	i = 0;
+	fd = STDIN_FILENO;
+	pipe_split = ft_split(line, '|');
+	while (pipe_split[i] != NULL)
+	{
+		//if (ft_strchr(pipe_split[i], '<') != 0)
+		//	ft_printf("redir\n");
+		data->exit_code = execute_command(pipe_split[i++], data->envp, &fd);
+	}
+	close(fd);
+	free_str_arr(pipe_split);
+	return (EXIT_SUCCESS);
+}
+
+static int	execute_command(char *argv, char **envp, int *fd)
+{
+	int			fildes[2];
+	char		**cmd;
+	pid_t		pid;
+	int			exit_code;
+
+	if (pipe(fildes) == -1)
+		exit (4);
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("pipex");
+		exit(1);
+	}
+	if (pid == 0)
+	{
+		cmd = ft_split(argv, ' ');
+		//dup2(fildes[WR], STDOUT_FILENO);
+		//close(fildes[RD]);
+		//close(fildes[WR]);
+		ft_execvpe(cmd[0], (char const **) cmd, (const char **) envp);
+		exit (EXIT_FAILURE);
+	}
+	waitpid(pid, &exit_code, 0);
+	if (WIFEXITED(exit_code))
+		exit_code = WEXITSTATUS(exit_code);
+	close(fildes[WR]);
+	*fd = fildes[RD];
+	//ft_printf("exit_code: %d\n", exit_code);
+	return (exit_code);
 }
