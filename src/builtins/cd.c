@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/19 17:15:42 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:37:55 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,26 +91,30 @@ static int	change_to_previous_directory(t_data *data)
 static int	change_to_directory(const char *directory)
 {
 	char	path[PATH_MAX];
+	DIR		*dir;
 
 	if (directory == NULL || directory[0] == '\0')
 		return (EXIT_SUCCESS);
 	if (chdir(directory) == 0)
 	{
 		if (getcwd(path, sizeof(path)) != NULL)
-			return (EXIT_SUCCESS);
+		{
+			dir = opendir(path);
+			if (dir)
+			{
+				closedir(dir);
+				return (EXIT_SUCCESS);
+			}
+			else
+				return (ft_error(NO_DIR, directory), EXIT_FAILURE);
+		}
 	}
 	else if (access(directory, F_OK) == -1)
-	{
-		printf("minishell: cd: %s: No such file or directory\n", directory);
-		return (EXIT_FAILURE);
-	}
+		return (ft_error(NO_SUCH_DIR, directory), EXIT_FAILURE);
 	else
 	{
 		if (access(directory, R_OK | X_OK) == -1)
-		{
-			printf("cd: Permission denied: %s\n", directory);
-			return (EXIT_FAILURE);
-		}
+			return (ft_error(NO_PERMIT, directory), EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -119,41 +123,21 @@ int	ft_cd(t_cmd *cmd, t_data *data)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	cmd->tokens_count = 0;
-	while (cmd->tokens[i] != NULL)
-	{
+	while (cmd->tokens[++i] != NULL)
 		cmd->tokens_count++;
-		i++;
-	}
 	if (cmd->tokens_count - 1 > 2)
-	{
-		printf("Use: %s <directory's name>\n", cmd->tokens[0]);
-		return (EXIT_FAILURE);
-	}
-	if (cmd->tokens[1] == NULL || cmd->tokens[1][0] == '\0' || ft_strncmp(cmd->tokens[1], "~", 1) == 0
-		|| ft_strncmp(cmd->tokens[1], "", 0) == 0)
-	{
-		change_to_home_directory(cmd, data);
-		return (EXIT_SUCCESS);
-	}
+		return (ft_fprintf(stderr, "Use: %s <directory's name>\n",
+				cmd->tokens[0]), EXIT_FAILURE);
+	if (cmd->tokens[1] == NULL || cmd->tokens[1][0] == '\0'
+		|| ft_strncmp(cmd->tokens[1], "~", 1) == 0)
+		return (change_to_home_directory(cmd, data), EXIT_SUCCESS);
 	else if (ft_strncmp(cmd->tokens[1], "..", 2) == 0)
-	{
-		change_to_parent_directory();
-		return (EXIT_SUCCESS);
-	}
+		return (change_to_parent_directory(), EXIT_SUCCESS);
 	else if (ft_strncmp(cmd->tokens[1], "-", 1) == 0)
-	{
-		change_to_previous_directory(data);
-		return (EXIT_SUCCESS);
-	}
-	else if (cmd->tokens[1][0] != '\0')
-	{
-		if (change_to_directory(cmd->tokens[1]) != EXIT_SUCCESS)
-		{
-			printf("No such file or directory\n");
-		}
-		return (EXIT_SUCCESS);
-	}
+		return (change_to_previous_directory(data), EXIT_SUCCESS);
+	else
+		return (change_to_directory(cmd->tokens[1]), EXIT_SUCCESS);
 	return (EXIT_FAILURE);
 }
