@@ -6,26 +6,30 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/21 16:37:55 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:57:08 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "minishell.h"
 
-static void	change_to_parent_directory(void)
+static int	change_to_parent_directory(const char *directory, t_data *data)
 {
-	char	path[PATH_MAX];
-
+	char	cwd[PATH_MAX];
+	
 	if (chdir("..") == 0)
 	{
-		if (getcwd(path, sizeof(path)) != NULL)
-			return ;
-		else
-			printf("No such file or directory\n");
+		if (access(".", R_OK) == -1)
+		{
+			ft_error(NO_PERMIT, "..");
+			chdir(directory);
+		}
+		else if (getcwd(cwd, PATH_MAX) != NULL)
+				ft_setenv("PWD", cwd, 1, &data->envp);
 	}
-	else
-		perror("No such file or directory\n");
+	else if (getcwd(cwd, PATH_MAX) != NULL)
+		ft_setenv("PWD", cwd, 1, &data->envp);
+	return (EXIT_SUCCESS);
 }
 
 static int	change_to_home_directory(t_cmd *cmd, t_data *data)
@@ -88,34 +92,30 @@ static int	change_to_previous_directory(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static int	change_to_directory(const char *directory)
+static int	change_to_directory(const char *directory, t_data *data)
 {
-	char	path[PATH_MAX];
-	DIR		*dir;
+	char			cwd[PATH_MAX];
+	struct stat		dir_stat;
 
 	if (directory == NULL || directory[0] == '\0')
 		return (EXIT_SUCCESS);
-	if (chdir(directory) == 0)
+	if (stat(directory, &dir_stat) == 0)
 	{
-		if (getcwd(path, sizeof(path)) != NULL)
+		if (S_ISDIR(dir_stat.st_mode))
 		{
-			dir = opendir(path);
-			if (dir)
+			if (chdir(directory) == 0)
 			{
-				closedir(dir);
-				return (EXIT_SUCCESS);
+				if (getcwd(cwd, PATH_MAX) != NULL)
+					return (ft_setenv("PWD", cwd, 1, &data->envp), EXIT_SUCCESS);
 			}
 			else
-				return (ft_error(NO_DIR, directory), EXIT_FAILURE);
+				return (ft_error(NO_PERMIT, directory), EXIT_FAILURE);
 		}
+		else
+			return (ft_error(NO_DIR, directory), EXIT_FAILURE);
 	}
 	else if (access(directory, F_OK) == -1)
 		return (ft_error(NO_SUCH_DIR, directory), EXIT_FAILURE);
-	else
-	{
-		if (access(directory, R_OK | X_OK) == -1)
-			return (ft_error(NO_PERMIT, directory), EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
 }
 
@@ -134,10 +134,10 @@ int	ft_cd(t_cmd *cmd, t_data *data)
 		|| ft_strncmp(cmd->tokens[1], "~", 1) == 0)
 		return (change_to_home_directory(cmd, data), EXIT_SUCCESS);
 	else if (ft_strncmp(cmd->tokens[1], "..", 2) == 0)
-		return (change_to_parent_directory(), EXIT_SUCCESS);
+		return (change_to_parent_directory(cmd->tokens[1],data), EXIT_SUCCESS);
 	else if (ft_strncmp(cmd->tokens[1], "-", 1) == 0)
 		return (change_to_previous_directory(data), EXIT_SUCCESS);
 	else
-		return (change_to_directory(cmd->tokens[1]), EXIT_SUCCESS);
+		return (change_to_directory(cmd->tokens[1], data), EXIT_SUCCESS);
 	return (EXIT_FAILURE);
 }

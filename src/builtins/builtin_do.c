@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:31:50 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/15 13:39:15 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:44:03 by framos-p         ###   ########.fr       */
 /*   Updated: 2023/06/12 15:27:06 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ int	builtin_do(t_cmd *cmd, t_data *data)
 	const char	*exec_name = cmd->tokens[0];
 
 	if (ft_strncmp(exec_name, "pwd", 3) == 0)
-		ft_pwd();
+		ft_pwd(data);
 	else if (ft_strncmp(exec_name, "echo", 4) == 0)
 		ft_echo(cmd);
 	else if (ft_strncmp(exec_name, "cd", 2) == 0)
