@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/27 17:27:35 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:23:20 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	change_to_parent_directory(const char *directory, t_data *data)
 	{
 		if (getcwd(cwd, PATH_MAX) != NULL)
 			ft_setenv("PWD", cwd, 1, &data->envp);
+		printf("en medio: %s\n", prev_dir);
 		if (ft_setenv("OLDPWD", prev_dir, 1, &data->envp) != 0)
 			return (ft_error(ERR_OPWD, directory), EXIT_FAILURE);
 		printf("despues: %s\n", prev_dir);
