@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 14:30:49 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/28 15:29:09 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:20:16 by framos-p         ###   ########.fr       */
 /*   Updated: 2023/06/08 15:13:10 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -18,6 +18,7 @@
 # include <dirent.h>
 # include <sys/stat.h>
 # include <stdlib.h>
+# include <stdbool.h>
 
 # define	NO_SUCH_DIR			1
 # define	NO_DIR				2
@@ -26,6 +27,7 @@
 # define	ERR_CD				5
 # define	ERR_PWD				6
 # define	ERR_OPWD			7
+# define	ERR_FORMAT			8
 
 typedef struct s_cmd
 {
