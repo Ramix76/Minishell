@@ -6,26 +6,26 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/06 16:22:19 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:40:12 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <errno.h> /* errno */
-# include <limits.h> /* */
-# include <stdio.h> /* readline, printf */
-# include <stdlib.h> /* */
-# include <string.h> /* */
-# include <unistd.h> /* write, isatty */
+# include <errno.h>/* errno */
+# include <limits.h>/* */
+# include <stdio.h>/* readline, printf */
+# include <stdlib.h>/* */
+# include <string.h>/* */
+# include <unistd.h>/* write, isatty */
 
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# include "libft.h" /* */
-# include "_minishell.h" /* */
-# include "builtins.h" /* */
+# include "libft.h"/* */
+# include "_minishell.h"/* */
+# include "builtins.h"/* */
 
 # define WR	1
 # define RD	0

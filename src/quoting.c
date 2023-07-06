@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:11:06 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/06 16:11:32 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:39:55 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 /*
  * ft_quotes_closed
  * if quotes (single or double) are closed, returns NULL
- * else (if not closed) returns position of last unclosed quote (simple or double).
+ * else (if not closed) returns position
+ * of last unclosed quote (simple or double).
  */
 
 char	*ft_quotes_closed(char *line)
