@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/06/21 12:32:27 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:20:18 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	simple_command(char *job, t_data *data)
 		//else if (*temp == '<')
 		temp = strpbrk(temp + 1, REDIRECTOP);
 	}
-	printf("job is \"%s\"\n", job + n);
+	//printf("job is \"%s\"\n", job + n);
 	command_do(job + n, data);
 	return (EXIT_SUCCESS);
 }
