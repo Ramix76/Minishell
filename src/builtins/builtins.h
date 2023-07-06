@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 14:30:49 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/29 16:20:16 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/06 11:51:40 by framos-p         ###   ########.fr       */
 /*   Updated: 2023/06/08 15:13:10 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -44,7 +44,7 @@ int		ft_echo(t_cmd *cmd);
 int		ft_pwd(t_data *data);
 int		ft_cd(t_cmd *cmd, t_data *data);
 void	ft_unset(char *var, t_data *data);
-void	ft_export(char *var, t_data *data);
+void	ft_export(t_cmd *cmd, t_data *data);
 
 int		ft_error(int error, const char *directory);
 
