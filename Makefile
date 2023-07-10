@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/06/15 17:58:00 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/07/10 11:01:14 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ AUTHOR			?=	framos-p, mpuig-ma
 BUILD_DIR		:=	build
 CC				:=	gcc
 CFLAGS			:=	-Wall -Wextra -Werror -MMD
-#CFLAGS			+=	-g -fsanitize='address,undefined'# uncomment for debugging
+CFLAGS			+=	-g -fsanitize='address,undefined'# uncomment for debugging
 INC				=	-I $(SRC_DIR) -I $(SRC_DIR)/builtins -I $(SRC_DIR)/libft/src
 INC				+=	$(shell pkg-config --cflags readline)
 LDFLAGS			=	-L $(SRC_DIR)/libft 
@@ -39,8 +39,9 @@ endif
 #/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 
 SRC_FILES		:=	$(SRC_DIR)/main.c \
-					$(SRC_DIR)/command_do.c \
+					$(SRC_DIR)/job_control.c \
 					$(SRC_DIR)/pipe_do.c \
+					$(SRC_DIR)/quoting.c \
 					$(SRC_DIR)/shell_do.c \
 					$(SRC_DIR)/shell_expand.c \
 					$(SRC_DIR)/utils.c \
@@ -48,7 +49,10 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/builtins/echo.c \
 					$(SRC_DIR)/builtins/pwd.c \
 					$(SRC_DIR)/builtins/env.c \
-					$(SRC_DIR)/builtins/cd.c
+					$(SRC_DIR)/builtins/cd.c \
+					$(SRC_DIR)/builtins/utils_builtins.c \
+					$(SRC_DIR)/builtins/unset.c \
+					$(SRC_DIR)/builtins/export.c
 
 OBJ_FILES		=	$(SRC_FILES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEP_FILES		=	$(OBJ_FILES:.o=.d)
@@ -69,7 +73,7 @@ endef
 
 all: $(NAME)
 
-$(NAME): $(OBJ_FILES) $(DEP_FILES) $(SRC_DIR)/$(NAME).h
+$(NAME): $(LIBFT) $(OBJ_FILES) $(DEP_FILES) $(SRC_DIR)/$(NAME).h
 	@$(CC) $(INC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(OBJ_FILES) -o $(basename $@)
 	$(call message,"compiled",$(basename $@))
 
