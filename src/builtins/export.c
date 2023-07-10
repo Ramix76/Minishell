@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/10 12:49:32 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:58:26 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 static bool	is_valid_var_format(const char *var)
 {
 	size_t	i;
-
+	
+	printf("%s\n", var);
 	if (!var || var[0] == '\0' || var[0] == '-')
 		return (false);
 	if (var[0] != '_' && ft_isalpha(var[0]) == 0)
 		return (false);
+	printf("hey\n");
 	i = 1;
 	while (var[i] != '\0')
 	{
@@ -31,7 +33,7 @@ static bool	is_valid_var_format(const char *var)
 	return (true);
 }
 
-void	process_export_token(char *token, t_data *data)
+static void	process_export_token(char *token, t_data *data)
 {
 	char	*name;
 	char	*value;
@@ -40,10 +42,7 @@ void	process_export_token(char *token, t_data *data)
 
 	equal_sign = ft_strchr(token, '=');
 	if (equal_sign == NULL)
-	{
-		ft_error(ERR_FORMAT, token);
 		return ;
-	}
 	name_length = equal_sign - token;
 	name = ft_strndup(token, name_length);
 	value = equal_sign + 1;

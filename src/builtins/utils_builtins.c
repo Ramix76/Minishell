@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:47:12 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/29 12:56:25 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:43:25 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 static void	cd_write_errors(const char *format, const char *directory)
 {
-
 	ft_fprintf(stderr, "minishell: cd: %s: ", directory);
 	ft_fprintf(stderr, format);
 }

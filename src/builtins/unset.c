@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:33:26 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/28 16:22:32 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:08:28 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	find_var_index(char *var, char **envp)
 			return (i);
 		i++;
 	}
-	return (EXIT_FAILURE);
+	return (-1);
 }
 
 static void	free_var_and_shift(int i, char **envp)
@@ -38,11 +38,27 @@ static void	free_var_and_shift(int i, char **envp)
 	envp[i] = NULL;
 }
 
-void	ft_unset(char *var, t_data *data)
+static void	process_unset_token(char *token, t_data *data)
 {
-	int	i;
+	int	index;
 
-	i = find_var_index(var, data->envp);
-	if (i != EXIT_FAILURE)
-		free_var_and_shift(i, data->envp);
+	index = find_var_index(token, data->envp);
+	if (index != -1)
+		free_var_and_shift(index, data->envp);
+}
+
+void	ft_unset(char **vars, t_data *data)
+{
+	size_t	count;
+	size_t	i;
+
+	count = 0;
+	while (vars[count])
+		count++;
+	i = 0;
+	while (i < count)
+	{
+		process_unset_token(vars[i], data);
+		i++;
+	}
 }

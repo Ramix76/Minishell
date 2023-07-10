@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/28 12:23:20 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:42:09 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static int	change_to_home_directory(const char *directory, t_data *data)
 	const char	*prev_dir;
 
 	prev_dir = ft_getenv("PWD", (const char **)data->envp);
-//	printf("%s\n", prev_dir);
 	home_dir = ft_getenv("HOME", (const char **)data->envp);
 	if (!home_dir)
 		return (ft_error(NO_HOME, directory), EXIT_FAILURE);
@@ -70,13 +69,11 @@ static int	change_to_previous_directory(t_data *data)
 	char		current_dir[PATH_MAX];
 
 	prev_dir = ft_getenv("OLDPWD", (const char **)data->envp);
-//	printf("%s\n", prev_dir);
 	if (!prev_dir || chdir(prev_dir) != 0)
 	{
 		printf("cd: no such file or directory: %s\n", prev_dir);
 		return (EXIT_FAILURE);
 	}
-//	printf("%s\n", prev_dir);
 	if (!getcwd(current_dir, sizeof(current_dir)))
 	{
 		printf("minishell: cd: %s: No such file or directory\n", current_dir);
@@ -87,14 +84,12 @@ static int	change_to_previous_directory(t_data *data)
 		printf("Failed to set OLDPWD\n");
 		return (EXIT_FAILURE);
 	}
-//	printf("%s\n", prev_dir);
-	if (getcwd(cwd, PATH_MAX) == NULL || ft_setenv("PWD", cwd, 1, &data->envp) != 0)
+	if (getcwd(cwd, PATH_MAX) == NULL 
+		|| ft_setenv("PWD", cwd, 1, &data->envp) != 0)
 	{
 		printf("Failed to set PWD\n");
 		return (EXIT_FAILURE);
 	}
-//	printf("%s\n", current_dir);
-//	printf("%s\n", prev_dir);
 	return (EXIT_SUCCESS);
 }
 
@@ -112,7 +107,8 @@ static int	change_to_directory(const char *directory, t_data *data)
 			if (chdir(directory) == 0)
 			{
 				if (getcwd(cwd, PATH_MAX) != NULL)
-					return (ft_setenv("PWD", cwd, 1, &data->envp), EXIT_SUCCESS);
+					return (ft_setenv("PWD", cwd, 1, &data->envp), 
+						EXIT_SUCCESS);
 			}
 			else
 				return (ft_error(NO_PERMIT, directory), EXIT_FAILURE);
@@ -140,7 +136,7 @@ int	ft_cd(t_cmd *cmd, t_data *data)
 		|| ft_strncmp(cmd->tokens[1], "~", 1) == 0)
 		return (change_to_home_directory(cmd->tokens[1], data), EXIT_SUCCESS);
 	else if (ft_strncmp(cmd->tokens[1], "..", 2) == 0)
-		return (change_to_parent_directory(cmd->tokens[1],data), EXIT_SUCCESS);
+		return (change_to_parent_directory(cmd->tokens[1], data), EXIT_SUCCESS);
 	else if (ft_strncmp(cmd->tokens[1], "-", 1) == 0)
 		return (change_to_previous_directory(data), EXIT_SUCCESS);
 	else
