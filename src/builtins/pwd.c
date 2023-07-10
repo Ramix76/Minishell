@@ -6,32 +6,25 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:54:40 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/13 16:30:42 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:19:43 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ft_pwd(void)
+int	ft_pwd(t_data *data)
 {
 	char	*cwd;
-	char	*logicalcwd;
 
-	logicalcwd = ft_strrchr(cwd, '/');
-	cwd = (char *) malloc(PATH_MAX * sizeof(char));
-	if (cwd == NULL)
+	cwd = ft_getenv("PWD", (const char **)data->envp);
+	if (cwd != NULL)
 	{
-		ft_fprintf(stderr, "Bas allocation\n");
+		printf("%s\n", cwd);
+		return (EXIT_SUCCESS);
+	}
+	else
+	{
+		ft_fprintf(stderr, "Failed to retrieve current directory\n");
 		return (EXIT_FAILURE);
 	}
-	if (getcwd(cwd, PATH_MAX) != NULL)
-	{
-		if (logicalcwd != NULL)
-		{
-			*logicalcwd = '\0';
-			printf("%s\n", cwd);
-		}
-	}
-	free(cwd);
-	return (EXIT_SUCCESS);
 }
