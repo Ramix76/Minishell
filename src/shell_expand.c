@@ -6,48 +6,75 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:45:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/10 13:05:40 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:29:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
- * ft_strpjoin()
- * joins str s2 into position p of str s1
+ * name: A word consisting solely of letters, numbers, and underscores, 
+ * and beginning with a letter or underscore. 
+ * Names are used as shell variable and function names.
+ * Also referred to as an identifier.
  *
- * if s1's length is smaller than p, s2 is appended like the
- * regular strjoin()
- *
- * if s1 is NULL, 
- *
- * if s2 is NULL
+ * ft_getname(char *ptr)
+ * returns name portion from string
  *
  */
 
-char	*ft_strpjoin(char *s1, char *s2, size_t p)
+char	*ft_getname(char *ptr)
 {
-	char	*segment_a;
-	char	*segment_b;
-	size_t	i;
+	char	*name;
+	size_t	name_len;
 
-	i = 0;
-	segment_a = s1;
-	while (i < p)
-	{ ++segment_a; ++i; }
-	(void) segment_b;
-	(void) s2;
-	return (NULL);
+	if (ptr == NULL || *ptr == '\0' || *ptr != '$')
+		return (NULL);
+	++ptr;
+	name_len = 0;
+	// beginning with a letter or underscore.
+	if (*ptr == '\0' && (ft_isalpha(*ptr) == 0 || *ptr != '_'))
+		return (NULL);
+	while (ptr[name_len] != '\0' && (ft_isalnum(ptr[name_len]) != 0
+			|| ptr[name_len] == '_'))
+		++name_len;
+	name = ft_strndup(ptr, name_len);
+	return (name);
 }
 
 char	*shell_expand(char *line, t_data *data)
 {
 	char	*expanded;
+	char	*dollar;
+	char	*temp;
+	char	*name;
+	char	*name_value;
 
-	(void) data;
-	(void) line;
-	expanded = ft_strdup(line);
-	return (ft_strpjoin(line, "hola", 2));
+	dollar = ft_strchr(line, '$');
+	if (dollar != NULL)
+		expanded = ft_strndup(line, line - dollar);
+	while (dollar != NULL)
+	{
+		name = ft_getname(dollar);
+		if (name != NULL)
+		{
+			name_value = ft_getenv(name, (const char **) data->envp);
+			if (name_value == NULL)
+				name_value = "";
+			temp = ft_strjoin("", name_value);
+			free(expanded);
+			expanded = temp;
+		}
+		if (name != NULL)
+		{
+			dollar = ft_strchr(dollar + ft_strlen(name), '$');
+			free(name);
+		}
+		else
+			dollar = ft_strchr(dollar + 1, '$');
+	}
+	if (expanded == NULL)
+		expanded = ft_strdup(line);
 	return (expanded);
 }
 
