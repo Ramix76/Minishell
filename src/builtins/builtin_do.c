@@ -6,14 +6,14 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:31:50 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/06 12:52:34 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:34:00 by mpuig-ma         ###   ########.fr       */
 /*   Updated: 2023/06/12 15:27:06 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_do(t_cmd *cmd, t_data *data)
+int	ft_builtin_do(t_cmd *cmd, t_data *data)
 {
 	const char	*exec_name = cmd->tokens[0];
 
@@ -32,7 +32,7 @@ int	builtin_do(t_cmd *cmd, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-int	is_builtin(char *str)
+int	ft_is_builtin(char *str)
 {
 	if (str == NULL)
 		return (EXIT_FAILURE);

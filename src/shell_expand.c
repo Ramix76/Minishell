@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:45:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/11 12:12:55 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:29:30 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_getname(char *ptr)
 	return (name);
 }
 
-char	*shell_expand(char *line, t_data *data)
+char	*ft_shell_expand(char *line, t_data *data)
 {
 	char	*expanded;
 	char	*dollar;
