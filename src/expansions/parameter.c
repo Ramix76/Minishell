@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_expand.c                                     :+:      :+:    :+:   */
+/*   parameter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 16:45:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/11 16:07:10 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/07/11 16:32:15 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/07/11 16:39:43 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,8 @@
 
 static char	*ft_getname(char *ptr);
 static char	*ft_getvar(char	*ptr, t_data *data);
-static char	*ft_expand_dollar(char *expanded, char *dollar, t_data *data);
 
-char	*ft_shell_expand(char *line, t_data *data)
-{
-	char	*expanded;
-	char	*dollar;
-	char	*temp;
-
-	expanded = ft_strdup(line);
-	dollar = ft_strchr(expanded, '$');
-	while (dollar != NULL)
-	{
-		temp = ft_expand_dollar(expanded, dollar, data);
-		if (temp != expanded)
-			free(expanded);
-		expanded = temp;
-		dollar = ft_strchr(expanded, '$');
-	}
-	return (expanded);
-}
-
-static char	*ft_expand_dollar(char *expanded, char *dollar, t_data *data)
+char	*ft_expand_dollar(char *expanded, char *dollar, t_data *data)
 {
 	char	*name;
 	char	*value;

@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/07/11 16:26:20 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/07/11 16:45:02 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,13 +47,16 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/builtins/utils_builtins.c \
 					$(SRC_DIR)/builtins/unset.c \
 					$(SRC_DIR)/builtins/export.c \
+					$(SRC_DIR)/expansions/filename.c \
+					$(SRC_DIR)/expansions/parameter.c \
+					$(SRC_DIR)/expansions/quote_removal.c \
+					$(SRC_DIR)/expansions/shell_expand.c \
+					$(SRC_DIR)/expansions/tilde.c \
 					$(SRC_DIR)/job/execute.c \
 					$(SRC_DIR)/job/here_doc.c \
 					$(SRC_DIR)/job/job_control.c \
 					$(SRC_DIR)/job/pipe_do.c \
 					$(SRC_DIR)/job/shell_do.c \
-					$(SRC_DIR)/parse/quotes.c \
-					$(SRC_DIR)/parse/shell_expand.c \
 					$(SRC_DIR)/utils/utils.c
 
 OBJ_FILES		=	$(SRC_FILES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
