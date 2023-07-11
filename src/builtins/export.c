@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/11 13:02:44 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:06:32 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static bool	ft_is_valid_var_format(const char *var)
 {
 	size_t	i;
-	
+
 	if (!var || var[0] == '\0' || var[0] == '-')
 		return (false);
 	if (var[0] != '_' && ft_isalpha(var[0]) == 0)
