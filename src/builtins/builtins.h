@@ -6,8 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 14:30:49 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/10 11:10:33 by mpuig-ma         ###   ########.fr       */
-/*   Updated: 2023/06/08 15:13:10 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:13:29 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +35,14 @@ typedef struct s_cmd
 	int		tokens_count;
 }			t_cmd;
 
-int		builtin_do(t_cmd *cmd, t_data *data);
-int		is_builtin(char *str);
+int		ft_builtin_do(t_cmd *cmd, t_data *data);
+int		ft_is_builtin(char *str);
 
 int		ft_env(t_data *data);
 int		ft_echo(t_cmd *cmd);
 int		ft_pwd(t_data *data);
 int		ft_cd(t_cmd *cmd, t_data *data);
-void	ft_unset(char *var, t_data *data);
+void	ft_unset(char **var, t_data *data);
 void	ft_export(t_cmd *cmd, t_data *data);
 
 int		ft_error(int error, const char *directory);

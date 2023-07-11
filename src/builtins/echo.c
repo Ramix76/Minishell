@@ -6,14 +6,14 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:52:40 by framos-p          #+#    #+#             */
-/*   Updated: 2023/06/06 16:45:15 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:40:14 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "minishell.h"
 
-static void	echo(char **tokens, int newline)
+static void	ft_echoed(char **tokens, int newline)
 {
 	int	i;
 
@@ -52,6 +52,6 @@ int	ft_echo(t_cmd *cmd)
 			break ;
 		newline = 0;
 	}
-	echo(&cmd->tokens[i], newline);
+	ft_echoed(&cmd->tokens[i], newline);
 	return (EXIT_SUCCESS);
 }

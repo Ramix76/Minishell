@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quoting.c                                          :+:      :+:    :+:   */
+/*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/06 16:11:06 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/06 16:39:55 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/07/11 12:12:38 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/07/11 12:12:58 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*ft_expand_quotes(char *line)
+{
+	char	*parsed;
+
+	parsed = line;
+	return (parsed);
+}
 
 /*
  * ft_quotes_closed

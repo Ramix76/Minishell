@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/07/10 11:01:14 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/07/11 13:10:49 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ endif
 SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/job_control.c \
 					$(SRC_DIR)/pipe_do.c \
-					$(SRC_DIR)/quoting.c \
+					$(SRC_DIR)/quotes.c \
 					$(SRC_DIR)/shell_do.c \
 					$(SRC_DIR)/shell_expand.c \
 					$(SRC_DIR)/utils.c \

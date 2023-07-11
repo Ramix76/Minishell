@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/06 16:40:12 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:31:24 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@
 # define PROMPT			"homersh$ "
 # define SH_VERSION		"homersh, version 0.1-alpha"
 
-char	*shell_expand(char *str, t_data *data);
-int		shell_do(t_data *data);
+char	*ft_shell_expand(char *str, t_data *data);
+int		ft_shell_do(t_data *data);
 char	*ft_quotes_closed(char *line);
 char	*ft_expand_quotes(char *line);
 
-int		job_control(char *line, t_data *data);
-int		command_do(char *line, t_data *data);
+int		ft_job_control(char *line, t_data *data);
+int		ft_command_do(char *line, t_data *data);
 
-int		pipe_do(char *line, t_data *data);
+int		ft_pipe_do(char *line, t_data *data);
 
-char	*cmd_path(char *argv, const char **envp);
-void	free_str_arr(char **split);
+char	*ft_cmd_path(char *argv, const char **envp);
+void	ft_free_str_arr(char **split);
 
 #endif /* minishell.h */
