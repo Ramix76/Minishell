@@ -6,15 +6,15 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:45:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/11 16:03:53 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:07:10 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static char	*ft_getname(char *ptr);
-char		*ft_getvar(char	*ptr, t_data *data);
-char		*ft_expand_dollar(char *expanded, char *dollar, t_data *data);
+static char	*ft_getvar(char	*ptr, t_data *data);
+static char	*ft_expand_dollar(char *expanded, char *dollar, t_data *data);
 
 char	*ft_shell_expand(char *line, t_data *data)
 {
@@ -35,7 +35,7 @@ char	*ft_shell_expand(char *line, t_data *data)
 	return (expanded);
 }
 
-char	*ft_expand_dollar(char *expanded, char *dollar, t_data *data)
+static char	*ft_expand_dollar(char *expanded, char *dollar, t_data *data)
 {
 	char	*name;
 	char	*value;
@@ -57,42 +57,6 @@ char	*ft_expand_dollar(char *expanded, char *dollar, t_data *data)
 	}
 	return (expanded);
 }
-
-/*
-char	*ft_shell_expand(char *line, t_data *data)
-{
-	char	*expanded;
-	char	*dollar;
-	char	*name;
-	char	*value;
-	char	*temp;
-	size_t	name_len;
-	size_t	p;
-
-	expanded = ft_strdup(line);
-	dollar = ft_strchr(expanded, '$');
-	while (dollar != NULL)
-	{
-		name = ft_getname(dollar);
-		if (name != NULL)
-		{
-			value = ft_getenv(name, (const char **) data->envp);
-			if (value == NULL)
-				value = "";
-			name_len = ft_strlen(name);
-			ft_memmove(dollar + 1, dollar + 1 + name_len,
-				ft_strlen(dollar + name_len));
-			p = ft_strchr(expanded, '$') - expanded;
-			temp = ft_strpjoin_replace(expanded, value, p);
-			free(expanded);
-			expanded = temp;
-			free(name);
-		}
-		dollar = ft_strchr(expanded, '$');
-	}
-	return (expanded);
-}
-*/
 
 /*
  * As in GNU's Bash Reference:
@@ -132,7 +96,7 @@ static char	*ft_getname(char *ptr)
  *
  */
 
-char	*ft_getvar(char	*name, t_data *data)
+static char	*ft_getvar(char	*name, t_data *data)
 {
 	char	*value;
 
