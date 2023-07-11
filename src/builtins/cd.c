@@ -6,14 +6,14 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/10 11:42:09 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:39:25 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "minishell.h"
 
-static int	change_to_parent_directory(const char *directory, t_data *data)
+static int	ft_change_to_parent_directory(const char *directory, t_data *data)
 {
 	char		cwd[PATH_MAX];
 	const char	*prev_dir;
@@ -39,7 +39,7 @@ static int	change_to_parent_directory(const char *directory, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static int	change_to_home_directory(const char *directory, t_data *data)
+static int	ft_change_to_home_directory(const char *directory, t_data *data)
 {
 	char		path[PATH_MAX];
 	const char	*home_dir;
@@ -62,7 +62,7 @@ static int	change_to_home_directory(const char *directory, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static int	change_to_previous_directory(t_data *data)
+static int	ft_change_to_previous_directory(t_data *data)
 {
 	char		cwd[PATH_MAX];
 	const char	*prev_dir;
@@ -93,7 +93,7 @@ static int	change_to_previous_directory(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static int	change_to_directory(const char *directory, t_data *data)
+static int	ft_change_to_directory(const char *directory, t_data *data)
 {
 	char			cwd[PATH_MAX];
 	struct stat		dir_stat;
@@ -134,12 +134,12 @@ int	ft_cd(t_cmd *cmd, t_data *data)
 				cmd->tokens[0]), EXIT_FAILURE);
 	if (cmd->tokens[1] == NULL || cmd->tokens[1][0] == '\0'
 		|| ft_strncmp(cmd->tokens[1], "~", 1) == 0)
-		return (change_to_home_directory(cmd->tokens[1], data), EXIT_SUCCESS);
+		return (ft_change_to_home_directory(cmd->tokens[1], data), EXIT_SUCCESS);
 	else if (ft_strncmp(cmd->tokens[1], "..", 2) == 0)
-		return (change_to_parent_directory(cmd->tokens[1], data), EXIT_SUCCESS);
+		return (ft_change_to_parent_directory(cmd->tokens[1], data), EXIT_SUCCESS);
 	else if (ft_strncmp(cmd->tokens[1], "-", 1) == 0)
-		return (change_to_previous_directory(data), EXIT_SUCCESS);
+		return (ft_change_to_previous_directory(data), EXIT_SUCCESS);
 	else
-		return (change_to_directory(cmd->tokens[1], data), EXIT_SUCCESS);
+		return (ft_change_to_directory(cmd->tokens[1], data), EXIT_SUCCESS);
 	return (EXIT_FAILURE);
 }
