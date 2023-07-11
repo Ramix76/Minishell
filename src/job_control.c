@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/11 12:33:24 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:59:15 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_job_control(char *line, t_data *data)
 		ft_redirect_in(job, &fd);
 		if (*job == '|')
 			n = ft_strspn(job, METACHARACTERS);
-		temp = strpbrk(temp + 1, CONTROLOP);
+		temp = ft_strpbrk(temp + 1, CONTROLOP);
 		ft_simple_command(job + n, data);
 		free(job);
 	}
@@ -77,7 +77,7 @@ static int	ft_simple_command(char *job, t_data *data)
 	char	*temp;
 
 	n = 0;
-	temp = strpbrk(job, REDIRECTOP);
+	temp = ft_strpbrk(job, REDIRECTOP);
 	while (temp != NULL)
 	{
 		if (ft_strncmp(temp, "<< ", 3) == 0)
@@ -86,7 +86,7 @@ static int	ft_simple_command(char *job, t_data *data)
 			temp += 3;
 		}
 		//else if (*temp == '<')
-		temp = strpbrk(temp + 1, REDIRECTOP);
+		temp = ft_strpbrk(temp + 1, REDIRECTOP);
 	}
 	//printf("job is \"%s\"\n", job + n);
 	ft_command_do(job + n, data);
