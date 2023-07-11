@@ -6,8 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/11 12:28:51 by mpuig-ma         ###   ########.fr       */
-/*   Updated: 2023/06/12 15:48:53 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:14:17 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +54,7 @@ static int	ft_init_data(int argc, char **argv, char **envp, t_data *data)
 	ft_setenv("SHLVL", temp, 1, (char ***) &data->envp);
 	free(temp);
 	data->exit_code = 0;
+	//data->exported_vars = NULL;
 	return (EXIT_SUCCESS);
 }
 
