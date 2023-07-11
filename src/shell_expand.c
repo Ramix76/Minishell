@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:45:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/10 17:29:22 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:53:23 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char	*ft_getname(char *ptr)
 		return (NULL);
 	++ptr;
 	name_len = 0;
-	// beginning with a letter or underscore.
 	if (*ptr == '\0' && (ft_isalpha(*ptr) == 0 || *ptr != '_'))
 		return (NULL);
 	while (ptr[name_len] != '\0' && (ft_isalnum(ptr[name_len]) != 0
@@ -42,39 +41,58 @@ char	*ft_getname(char *ptr)
 	return (name);
 }
 
+char	*ft_strpjoin_replace(char *s1, char *s2, size_t p)
+{
+	size_t	len_s1;
+	size_t	len_s2;
+	char	*strpjoin;
+
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	if (p > len_s1)
+		p = len_s1;
+	strpjoin = (char *) malloc(sizeof(char) * (len_s1 + len_s2 + 1));
+	if (strpjoin == NULL)
+		return (0);
+	ft_bzero(strpjoin, len_s1 + len_s2 + 1);
+	if (len_s1 > 0)
+		ft_strlcat(strpjoin, s1, p + 1);
+	ft_strlcat(strpjoin, s2, p + len_s2 + 1);
+	if (len_s1 > 0)
+		ft_strlcat(strpjoin, s1 + p + 1, p + len_s2 + len_s1 + 1);
+	return (strpjoin);
+}
+
 char	*shell_expand(char *line, t_data *data)
 {
 	char	*expanded;
 	char	*dollar;
-	char	*temp;
 	char	*name;
-	char	*name_value;
+	char	*value;
+	char	*temp;
+	size_t	name_len;
+	size_t	p;
 
-	dollar = ft_strchr(line, '$');
-	if (dollar != NULL)
-		expanded = ft_strndup(line, line - dollar);
+	expanded = ft_strdup(line);
+	dollar = ft_strchr(expanded, '$');
 	while (dollar != NULL)
 	{
 		name = ft_getname(dollar);
 		if (name != NULL)
 		{
-			name_value = ft_getenv(name, (const char **) data->envp);
-			if (name_value == NULL)
-				name_value = "";
-			temp = ft_strjoin("", name_value);
+			value = ft_getenv(name, (const char **) data->envp);
+			if (value == NULL)
+				value = "";
+			name_len = ft_strlen(name);
+			memmove(dollar + 1, dollar + 1 + name_len, ft_strlen(dollar + name_len));
+			p = ft_strchr(expanded, '$') - expanded;
+			temp = ft_strpjoin_replace(expanded, value, p);
 			free(expanded);
 			expanded = temp;
-		}
-		if (name != NULL)
-		{
-			dollar = ft_strchr(dollar + ft_strlen(name), '$');
 			free(name);
 		}
-		else
-			dollar = ft_strchr(dollar + 1, '$');
+		dollar = ft_strchr(expanded, '$');
 	}
-	if (expanded == NULL)
-		expanded = ft_strdup(line);
 	return (expanded);
 }
 
