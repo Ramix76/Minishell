@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/07/11 16:45:02 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/07/11 17:09:44 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ endif
 
 #/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 
-SRC_FILES		:=	$(SRC_DIR)/main.c \
+SRC_FILES		:=	$(SRC_DIR)/enviroment.c \
+					$(SRC_DIR)/main.c \
 					$(SRC_DIR)/builtins/builtin_do.c \
 					$(SRC_DIR)/builtins/echo.c \
 					$(SRC_DIR)/builtins/pwd.c \

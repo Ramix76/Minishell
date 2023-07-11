@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/11 16:33:02 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/11 17:31:12 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,11 @@ int		ft_redirect_in(char *line, int *fd);
 int		ft_execute_command(char *argv, char **envp, int *fd);
 
 char	*ft_expand_dollar(char *expanded, char *dollar, t_data *data);
+
+/* enviroment.c */
+
+int		ft_init_env(char **envp, t_data *data);
+int		ft_shlvl(char **envp, t_data *data);
+int		ft_sethome(t_data *data);
 
 #endif /* minishell.h */
