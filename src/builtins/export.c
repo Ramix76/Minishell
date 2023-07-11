@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/11 13:06:32 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:14:59 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,14 @@ void	ft_export(t_cmd *cmd, t_data *data)
 		envp_copy = malloc(sizeof(char *) * (envp_count + 1));
 		if (envp_copy == NULL)
 		{
-			free_str_arr(envp_copy);
+			ft_free_str_arr(envp_copy);
 			ft_fprintf(stderr, "Fatal Error\n");
 			return ;
 		}
 		ft_memcpy(envp_copy, data->envp, (envp_count + 1) * sizeof(char *));
 		ft_sorting_env(envp_copy, envp_count);
 		ft_print_sorted_env(envp_copy);
-		free_str_arr(envp_copy);
+		ft_free_str_arr(envp_copy);
 		return ;
 	}
 	i = 1;
