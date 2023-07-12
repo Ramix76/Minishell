@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/12 12:59:11 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:14:13 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdbool.h>
 # include <sys/stat.h>
 # include <dirent.h>
+# include <fstab.h>/* _PATH_FSTAB */
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -77,6 +78,7 @@ int		ft_pipe_do(char *line, t_data *data);
 /* expansions */
 
 char	*ft_shell_expand(char *str, t_data *data);
+char	*ft_expand_tilde(char *line, t_data *data);
 char	*ft_expand_dollar(char *expanded, char *dollar, t_data *data);
 char	*ft_quotes_closed(char *line);
 char	*ft_expand_quotes(char *line);
