@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _minishell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:36:58 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/11 11:34:27 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:59:18 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,17 @@
 typedef struct s_data
 {
 	char	*path;
+	char	*exec_dir;
 	char	**envp;
-	int		exit_code;
 	char	**exported_vars;
+	int		exit_code;
 }			t_data;
+
+typedef struct s_cmd
+{
+	char	*command;
+	char	**tokens;
+	int		tokens_count;
+}			t_cmd;
 
 #endif /* _minishell.h */

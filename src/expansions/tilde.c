@@ -1,27 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   tilde.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 12:12:12 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/12 12:14:15 by framos-p         ###   ########.fr       */
+/*   Created: 2023/07/11 16:34:37 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/07/12 12:24:41 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(t_data *data)
+char	*ft_expand_tilde(char *line, t_data *data)
 {
-	int	i;
+	char	*expanded;
+	char	*tilde;
 
-	i = 0;
-	while (data->envp[i])
+	(void) data;
+	expanded = ft_strdup(line);
+	tilde = ft_strchr(expanded, '~');
+	while (tilde != NULL)
 	{
-		if (ft_putendl_fd(data->envp[i], STDOUT_FILENO) == -1)
-			return (EXIT_FAILURE);
-		i++;
+		tilde = ft_strchr(expanded, '~');
 	}
-	return (EXIT_SUCCESS);
+	return (expanded);
 }
+
+/*
+int	main(void)
+{
+	char	*line;
+	char	*expanded;
+
+	line = "expand this shit ~";
+	expanded = ft_expand_tilde(line, NULL);
+	printf("%s\n", expanded);
+	free(expanded);
+	return (0);
+}
+*/

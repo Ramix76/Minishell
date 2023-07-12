@@ -1,30 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   utils_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/29 12:54:40 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/12 12:15:07 by framos-p         ###   ########.fr       */
+/*   Created: 2023/07/12 12:19:32 by framos-p          #+#    #+#             */
+/*   Updated: 2023/07/12 12:20:35 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_pwd(t_data *data)
+void	ft_print_sorted_env(char **envp_copy)
 {
-	char	*cwd;
+	int	i;
 
-	cwd = ft_getenv("PWD", (const char **)data->envp);
-	if (cwd != NULL)
+	i = 0;
+	while (envp_copy[i])
+		i++;
+	i--;
+	while (i >= 0)
 	{
-		printf("%s\n", cwd);
-		return (EXIT_SUCCESS);
+		printf("declare -x %s\n", envp_copy[i]);
+		i--;
 	}
-	else
+}
+
+void	ft_sorting_env(char **arr, size_t size)
+{
+	size_t	i;
+	size_t	j;
+	char	*temp;
+
+	i = 0;
+	while (i < size)
 	{
-		ft_fprintf(stderr, "Failed to retrieve current directory\n");
-		return (EXIT_FAILURE);
+		j = i + 1;
+		while (j < size)
+		{
+			if (ft_strcmp(arr[i], arr[j]) < 0)
+			{
+				temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+			j++;
+		}
+		i++;
 	}
 }

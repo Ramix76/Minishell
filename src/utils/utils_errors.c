@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_builtins.c                                   :+:      :+:    :+:   */
+/*   utils_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 11:47:12 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/11 12:41:23 by framos-p         ###   ########.fr       */
+/*   Created: 2023/07/12 12:21:08 by framos-p          #+#    #+#             */
+/*   Updated: 2023/07/12 12:21:44 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "builtins.h"
+#include "minishell.h"
 
 static void	ft_cd_write_errors(const char *format, const char *directory)
 {

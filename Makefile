@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
+#    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/07/11 13:10:49 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/07/12 12:59:20 by framos-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,21 +38,30 @@ endif
 
 #/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 
-SRC_FILES		:=	$(SRC_DIR)/main.c \
-					$(SRC_DIR)/job_control.c \
-					$(SRC_DIR)/pipe_do.c \
-					$(SRC_DIR)/quotes.c \
-					$(SRC_DIR)/shell_do.c \
-					$(SRC_DIR)/shell_expand.c \
-					$(SRC_DIR)/utils.c \
+SRC_FILES		:=	$(SRC_DIR)/enviroment.c \
+					$(SRC_DIR)/main.c \
 					$(SRC_DIR)/builtins/builtin_do.c \
 					$(SRC_DIR)/builtins/echo.c \
 					$(SRC_DIR)/builtins/pwd.c \
 					$(SRC_DIR)/builtins/env.c \
 					$(SRC_DIR)/builtins/cd.c \
-					$(SRC_DIR)/builtins/utils_builtins.c \
+					$(SRC_DIR)/utils/utils_export.c \
+					$(SRC_DIR)/utils/utils_errors.c \
 					$(SRC_DIR)/builtins/unset.c \
-					$(SRC_DIR)/builtins/export.c
+					$(SRC_DIR)/builtins/export.c \
+					$(SRC_DIR)/expansions/filename.c \
+					$(SRC_DIR)/expansions/parameter.c \
+					$(SRC_DIR)/expansions/quote_removal.c \
+					$(SRC_DIR)/expansions/shell_expand.c \
+					$(SRC_DIR)/expansions/tilde.c \
+					$(SRC_DIR)/job/execute.c \
+					$(SRC_DIR)/job/here_doc.c \
+					$(SRC_DIR)/job/job_control.c \
+					$(SRC_DIR)/job/pipe_do.c \
+					$(SRC_DIR)/job/shell_do.c \
+					$(SRC_DIR)/utils/utils.c \
+					$(SRC_DIR)/utils/utils_export.c \
+					$(SRC_DIR)/utils/utils_errors.c
 
 OBJ_FILES		=	$(SRC_FILES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEP_FILES		=	$(OBJ_FILES:.o=.d)
