@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
+/*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/12 12:12:21 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:59:11 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,21 @@
 # define PROMPT			"homersh$ "
 # define SH_VERSION		"homersh, version 0.1-alpha"
 
-char	*ft_shell_expand(char *str, t_data *data);
-int		ft_shell_do(t_data *data);
-char	*ft_quotes_closed(char *line);
-char	*ft_expand_quotes(char *line);
+# define METACHARACTERS	" \n\t|&;()<>\0"
+# define OPERATORS		"\n|&;()<>"
+# define CONTROLOP		"\n|&"
+# define REDIRECTOP		"<>"
 
-int		ft_job_control(char *line, t_data *data);
-int		ft_command_do(char *line, t_data *data);
+/* enviroment.c */
 
-int		ft_pipe_do(char *line, t_data *data);
+int		ft_init_env(char **envp, t_data *data);
+int		ft_shlvl(char **envp, t_data *data);
+int		ft_sethome(t_data *data);
 
-char	*ft_cmd_path(char *argv, const char **envp);
-void	ft_free_str_arr(char **split);
+/* builtins */
 
 int		ft_builtin_do(t_cmd *cmd, t_data *data);
 int		ft_is_builtin(char *str);
-
 int		ft_env(t_data *data);
 int		ft_echo(t_cmd *cmd);
 int		ft_pwd(t_data *data);
@@ -67,6 +66,32 @@ int		ft_cd(t_cmd *cmd, t_data *data);
 void	ft_unset(char **var, t_data *data);
 void	ft_export(t_cmd *cmd, t_data *data);
 
+/* commands */
+
+int		ft_execute_command(char *argv, char **envp, int *fd);
+int		ft_shell_do(t_data *data);
+int		ft_job_control(char *line, t_data *data);
+int		ft_command_do(char *line, t_data *data);
+int		ft_pipe_do(char *line, t_data *data);
+
+/* expansions */
+
+char	*ft_shell_expand(char *str, t_data *data);
+char	*ft_expand_dollar(char *expanded, char *dollar, t_data *data);
+char	*ft_quotes_closed(char *line);
+char	*ft_expand_quotes(char *line);
+
+/* redirections */
+
+int		ft_here_doc(char *limiter);
+int		ft_read_stdin(int wr_fd, char *limiter);
+int		ft_write_output(int fd, char *output);
+int		ft_redirect_in(char *line, int *fd);
+
+/* utils */
+
+char	*ft_cmd_path(char *argv, const char **envp);
+void	ft_free_str_arr(char **split);
 int		ft_error(int error, const char *directory);
 void	ft_print_sorted_env(char **envp_copy);
 void	ft_sorting_env(char **arr, size_t size);
