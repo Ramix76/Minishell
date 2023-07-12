@@ -6,11 +6,10 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:33:26 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/11 12:42:20 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:14:35 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
 #include "minishell.h"
 
 static int	ft_find_var_index(char *var, char **envp)

@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:36:58 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/11 11:34:27 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:09:54 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,12 @@ typedef struct s_data
 	int		exit_code;
 	char	**exported_vars;
 }			t_data;
+
+typedef struct s_cmd
+{
+	char	*command;
+	char	**tokens;
+	int		tokens_count;
+}			t_cmd;
 
 #endif /* _minishell.h */

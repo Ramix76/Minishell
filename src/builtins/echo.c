@@ -6,11 +6,10 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:52:40 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/11 12:40:14 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:13:53 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
 #include "minishell.h"
 
 static void	ft_echoed(char **tokens, int newline)

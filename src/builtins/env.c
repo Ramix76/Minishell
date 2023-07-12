@@ -6,11 +6,11 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:12:12 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/11 12:40:25 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:14:15 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "minishell.h"
 
 int	ft_env(t_data *data)
 {
