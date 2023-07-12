@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/07/12 12:59:20 by framos-p         ###   ########.fr        #
+#    Updated: 2023/07/12 13:08:06 by framos-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,6 @@ SRC_FILES		:=	$(SRC_DIR)/enviroment.c \
 					$(SRC_DIR)/builtins/pwd.c \
 					$(SRC_DIR)/builtins/env.c \
 					$(SRC_DIR)/builtins/cd.c \
-					$(SRC_DIR)/utils/utils_export.c \
-					$(SRC_DIR)/utils/utils_errors.c \
 					$(SRC_DIR)/builtins/unset.c \
 					$(SRC_DIR)/builtins/export.c \
 					$(SRC_DIR)/expansions/filename.c \

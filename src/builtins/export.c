@@ -6,46 +6,51 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/12 12:14:25 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:57:16 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	ft_is_valid_var_format(const char *var)
+static void	ft_add_exported_var(const char *var, t_data *data)
 {
-	size_t	i;
+	int		count;
+	char	**new_exported_vars;
 
-	if (!var || var[0] == '\0' || var[0] == '-')
-		return (false);
-	if (var[0] != '_' && ft_isalpha(var[0]) == 0)
-		return (false);
-	i = 1;
-	while (var[i] != '\0')
+	count = 0;
+	while (data->exported_vars && data->exported_vars[count] != NULL)
+		count++;
+	new_exported_vars = ft_realloc(data->exported_vars,
+			sizeof(char *) * (count + 1), sizeof(char *) * (count + 2));
+	if (new_exported_vars == NULL)
 	{
-		if (var[i] != '_' && ft_isalnum(var[i]) == 0)
-			return (false);
-		i++;
+		ft_fprintf(stderr, "Fatal Error\n");
+		return ;
 	}
-	return (true);
+	data->exported_vars = new_exported_vars;
+	data->exported_vars[count] = ft_strdup(var);
+	data->exported_vars[count + 1] = NULL;
 }
 
-static void	ft_process_export_token(char *token, t_data *data)
+static void	ft_process_variable_without_value(const char *var, t_data *data)
 {
-	char	*name;
-	char	*value;
+	ft_add_exported_var(var, data);
+}
+
+static void	ft_process_variable_with_value(const char *var, t_data *data)
+{
 	char	*equal_sign;
 	size_t	name_length;
+	char	*name;
+	char	*value;
 
-	equal_sign = ft_strchr(token, '=');
-	if (equal_sign == NULL)
-		return ;
-	name_length = equal_sign - token;
-	name = ft_strndup(token, name_length);
+	equal_sign = ft_strchr(var, '=');
+	name_length = equal_sign - var;
+	name = ft_strndup(var, name_length);
 	value = equal_sign + 1;
 	if (!ft_is_valid_var_format(name))
 	{
-		ft_error(ERR_FORMAT, name);
+		ft_error(ERR_FORMAT, "export", name);
 		free(name);
 		return ;
 	}
@@ -53,99 +58,42 @@ static void	ft_process_export_token(char *token, t_data *data)
 	free(name);
 }
 
-void	ft_export(t_cmd *cmd, t_data *data)
+static void	ft_process_export_token(char *token, t_data *data)
 {
-	size_t	count;
-	size_t	i;
-	size_t	envp_count;
-	char	**envp_copy;
-	char	**exported_vars;
+	char	*equal_sign;
 
-	count = 0;
-	while (cmd->tokens[count])
-		count++;
-	if (count == 1)
-	{
-		envp_count = 0;
-		while (data->envp[envp_count])
-			envp_count++;
-		envp_copy = malloc(sizeof(char *) * (envp_count + 1));
-		if (envp_copy == NULL)
-		{
-			ft_free_str_arr(envp_copy);
-			ft_fprintf(stderr, "Fatal Error\n");
-			return ;
-		}
-		ft_memcpy(envp_copy, data->envp, (envp_count + 1) * sizeof(char *));
-		ft_sorting_env(envp_copy, envp_count);
-		ft_print_sorted_env(envp_copy);
-		ft_free_str_arr(envp_copy);
-		return ;
-	}
-	i = 1;
-	exported_vars = NULL; // Variable para almacenar las variables exportadas
-	while (i < count)
-	{
-		ft_process_export_token(cmd->tokens[i], data);
-		if (ft_strchr(cmd->tokens[i], '=') == NULL)
-		{
-			// La variable no tiene un valor asignado, guardarla en exported_vars
-			if (exported_vars == NULL)
-				exported_vars = ft_calloc(count - i + 1, sizeof(char *));
-			exported_vars[i - 1] = ft_strdup(cmd->tokens[i]);
-		}
-		i++;
-	}
-
-	// Guardar las variables exportadas que no se han creado en el entorno
-	if (exported_vars != NULL)
-	{
-		i = 0;
-		while (exported_vars[i] != NULL)
-		{
-			// Aquí puedes realizar alguna acción con las variables exportadas que no se han creado en el entorno
-			// Por ejemplo, imprimir las variables o guardarlas en una estructura de datos para su posterior uso
-			printf("Variable exportada pero no creada en el entorno: %s\n", exported_vars[i]);
-			free(exported_vars[i]);
-			i++;
-		}
-		free(exported_vars);
-	}
+	equal_sign = ft_strchr(token, '=');
+	if (equal_sign == NULL)
+		ft_process_variable_without_value(token, data);
+	else
+		ft_process_variable_with_value(token, data);
 }
 
-/*
 void	ft_export(t_cmd *cmd, t_data *data)
 {
-	size_t	count;
-	size_t	i;
-	size_t	envp_count;
-	char	**envp_copy;
+	int	count;
+	int	i;
 
+	if (data->exported_vars == NULL)
+	{
+		data->exported_vars = malloc(sizeof(char *));
+		if (data->exported_vars == NULL)
+		{
+			ft_fprintf(stderr, "Fatal Error\n");
+			return ;
+		}
+		data->exported_vars[0] = NULL;
+	}
 	count = 0;
 	while (cmd->tokens[count])
 		count++;
 	if (count == 1)
 	{
-		envp_count = 0;
-		while (data->envp[envp_count])
-			envp_count++;
-		envp_copy = malloc(sizeof(char *) * (envp_count + 1));
-		if (envp_copy == NULL)
-		{
-			ft_free_str_arr(envp_copy);
-			ft_fprintf(stderr, "Fatal Error\n");
-			return ;
-		}
-		ft_memcpy(envp_copy, data->envp, (envp_count + 1) * sizeof(char *));
-		ft_sorting_env(envp_copy, envp_count);
-		ft_print_sorted_env(envp_copy);
-		ft_free_str_arr(envp_copy);
+		ft_print_env_vars(data);
+		ft_print_exported_vars(data);
 		return ;
 	}
-	i = 1;
-	while (i < count)
-	{
+	i = 0;
+	while (++i < count)
 		ft_process_export_token(cmd->tokens[i], data);
-		i++;
-	}
-}*/
+}

@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/11 17:12:25 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/12 13:48:19 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static int	ft_init_data(int argc, char **argv, char **envp, t_data *data)
 	data->exec_dir = (char *) malloc(sizeof(char) * PATH_MAX);
 	data->exec_dir = getcwd(data->exec_dir, PATH_MAX);
 	data->exit_code = 0;
+	data->exported_vars = NULL;
 	ft_shlvl(envp, data);
 	ft_sethome(data);
 	return (EXIT_SUCCESS);
