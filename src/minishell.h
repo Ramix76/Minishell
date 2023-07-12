@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/11 17:31:12 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/12 11:58:25 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # include "_minishell.h"/* */
 # include "builtins.h"/* */
 
-# define WR	1
-# define RD	0
+# define WR				1
+# define RD				0
 
 # define SH_NAME		"homersh"
 # define PROMPT			"homersh$ "
@@ -39,32 +39,37 @@
 # define CONTROLOP		"\n|&"
 # define REDIRECTOP		"<>"
 
-char	*ft_shell_expand(char *str, t_data *data);
+/* enviroment.c */
+
+int		ft_init_env(char **envp, t_data *data);
+int		ft_shlvl(char **envp, t_data *data);
+int		ft_sethome(t_data *data);
+
+/* commands */
+
+int		ft_execute_command(char *argv, char **envp, int *fd);
 int		ft_shell_do(t_data *data);
+int		ft_job_control(char *line, t_data *data);
+int		ft_command_do(char *line, t_data *data);
+int		ft_pipe_do(char *line, t_data *data);
+
+/* expansions */
+
+char	*ft_shell_expand(char *str, t_data *data);
+char	*ft_expand_dollar(char *expanded, char *dollar, t_data *data);
 char	*ft_quotes_closed(char *line);
 char	*ft_expand_quotes(char *line);
 
-int		ft_job_control(char *line, t_data *data);
-int		ft_command_do(char *line, t_data *data);
-
-int		ft_pipe_do(char *line, t_data *data);
-
-char	*ft_cmd_path(char *argv, const char **envp);
-void	ft_free_str_arr(char **split);
+/* redirections */
 
 int		ft_here_doc(char *limiter);
 int		ft_read_stdin(int wr_fd, char *limiter);
 int		ft_write_output(int fd, char *output);
 int		ft_redirect_in(char *line, int *fd);
 
-int		ft_execute_command(char *argv, char **envp, int *fd);
+/* utils */
 
-char	*ft_expand_dollar(char *expanded, char *dollar, t_data *data);
-
-/* enviroment.c */
-
-int		ft_init_env(char **envp, t_data *data);
-int		ft_shlvl(char **envp, t_data *data);
-int		ft_sethome(t_data *data);
+char	*ft_cmd_path(char *argv, const char **envp);
+void	ft_free_str_arr(char **split);
 
 #endif /* minishell.h */
