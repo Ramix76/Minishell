@@ -6,11 +6,14 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:58:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/11 18:02:16 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:27:09 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdbool.h>
+
+static char	*ft_gethome_fstab(void);
 
 int	ft_init_env(char **envp, t_data *data)
 {
@@ -42,10 +45,49 @@ int	ft_shlvl(char **envp, t_data *data)
 	else
 		sh_lvl = ft_atoi(shlvl);
 	temp = ft_itoa(++sh_lvl);
-	ft_setenv("SHLVL", temp, 1, (char ***) &data->envp);
+	ft_setenv("SHLVL", temp, 1, &data->envp);
 	free(temp);
 	return (EXIT_SUCCESS);
 }
+
+/* 
+ * As in GNU's Bash Reference:
+ * If this login name is the null string,
+ * the tilde is replaced with the value of the HOME shell variable.
+ * If HOME is unset, the home directory of the user executing the
+ * shell is substituted instead. Otherwise, the tilde-prefix
+ * is replaced with the home directory associated with the
+ * specified login name.
+ *
+ */
+
+#ifndef FORBIDDEN_FUNCTIONS
+
+int	ft_sethome(t_data *data)
+{
+	bool	need2free;
+	char	*home;
+
+	need2free = false;
+	home = ft_getenv("HOME", (const char **) data->envp);
+	if (home == NULL)
+	{
+		home = getenv("HOME");
+		if (home == NULL)
+		{
+			home = ft_gethome_fstab();
+			if (home == NULL)
+				home = "hey";
+			need2free = true;
+		}
+	}
+	data->home = ft_strdup(home);
+	if (need2free == true)
+		free(home);
+	return (EXIT_SUCCESS);
+}
+
+#else /* FORBIDDEN_FUNCTIONS is defined */
 
 int	ft_sethome(t_data *data)
 {
@@ -54,16 +96,38 @@ int	ft_sethome(t_data *data)
 	home = ft_getenv("HOME", (const char **) data->envp);
 	if (home == NULL)
 	{
-		// If this login name is the null string,
-		// the tilde is replaced with the value of the HOME shell variable.
-		// If HOME is unset, the home directory of the user executing the 
-		// shell is substituted instead. Otherwise, the tilde-prefix
-		// is replaced with the home directory associated with the 
-		// specified login name.
-		//
-		// lstat -> userid of process.
 		home = getlogin();
-		//ft_setenv("HOME", home, 1, &data->envp);
+		ft_setenv("HOME", home, 1, &data->envp);
 	}
 	return (EXIT_SUCCESS);
+}
+
+#endif
+
+static char	*ft_gethome_fstab(void)
+{
+	int		file;
+	char	*home;
+	char	*line;
+	char	*prev_line;
+	char	**split;
+
+	file = open(_PATH_FSTAB, O_RDONLY);
+	if (file == -1)
+		return (NULL);
+	line = get_next_line(file);
+	while (line != NULL)
+	{
+		prev_line = line;
+		line = get_next_line(file);
+		if (line == NULL)
+			break ;
+		free(prev_line);
+	}
+	close(file);
+	split = ft_split(prev_line, ' ');
+	free(prev_line);
+	home = ft_strdup(split[1]);
+	ft_free_str_arr(split);
+	return (home);
 }
