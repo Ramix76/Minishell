@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/13 11:54:30 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:45:06 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_change_to_parent_directory(const char *dir, t_data *data)
 	const char	*prev_dir;
 
 	prev_dir = ft_getenv("PWD", (const char **)data->envp);
-	printf("antes: %s\n", prev_dir);
+	prev_dir = ft_strdup(prev_dir);
 	if (access("..", R_OK) == -1)
 	{
 		ft_error(NO_PERMIT, "cd", "..");
@@ -33,10 +33,8 @@ static int	ft_change_to_parent_directory(const char *dir, t_data *data)
 	{
 		if (getcwd(cwd, PATH_MAX) != NULL)
 			ft_setenv("PWD", cwd, 1, &data->envp);
-		printf("en medio: %s\n", prev_dir);
 		if (ft_setenv("OLDPWD", prev_dir, 1, &data->envp) != 0)
 			return (ft_error(ERR_OPWD, "cd", dir), EXIT_FAILURE);
-		printf("despues: %s\n", prev_dir);
 	}
 	else if (getcwd(cwd, PATH_MAX) != NULL)
 		ft_setenv("PWD", cwd, 1, &data->envp);

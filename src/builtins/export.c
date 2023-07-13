@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/13 11:58:02 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/13 17:03:40 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,7 @@ void	ft_export(t_cmd *cmd, t_data *data)
 		count++;
 	if (count == 1)
 	{
-		ft_print_env_vars(data);
-		if (data->exported_vars != NULL)
-			ft_print_exported_vars(data);
+		ft_print_combined_vars(data);
 		return ;
 	}
 	i = 0;

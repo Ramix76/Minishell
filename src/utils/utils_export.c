@@ -6,44 +6,18 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:19:32 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/12 16:31:24 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:57:22 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_sorted_env(char **envp_copy)
-{
-	int		i;
-	char	*equal_sign;
-	size_t	name_length;
-	char	*name;
-	char	*value;
+static void	ft_sorting_env(char **arr, size_t size);
 
-	i = 0;
-	while (envp_copy[i])
-		i++;
-	i--;
-	while (i >= 0)
-	{
-		equal_sign = ft_strchr(envp_copy[i], '=');
-		if (equal_sign != NULL)
-		{
-			name_length = equal_sign - envp_copy[i];
-			name = ft_strndup(envp_copy[i], name_length);
-			value = equal_sign + 1;
-			if (ft_is_valid_var_format(name))
-				printf("declare -x %.*s=\"%s\"\n", (int)name_length, name, value);
-			free(name);
-		}
-		i--;
-	}
-}
-
-void	ft_sorting_env(char **arr, int size)
+static void	ft_sorting_env(char **arr, size_t size)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 	char	*temp;
 
 	i = 0;
@@ -64,35 +38,38 @@ void	ft_sorting_env(char **arr, int size)
 	}
 }
 
-void	ft_print_env_vars(t_data *data)
+void	ft_sort_vars(char **vars)
 {
-	int	envp_count;
-	char	**envp_copy;
+	int		count;
+	int		start;
+	int		end;
+	char	*temp;
 
-	envp_count = 0;
-	while (data->envp[envp_count])
-		envp_count++;
-	envp_copy = malloc(sizeof(char *) * (envp_count + 1));
-	if (envp_copy == NULL)
+	count = 0;
+	while (vars[count])
+		count++;
+	ft_sorting_env(vars, count);
+	start = 0;
+	end = count - 1;
+	while (start < end)
 	{
-		ft_fprintf(stderr, "Fatal Error\n");
-		return ;
+		temp = vars[start];
+		vars[start] = vars[end];
+		vars[end] = temp;
+		start++;
+		end--;
 	}
-	ft_memcpy(envp_copy, data->envp, (envp_count + 1) * sizeof(char *));
-	ft_sorting_env(envp_copy, envp_count);
-	ft_print_sorted_env(envp_copy);
-	free(envp_copy);
 }
 
-void	ft_print_exported_vars(t_data *data)
+void	ft_print_sorted_vars(char **vars)
 {
-	int	exported_count;
+	int	i;
 
-	exported_count = 0;
-	while (data->exported_vars[exported_count])
+	i = 0;
+	while (vars[i])
 	{
-		printf("declare -x %s\n", data->exported_vars[exported_count]);
-		exported_count++;
+		printf("declare -x %s\n", vars[i]);
+		i++;
 	}
 }
 

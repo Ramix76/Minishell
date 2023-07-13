@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:31:50 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/13 11:55:24 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:44:46 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_builtin_do(t_cmd *cmd, t_data *data)
 	else if (ft_strncmp(exec_name, "env", 3) == 0)
 		ft_env(data);
 	else if (ft_strncmp(exec_name, "unset", 5) == 0)
-		ft_unset(&cmd->tokens[1], data);
+		ft_unset(cmd, data);
 	else if (ft_strncmp(exec_name, "export", 6) == 0)
 		ft_export(cmd, data);
 	return (EXIT_SUCCESS);

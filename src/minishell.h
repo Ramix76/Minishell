@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/12 19:00:31 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:57:20 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		ft_env(t_data *data);
 int		ft_echo(t_cmd *cmd);
 int		ft_pwd(t_data *data);
 int		ft_cd(t_cmd *cmd, t_data *data);
-void	ft_unset(char **var, t_data *data);
+void	ft_unset(t_cmd *cmd, t_data *data);
 void	ft_export(t_cmd *cmd, t_data *data);
 
 /* commands */
@@ -101,10 +101,10 @@ int		ft_redirect_in(char *line, int *fd);
 char	*ft_cmd_path(char *argv, const char **envp);
 void	ft_free_str_arr(char **split);
 void	ft_error(int error, const char *command, const char *directory);
-void	ft_print_sorted_env(char **envp_copy);
-void	ft_print_env_vars(t_data *data);
-void	ft_print_exported_vars(t_data *data);
-void	ft_sorting_env(char **arr, int size);
 bool	ft_is_valid_var_format(const char *var);
+char	**ft_strduparr(char **arr);
+void	ft_print_combined_vars(t_data *data);
+void	ft_sort_vars(char **vars);
+void	ft_print_sorted_vars(char **vars);
 
 #endif /* minishell.h */
