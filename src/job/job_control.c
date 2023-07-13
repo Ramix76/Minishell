@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/12 18:14:08 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/13 17:29:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	ft_command_do(char *line, t_data *data)
 	if (cmd.tokens[0] == NULL)
 		return (ft_free_str_arr(cmd.tokens), EXIT_SUCCESS);
 	cmd_path = ft_which(cmd.tokens[0], data->path);
+	cmd_path = ft_realpath(cmd.tokens[0], NULL);
 	if (ft_is_builtin(cmd.tokens[0]) == EXIT_SUCCESS)
 		ft_builtin_do(&cmd, data);
 	else if (ft_strncmp(cmd.tokens[0], "exit", 4) == 0)
