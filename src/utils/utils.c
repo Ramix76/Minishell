@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 10:09:37 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/11 12:28:14 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:39:26 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_free_str_arr(char **split)
 {
 	int	i;
 
+	if (split == NULL)
+		return ;
 	i = 0;
 	while (split[i] != NULL)
 	{

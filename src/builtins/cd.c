@@ -6,11 +6,16 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/12 18:51:50 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:54:30 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	ft_change_to_parent_directory(const char *dir, t_data *data);
+static int	ft_change_to_home_directory(const char *dir, t_data *data);
+static int	ft_change_to_previous_directory(t_data *data);
+static int	ft_change_to_directory(const char *dir, t_data *data);
 
 static int	ft_change_to_parent_directory(const char *dir, t_data *data)
 {
