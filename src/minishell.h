@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/13 16:57:20 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:08:14 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ char	**ft_strduparr(char **arr);
 void	ft_print_combined_vars(t_data *data);
 void	ft_sort_vars(char **vars);
 void	ft_print_sorted_vars(char **vars);
+void	ft_free_vars(char **vars);
 
 #endif /* minishell.h */

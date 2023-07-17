@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 10:09:37 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/13 17:02:31 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:08:08 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	**ft_strduparr(char **arr)
 	char	**copy;
 	int		i;
 
+	if (arr == NULL)
+		return (NULL);
 	count = 0;
 	while (arr[count])
 		count++;

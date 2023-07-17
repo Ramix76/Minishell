@@ -6,13 +6,28 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:19:32 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/13 16:57:22 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:03:32 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	ft_sorting_env(char **arr, size_t size);
+
+void	ft_free_vars(char **vars)
+{
+	int	i;
+
+	if (vars == NULL)
+		return ;
+	i = 0;
+	while (vars[i])
+	{
+		free(vars[i]);
+		i++;
+	}
+	free(vars);
+}
 
 static void	ft_sorting_env(char **arr, size_t size)
 {

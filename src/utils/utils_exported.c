@@ -6,30 +6,48 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:35:32 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/13 17:05:21 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:09:46 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static char	**ft_combine_vars(char **env_vars, char **exported_vars);
-static void	ft_free_vars(char **vars);
+static int	ft_env_count(char **env_vars);
+static int	ft_exported_count(char **exported_vars);
+static char	**ft_allocate_combined_vars(int env_count, int exported_count);
 
-static char	**ft_combine_vars(char **env_vars, char **exported_vars)
+static int	ft_env_count(char **env_vars)
 {
-	int		env_count;
-	int		exported_count;
-	int		total_count;
-	char	**combined_vars;
-	int		i;
-	int		j;
+	int	count;
 
-	env_count = 0;
-	while (env_vars[env_count])
-		env_count++;
-	exported_count = 0;
-	while (exported_vars[exported_count])
-		exported_count++;
+	count = 0;
+	if (env_vars != NULL)
+	{
+		while (env_vars[count])
+			count++;
+	}
+	return (count);
+}
+
+static int	ft_exported_count(char **exported_vars)
+{
+	int	count;
+
+	count = 0;
+	if (exported_vars != NULL)
+	{
+		while (exported_vars[count])
+			count++;
+	}
+	return (count);
+}
+
+static char	**ft_allocate_combined_vars(int env_count, int exported_count)
+{
+	char	**combined_vars;
+	int		total_count;
+
 	total_count = env_count + exported_count;
 	combined_vars = malloc(sizeof(char *) * (total_count + 1));
 	if (combined_vars == NULL)
@@ -37,6 +55,22 @@ static char	**ft_combine_vars(char **env_vars, char **exported_vars)
 		ft_fprintf(stderr, "Fatal Error\n");
 		return (NULL);
 	}
+	return (combined_vars);
+}
+
+char	**ft_combine_vars(char **env_vars, char **exported_vars)
+{
+	int		env_count;
+	int		exported_count;
+	int		i;
+	int		j;
+	char	**combined_vars;
+
+	env_count = ft_env_count(env_vars);
+	exported_count = ft_exported_count(exported_vars);
+	combined_vars = ft_allocate_combined_vars(env_count, exported_count);
+	if (combined_vars == NULL)
+		return (NULL);
 	i = 0;
 	while (i < env_count)
 	{
@@ -49,21 +83,8 @@ static char	**ft_combine_vars(char **env_vars, char **exported_vars)
 		combined_vars[i + j] = ft_strdup(exported_vars[j]);
 		j++;
 	}
-	combined_vars[total_count] = NULL;
+	combined_vars[env_count + exported_count] = NULL;
 	return (combined_vars);
-}
-
-static void	ft_free_vars(char **vars)
-{
-	int	i;
-
-	i = 0;
-	while (vars[i])
-	{
-		free(vars[i]);
-		i++;
-	}
-	free(vars);
 }
 
 void	ft_print_combined_vars(t_data *data)
@@ -74,14 +95,20 @@ void	ft_print_combined_vars(t_data *data)
 	char	**combined_vars;
 
 	env_count = 0;
-	while (data->envp[env_count])
-		env_count++;
+	if (data->envp != NULL)
+	{
+		while (data->envp[env_count])
+			env_count++;
+	}
 	env_copy = ft_strduparr(data->envp);
 	exported_copy = ft_strduparr(data->exported_vars);
 	combined_vars = ft_combine_vars(env_copy, exported_copy);
-	ft_sort_vars(combined_vars);
-	ft_print_sorted_vars(combined_vars);
+	if (combined_vars != NULL)
+	{
+		ft_sort_vars(combined_vars);
+		ft_print_sorted_vars(combined_vars);
+		ft_free_vars(combined_vars);
+	}
 	ft_free_vars(env_copy);
 	ft_free_vars(exported_copy);
-	ft_free_vars(combined_vars);
 }
