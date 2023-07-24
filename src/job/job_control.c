@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/13 17:29:22 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:50:47 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int	ft_simple_command(char *job, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
+// falta append line to cmd_path
 int	ft_command_do(char *line, t_data *data)
 {
 	t_cmd	cmd;
@@ -82,7 +83,7 @@ int	ft_command_do(char *line, t_data *data)
 		ft_fprintf(stderr, "%s: %s: command not found\n",
 			SH_NAME, cmd.tokens[0]);
 	else
-		ft_pipe_do(line, data);
+		ft_pipe_do(cmd_path, data);
 	free(cmd_path);
 	ft_free_str_arr(cmd.tokens);
 	return (EXIT_SUCCESS);
