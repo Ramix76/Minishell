@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:21:08 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/12 19:00:34 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:54:36 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,18 @@ void	ft_error(int error, const char *command, const char *dir)
 		error_msg = ERR_FORMAT_MSG;
 	if (error_msg != NULL)
 		ft_fprintf(stderr, "%s: %s: %s: %s\n", SH_NAME, command, dir, error_msg);
+}
+
+int	ft_cd_check_arguments(t_cmd *cmd)
+{
+	int			i;
+
+	i = -1;
+	cmd->tokens_count = 0;
+	while (cmd->tokens[++i] != NULL)
+		cmd->tokens_count++;
+	if (cmd->tokens_count - 1 > 2)
+		return (ft_fprintf(stderr, "%s: %s: No such file or directory\n",
+				SH_NAME, cmd->tokens[0], EXIT_FAILURE));
+	return (EXIT_SUCCESS);
 }

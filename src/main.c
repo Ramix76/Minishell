@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/13 11:29:14 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:29:49 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
+	ft_init_signals();
 	ft_init_args(argc, argv);
 	ft_init_data(argc, argv, envp, &data);
 	data.exit_code = ft_shell_do(&data);

@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/13 12:45:06 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:54:59 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,19 +113,21 @@ static int	ft_change_to_directory(const char *dir, t_data *data)
 
 int	ft_cd(t_cmd *cmd, t_data *data)
 {
-	int	i;
+	int			ret;
+	const char	*home_dir;
 
-	i = -1;
-	cmd->tokens_count = 0;
-	while (cmd->tokens[++i] != NULL)
-		cmd->tokens_count++;
-	if (cmd->tokens_count - 1 > 2)
-		return (ft_fprintf(stderr, "minishell: %s No such file or directory\n",
-				cmd->tokens[0]), EXIT_FAILURE);
-	if (cmd->tokens[1] == NULL || cmd->tokens[1][0] == '\0'
-		|| ft_strncmp(cmd->tokens[1], "~", 1) == 0)
+	ret = ft_cd_check_arguments(cmd);
+	if (ret == EXIT_FAILURE)
+		return (ret);
+	if (cmd->tokens[1] == NULL || cmd->tokens[1][0] == '\0')
+	{
+		home_dir = ft_getenv("HOME", (const char **)data->envp);
+		if (!home_dir)
+			return (ft_fprintf(stderr, "%s: cd: HOME no set\n", SH_NAME),
+				EXIT_FAILURE);
 		return (ft_change_to_home_directory(cmd->tokens[1], data),
 			EXIT_SUCCESS);
+	}
 	else if (ft_strncmp(cmd->tokens[1], "..", 2) == 0)
 		return (ft_change_to_parent_directory(cmd->tokens[1], data),
 			EXIT_SUCCESS);

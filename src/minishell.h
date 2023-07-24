@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/17 14:08:14 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:57:56 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdbool.h>/* booleans */
 # include <sys/stat.h>/* lstat */
 # include <dirent.h>/* opendir, closedir */
+# include <signal.h>/* signal handling */
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -56,6 +57,8 @@
 # define OPERATORS		"\n|&;()<>"
 # define CONTROLOP		"\n|&"
 # define REDIRECTOP		"<>"
+
+extern volatile sig_atomic_t	g_running;
 
 /* enviroment.c */
 
@@ -107,5 +110,10 @@ void	ft_print_combined_vars(t_data *data);
 void	ft_sort_vars(char **vars);
 void	ft_print_sorted_vars(char **vars);
 void	ft_free_vars(char **vars);
+int		ft_cd_check_arguments(t_cmd *cmd);
+
+/* signals */
+
+void	ft_init_signals(void);
 
 #endif /* minishell.h */
