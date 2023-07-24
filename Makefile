@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/07/12 17:50:06 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/07/24 12:05:58 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,9 @@ SRC_FILES		:=	$(SRC_DIR)/enviroment.c \
 					$(SRC_DIR)/job/shell_do.c \
 					$(SRC_DIR)/utils/utils.c \
 					$(SRC_DIR)/utils/utils_export.c \
-					$(SRC_DIR)/utils/utils_errors.c
+					$(SRC_DIR)/utils/utils_errors.c \
+					$(SRC_DIR)/utils/utils_exported.c \
+					$(SRC_DIR)/signals/handling.c
 
 OBJ_FILES		=	$(SRC_FILES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEP_FILES		=	$(OBJ_FILES:.o=.d)
