@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:36:58 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/12 12:59:18 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:06:25 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 typedef struct s_data
 {
 	char	*path;
+	char	*home;
 	char	*exec_dir;
 	char	**envp;
 	char	**exported_vars;

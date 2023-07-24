@@ -6,28 +6,30 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:19:32 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/12 12:20:35 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:03:32 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_sorted_env(char **envp_copy)
+static void	ft_sorting_env(char **arr, size_t size);
+
+void	ft_free_vars(char **vars)
 {
 	int	i;
 
+	if (vars == NULL)
+		return ;
 	i = 0;
-	while (envp_copy[i])
-		i++;
-	i--;
-	while (i >= 0)
+	while (vars[i])
 	{
-		printf("declare -x %s\n", envp_copy[i]);
-		i--;
+		free(vars[i]);
+		i++;
 	}
+	free(vars);
 }
 
-void	ft_sorting_env(char **arr, size_t size)
+static void	ft_sorting_env(char **arr, size_t size)
 {
 	size_t	i;
 	size_t	j;
@@ -49,4 +51,57 @@ void	ft_sorting_env(char **arr, size_t size)
 		}
 		i++;
 	}
+}
+
+void	ft_sort_vars(char **vars)
+{
+	int		count;
+	int		start;
+	int		end;
+	char	*temp;
+
+	count = 0;
+	while (vars[count])
+		count++;
+	ft_sorting_env(vars, count);
+	start = 0;
+	end = count - 1;
+	while (start < end)
+	{
+		temp = vars[start];
+		vars[start] = vars[end];
+		vars[end] = temp;
+		start++;
+		end--;
+	}
+}
+
+void	ft_print_sorted_vars(char **vars)
+{
+	int	i;
+
+	i = 0;
+	while (vars[i])
+	{
+		printf("declare -x %s\n", vars[i]);
+		i++;
+	}
+}
+
+bool	ft_is_valid_var_format(const char *var)
+{
+	int	i;
+
+	if (!var || var[0] == '\0' || var[0] == '-')
+		return (false);
+	if (var[0] != '_' && ft_isalpha(var[0]) == 0)
+		return (false);
+	i = 1;
+	while (var[i] != '\0')
+	{
+		if (var[i] != '_' && ft_isalnum(var[i]) == 0)
+			return (false);
+		i++;
+	}
+	return (true);
 }

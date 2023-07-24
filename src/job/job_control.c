@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/11 16:25:10 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:50:47 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,23 @@ static int	ft_simple_command(char *job, t_data *data)
 			ft_here_doc("--");
 			temp += 3;
 		}
-		//else if (*temp == '<')
 		temp = ft_strpbrk(temp + 1, REDIRECTOP);
 	}
-	//printf("job is \"%s\"\n", job + n);
 	ft_command_do(job + n, data);
 	return (EXIT_SUCCESS);
 }
 
+// falta append line to cmd_path
 int	ft_command_do(char *line, t_data *data)
 {
 	t_cmd	cmd;
 	char	*cmd_path;
 
-	line = ft_shell_expand(line, data);
 	cmd.tokens = ft_split(line, ' ');
 	if (cmd.tokens[0] == NULL)
 		return (ft_free_str_arr(cmd.tokens), EXIT_SUCCESS);
 	cmd_path = ft_which(cmd.tokens[0], data->path);
+	cmd_path = ft_realpath(cmd.tokens[0], NULL);
 	if (ft_is_builtin(cmd.tokens[0]) == EXIT_SUCCESS)
 		ft_builtin_do(&cmd, data);
 	else if (ft_strncmp(cmd.tokens[0], "exit", 4) == 0)
@@ -84,8 +83,7 @@ int	ft_command_do(char *line, t_data *data)
 		ft_fprintf(stderr, "%s: %s: command not found\n",
 			SH_NAME, cmd.tokens[0]);
 	else
-		ft_pipe_do(line, data);
-	free(line);
+		ft_pipe_do(cmd_path, data);
 	free(cmd_path);
 	ft_free_str_arr(cmd.tokens);
 	return (EXIT_SUCCESS);
@@ -102,8 +100,6 @@ int	ft_pipe_do(char *line, t_data *data)
 	pipe_split = ft_split(line, '|');
 	while (pipe_split[i] != NULL)
 	{
-		//if (ft_strchr(pipe_split[i], '<') != 0)
-		//	ft_printf("redir\n");
 		data->exit_code = ft_execute_command(pipe_split[i++], data->envp, &fd);
 	}
 	close(fd);

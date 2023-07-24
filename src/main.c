@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/11 17:12:25 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:09:05 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
+	ft_init_signals();
 	ft_init_args(argc, argv);
 	ft_init_data(argc, argv, envp, &data);
 	data.exit_code = ft_shell_do(&data);
 	ft_free_str_arr(data.envp);
+	ft_free_str_arr(data.exported_vars);
 	return (data.exit_code);
 }
 
@@ -47,6 +49,8 @@ static int	ft_init_data(int argc, char **argv, char **envp, t_data *data)
 	data->exec_dir = (char *) malloc(sizeof(char) * PATH_MAX);
 	data->exec_dir = getcwd(data->exec_dir, PATH_MAX);
 	data->exit_code = 0;
+	data->home = NULL;
+	data->exported_vars = NULL;
 	ft_shlvl(envp, data);
 	ft_sethome(data);
 	return (EXIT_SUCCESS);

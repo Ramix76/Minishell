@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/12 12:59:11 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:09:59 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@
 # include <stdlib.h>/* */
 # include <string.h>/* */
 # include <unistd.h>/* write, isatty */
-# include <stdbool.h>
-# include <sys/stat.h>
-# include <dirent.h>
+# include <fstab.h>/* _PATH_FSTAB */
+# include <stdbool.h>/* booleans */
+# include <sys/stat.h>/* lstat */
+# include <dirent.h>/* opendir, closedir */
+# include <signal.h>/* signal handling */
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -39,6 +41,14 @@
 # define ERR_PWD			7
 # define ERR_OPWD			8
 # define ERR_FORMAT			9
+# define NO_SUCH_DIR_MSG	"No such file or diectory"
+# define NO_DIR_MSG			"Not a directory"
+# define NO_PERMIT_MSG		"Permission denied"
+# define NO_HOME_MSG		"HOME not set"
+# define ERR_CD_MSG			"Failed to get current directory"
+# define ERR_PWD_MSG		"Failed to set PWD"
+# define ERR_OPWD_MSG		"Failed to set OLDPWD"
+# define ERR_FORMAT_MSG		"not a valid identifier"
 
 # define SH_NAME		"homersh"
 # define PROMPT			"homersh$ "
@@ -48,6 +58,8 @@
 # define OPERATORS		"\n|&;()<>"
 # define CONTROLOP		"\n|&"
 # define REDIRECTOP		"<>"
+
+extern volatile sig_atomic_t	g_running;
 
 /* enviroment.c */
 
@@ -63,7 +75,7 @@ int		ft_env(t_data *data);
 int		ft_echo(t_cmd *cmd);
 int		ft_pwd(t_data *data);
 int		ft_cd(t_cmd *cmd, t_data *data);
-void	ft_unset(char **var, t_data *data);
+void	ft_unset(t_cmd *cmd, t_data *data);
 void	ft_export(t_cmd *cmd, t_data *data);
 
 /* commands */
@@ -77,6 +89,7 @@ int		ft_pipe_do(char *line, t_data *data);
 /* expansions */
 
 char	*ft_shell_expand(char *str, t_data *data);
+char	*ft_expand_tilde(char *line, t_data *data);
 char	*ft_expand_dollar(char *expanded, char *dollar, t_data *data);
 char	*ft_quotes_closed(char *line);
 char	*ft_expand_quotes(char *line);
@@ -92,8 +105,17 @@ int		ft_redirect_in(char *line, int *fd);
 
 char	*ft_cmd_path(char *argv, const char **envp);
 void	ft_free_str_arr(char **split);
-int		ft_error(int error, const char *directory);
-void	ft_print_sorted_env(char **envp_copy);
-void	ft_sorting_env(char **arr, size_t size);
+void	ft_error(int error, const char *command, const char *directory);
+bool	ft_is_valid_var_format(const char *var);
+char	**ft_strduparr(char **arr);
+void	ft_print_combined_vars(t_data *data);
+void	ft_sort_vars(char **vars);
+void	ft_print_sorted_vars(char **vars);
+void	ft_free_vars(char **vars);
+int		ft_cd_check_arguments(t_cmd *cmd);
+
+/* signals */
+
+void	ft_init_signals(void);
 
 #endif /* minishell.h */

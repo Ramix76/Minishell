@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:19:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/11 16:22:04 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:12:25 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ int	ft_execute_command(char *argv, char **envp, int *fd)
 	if (pid == 0)
 	{
 		cmd = ft_split(argv, ' ');
-		//dup2(fildes[WR], STDOUT_FILENO);
-		//close(fildes[RD]);
-		//close(fildes[WR]);
 		ft_execvpe(cmd[0], (char const **) cmd, (const char **) envp);
 		exit (EXIT_FAILURE);
 	}
@@ -40,3 +37,16 @@ int	ft_execute_command(char *argv, char **envp, int *fd)
 	*fd = fildes[RD];
 	return (exit_code);
 }
+
+/*
+ * 	if (pid == 0)
+ * 	{
+ * 		cmd = ft_split(argv, ' ');
+ * 		dup2(fildes[WR], STDOUT_FILENO);
+ * 		close(fildes[RD]);
+ * 		close(fildes[WR]);
+ * 		ft_execvpe(cmd[0], (char const **) cmd, (const char **) envp);
+ * 		exit (EXIT_FAILURE);
+ * 		}
+ *
+ */
