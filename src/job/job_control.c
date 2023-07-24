@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/24 11:50:47 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:37:26 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,10 @@ int	ft_command_do(char *line, t_data *data)
 		ft_fprintf(stderr, "%s: %s: command not found\n",
 			SH_NAME, cmd.tokens[0]);
 	else
+	{
+		printf("%s\n", cmd_path);
 		ft_pipe_do(cmd_path, data);
+	}
 	free(cmd_path);
 	ft_free_str_arr(cmd.tokens);
 	return (EXIT_SUCCESS);
