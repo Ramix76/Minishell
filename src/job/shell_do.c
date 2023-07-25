@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/25 16:13:07 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:25:44 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ int	ft_shell_do(t_data *data)
 	{
 		line = readline(PROMPT);
 		if (line == NULL)
-		{
-			printf("exit\n");
-			exit(EXIT_SUCCESS);
-		}
+			return (printf("exit\n"), EXIT_SUCCESS);
 		if (line[0] != '\0')
 			add_history(line);
 		parsed_line = ft_shell_expand(line, data);
