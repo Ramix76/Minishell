@@ -6,16 +6,34 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:32:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/11 16:39:43 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:50:54 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static char	*ft_replace_dollar(char *expanded, char *dollar, t_data *data);
 static char	*ft_getname(char *ptr);
 static char	*ft_getvar(char	*ptr, t_data *data);
 
-char	*ft_expand_dollar(char *expanded, char *dollar, t_data *data)
+char	*ft_expand_dollar(char *expanded, t_data *data)
+{
+	char	*dollar;
+	char	*temp;
+
+	dollar = ft_strchr(expanded, '$');
+	while (dollar != NULL)
+	{
+		temp = ft_replace_dollar(expanded, dollar, data);
+		if (temp != expanded)
+			free(expanded);
+		expanded = temp;
+		dollar = ft_strchr(expanded, '$');
+	}
+	return (expanded);
+}
+
+static char	*ft_replace_dollar(char *expanded, char *dollar, t_data *data)
 {
 	char	*name;
 	char	*value;
