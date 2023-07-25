@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/25 16:07:32 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:23:12 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@
 
 # include "libft.h"/* */
 # include "_minishell.h"/* t_data, t_cmd */
+
+# ifndef EXIT_SUCCESS
+#  define EXIT_SUCCESS		0
+# endif
+
+# ifndef EXIT_FAILURE
+#  define EXIT_FAILURE		1
+# endif
+
+/* CONSIDER moving WR RD to file pipes */
 
 # define WR					1
 # define RD					0
@@ -64,6 +74,8 @@
 # define ERR_OPWD_MSG		"Failed to set OLDPWD"
 # define ERR_FORMAT			9
 # define ERR_FORMAT_MSG		"not a valid identifier"
+
+/* used for: <insert reason> */
 
 extern sig_atomic_t			g_running;
 
