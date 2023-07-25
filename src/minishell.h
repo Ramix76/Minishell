@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/24 12:09:59 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:07:32 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,37 +29,43 @@
 # include <readline/history.h>
 
 # include "libft.h"/* */
-# include "_minishell.h"/* */
+# include "_minishell.h"/* t_data, t_cmd */
 
 # define WR					1
 # define RD					0
+
+# define SH_NAME			"homersh"
+# define PROMPT				"homersh$ "
+# define SH_VERSION			"homersh, version 0.1-alpha"
+
+# define METACHARACTERS		" \n\t|&;()<>\0"
+# define OPERATORS			"\n|&;()<>"
+# define CONTROLOP			"\n|&"
+# define REDIRECTOP			"<>"
+
+/*
+ * PLEASE, replace macro strings with errno and perror();
+ * VERY THANK YOU
+ */
+
 # define NO_SUCH_DIR		2
+# define NO_SUCH_DIR_MSG	"No such file or diectory" // ENOENT
 # define NO_DIR				3
+# define NO_DIR_MSG			"Not a directory" // same as ENOENT?
 # define NO_PERMIT			4
+# define NO_PERMIT_MSG		"Permission denied" // EACCES
 # define NO_HOME			5
-# define ERR_CD				6
-# define ERR_PWD			7
-# define ERR_OPWD			8
-# define ERR_FORMAT			9
-# define NO_SUCH_DIR_MSG	"No such file or diectory"
-# define NO_DIR_MSG			"Not a directory"
-# define NO_PERMIT_MSG		"Permission denied"
 # define NO_HOME_MSG		"HOME not set"
+# define ERR_CD				6
 # define ERR_CD_MSG			"Failed to get current directory"
+# define ERR_PWD			7
 # define ERR_PWD_MSG		"Failed to set PWD"
+# define ERR_OPWD			8
 # define ERR_OPWD_MSG		"Failed to set OLDPWD"
+# define ERR_FORMAT			9
 # define ERR_FORMAT_MSG		"not a valid identifier"
 
-# define SH_NAME		"homersh"
-# define PROMPT			"homersh$ "
-# define SH_VERSION		"homersh, version 0.1-alpha"
-
-# define METACHARACTERS	" \n\t|&;()<>\0"
-# define OPERATORS		"\n|&;()<>"
-# define CONTROLOP		"\n|&"
-# define REDIRECTOP		"<>"
-
-extern volatile sig_atomic_t	g_running;
+extern sig_atomic_t			g_running;
 
 /* enviroment.c */
 
@@ -116,6 +122,6 @@ int		ft_cd_check_arguments(t_cmd *cmd);
 
 /* signals */
 
-void	ft_init_signals(void);
+void	ft_signal_handler(int signal);
 
 #endif /* minishell.h */

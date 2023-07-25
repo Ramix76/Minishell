@@ -6,20 +6,21 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/24 12:09:05 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:11:54 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_init_args(int argc, char **argv);
-static int	ft_init_data(int argc, char **argv, char **envp, t_data *data);
+static int		ft_init_args(int argc, char **argv);
+static int		ft_init_data(int argc, char **argv, char **envp, t_data *data);
+static int		ft_init_signals(void);
+sig_atomic_t	g_running = 1;
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	ft_init_signals();
 	ft_init_args(argc, argv);
 	ft_init_data(argc, argv, envp, &data);
 	data.exit_code = ft_shell_do(&data);
@@ -53,5 +54,18 @@ static int	ft_init_data(int argc, char **argv, char **envp, t_data *data)
 	data->exported_vars = NULL;
 	ft_shlvl(envp, data);
 	ft_sethome(data);
+	ft_init_signals();
+	return (EXIT_SUCCESS);
+}
+
+static int	ft_init_signals(void)
+{
+	struct sigaction	sa;
+
+	g_running = 1;
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_handler = &ft_signal_handler;
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
 	return (EXIT_SUCCESS);
 }
