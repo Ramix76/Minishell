@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/27 16:52:48 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:43:50 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ static int	ft_init_data(int argc, char **argv, char **envp, t_data *data)
 	ft_init_signals();
 
 	// init exported_vars (pff)
-	data->exported_vars = (char **) malloc(sizeof(char *) * 1);
-	data->exported_vars[0] = (char *) malloc(sizeof(char) * 1);
-	data->exported_vars[0][0] = '\0';
+	data->exported_vars = (char **) malloc(sizeof(char *) * 100);
 	return (EXIT_SUCCESS);
 }
 

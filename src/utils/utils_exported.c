@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:35:32 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/27 17:03:08 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:32:17 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,10 @@ void	ft_print_combined_vars(t_data *data)
 			env_count++;
 	}
 	env_copy = ft_strduparr(data->envp);
+	if (data->exported_vars == NULL)
+	{	printf("is NULL\n"); }
 	exported_copy = ft_strduparr(data->exported_vars);
+	exit(9);
 	combined_vars = ft_combine_vars(env_copy, exported_copy);
 	if (combined_vars != NULL)
 	{
