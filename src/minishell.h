@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/25 17:07:39 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/27 10:56:05 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,5 +134,9 @@ int		ft_cd_check_arguments(t_cmd *cmd);
 /* signals */
 
 void	ft_signal_handler(int signal);
+
+/* Wildcard */
+
+char	**ft_files_and_dirs(void);
 
 #endif /* minishell.h */
