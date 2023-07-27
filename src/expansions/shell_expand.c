@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:45:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/25 17:01:11 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:03:43 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*ft_shell_expand(char *line, t_data *data)
 
 	expanded = ft_expand_tilde(line, data);
 	expanded = ft_expand_dollar(expanded, data);
+//	expanded = ft_expand_asteric(expanded, data);
 	expanded = ft_expand_quotes(expanded, data);
 	return (expanded);
 }

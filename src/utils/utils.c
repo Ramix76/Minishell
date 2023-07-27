@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 10:09:37 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/17 14:08:08 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:10:34 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,24 @@ void	ft_free_str_arr(char **split)
 
 char	**ft_strduparr(char **arr)
 {
-	int		count;
 	char	**copy;
+	int		count;
 	int		i;
 
 	if (arr == NULL)
 		return (NULL);
 	count = 0;
-	while (arr[count])
+	while (arr != NULL && arr[count] != NULL)
 		count++;
-	copy = malloc(sizeof(char *) * (count + 1));
+	--count;
+	copy = (char **) malloc(sizeof(char *) * 1);
 	if (copy == NULL)
 	{
 		ft_fprintf(stderr, "Fatal Error\n");
 		return (NULL);
 	}
 	i = 0;
+	exit(9);
 	while (i < count)
 	{
 		copy[i] = ft_strdup(arr[i]);
