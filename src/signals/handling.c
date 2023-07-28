@@ -26,5 +26,4 @@ void	ft_signal_handler(int signal)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	return ;
 }
