@@ -94,11 +94,6 @@ void	ft_print_combined_vars(t_data *data)
 	char	**exported_copy;
 	char	**combined_vars;
 
-	if (data->exported_vars == NULL)
-	{ return; }
-	else
-		printf("no here\n");
-
 	env_count = 0;
 	if (data->envp != NULL)
 	{
@@ -106,10 +101,7 @@ void	ft_print_combined_vars(t_data *data)
 			env_count++;
 	}
 	env_copy = ft_strduparr(data->envp);
-	if (data->exported_vars == NULL)
-	{	printf("is NULL\n"); }
 	exported_copy = ft_strduparr(data->exported_vars);
-	exit(9);
 	combined_vars = ft_combine_vars(env_copy, exported_copy);
 	if (combined_vars != NULL)
 	{
