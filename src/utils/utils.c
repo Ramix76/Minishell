@@ -29,19 +29,19 @@ void	ft_free_str_arr(char **split)
 
 char	**ft_strduparr(char **arr)
 {
-	char	**copy;
 	int		count;
+	char	**copy;
 
+	count = 0;
 	if (arr == NULL)
 		return (NULL);
-	count = 0;
-	while (arr != NULL && arr[count] != NULL)
+	while (arr[count] != NULL)
 		++count;
 	copy = (char **) malloc(sizeof(char *) * (count + 1));
 	if (copy == NULL)
 		return (NULL);
 	copy[count] = NULL;
-	while (count-- > 0)
+	while (count-- > 0 && arr[count] != NULL)
 		copy[count] = ft_strdup(arr[count]);
 	return (copy);
 }
