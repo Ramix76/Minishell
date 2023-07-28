@@ -21,7 +21,7 @@ int	ft_init_env(char **envp, t_data *data)
 	int		len;
 
 	len = 0;
-	while (envp[len] != NULL)
+	while (envp != NULL && envp[len] != NULL)
 		++len;
 	new_envp = (char **) malloc(sizeof(char *) * (len + 1));
 	if (new_envp == NULL)
