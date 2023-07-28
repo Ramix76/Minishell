@@ -77,7 +77,7 @@ static int	ft_change_to_previous_directory(t_data *data)
 		return (ft_error(NO_SUCH_DIR, current_dir, prev_dir), EXIT_FAILURE);
 	if (ft_setenv("OLDPWD", prev_dir, 1, &data->envp) != 0)
 		return (ft_error(ERR_OPWD, "cd", prev_dir), EXIT_FAILURE);
-	if (getcwd(cwd, PATH_MAX) == NULL 
+	if (getcwd(cwd, PATH_MAX) == NULL
 		|| ft_setenv("PWD", cwd, 1, &data->envp) != 0)
 		return (ft_error(ERR_PWD, "cd", prev_dir), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
@@ -97,7 +97,7 @@ static int	ft_change_to_directory(const char *dir, t_data *data)
 			if (chdir(dir) == 0)
 			{
 				if (getcwd(cwd, PATH_MAX) != NULL)
-					return (ft_setenv("PWD", cwd, 1, &data->envp), 
+					return (ft_setenv("PWD", cwd, 1, &data->envp),
 						EXIT_SUCCESS);
 			}
 			else
