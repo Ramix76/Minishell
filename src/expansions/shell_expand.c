@@ -18,7 +18,8 @@ char	*ft_shell_expand(char *line, t_data *data)
 
 	expanded = ft_expand_tilde(line, data);
 	expanded = ft_expand_dollar(expanded, data);
-//	expanded = ft_expand_asteric(expanded, data);
 	expanded = ft_expand_quotes(expanded, data);
 	return (expanded);
 }
+
+//	expanded = ft_expand_asteric(expanded, data);

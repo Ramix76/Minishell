@@ -22,9 +22,6 @@ char	*ft_expand_quotes(char *line, t_data *data)
 	expanded = line;
 	if (ft_quotes_closed(expanded) != NULL)
 		return (expanded);
-	
-	// other function ...
-
 	return (expanded);
 }
 
