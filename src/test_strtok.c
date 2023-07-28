@@ -53,36 +53,8 @@ static char	*ft_word(char *str)
 		while (*(str + i) == delimiter && delimiter == ' ')
 		{
 			++i;
-			//continue ;
 		}
 	}
 	word = ft_strndup(str, i);
 	return (word);
 }
-
-/*
-static char	*ft_quotes_closed(char *line)
-{
-	char	c;
-	char	*s;
-	char	*ss;
-
-	s = line;
-	while (s != NULL && *s != '\0')
-	{
-		if (*s == 042 || *s == 047)
-		{
-			c = *s;
-			ss = s + 1;
-			while (*ss != '\0' && *ss != c)
-				++ss;
-			if (*ss == '\0')
-				return (s);
-			else
-				s = ss;
-		}
-		++s;
-	}
-	return (NULL);
-}
-*/
