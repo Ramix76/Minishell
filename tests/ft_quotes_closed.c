@@ -20,7 +20,8 @@
 /*
  * ft_quotes_closed
  * if quotes (single or double) are closed, returns NULL
- * else (if not closed) returns position of last unclosed quote (simple or double).
+ * else (if not closed) returns position of last unclosed quote
+ * (simple or double).
  */
 
 char	*ft_quotes_closed(char *line)

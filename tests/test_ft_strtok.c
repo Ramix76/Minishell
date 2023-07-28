@@ -13,10 +13,10 @@
 #include "minishell.h"
 #include "test.utils.h"
 
-static char* ft_strtok(char *str, const char *delim)
+static char	*ft_strtok(char *str, const char *delim)
 {
 	static char	*s;
-	char	*token;
+	char		*token;
 
 	if (str == NULL)
 		s = str;
@@ -32,8 +32,8 @@ static char* ft_strtok(char *str, const char *delim)
 int	main(int argc, char **argv, char **envp)
 {
 	const char	*delim = ft_strdup("<");
-	char	*line;
-	char	*t;
+	char		*line;
+	char		*t;
 
 	init_log(argc, argv, envp);
 	line = ft_strdup("<README.md <infile");
