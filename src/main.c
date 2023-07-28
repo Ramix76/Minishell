@@ -55,9 +55,8 @@ static int	ft_init_data(int argc, char **argv, char **envp, t_data *data)
 	ft_shlvl(envp, data);
 	ft_sethome(data);
 	ft_init_signals();
-
-	// init exported_vars (pff)
-	data->exported_vars = (char **) malloc(sizeof(char *) * 100);
+	data->exported_vars = (char **) malloc(sizeof(char *) * (1 + 1));
+	*data->exported_vars = NULL;
 	return (EXIT_SUCCESS);
 }
 
