@@ -13,23 +13,23 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <errno.h>/* errno */
-# include <limits.h>/* */
-# include <stdio.h>/* readline, printf */
-# include <stdlib.h>/* */
-# include <string.h>/* */
-# include <unistd.h>/* write, isatty */
-# include <fstab.h>/* _PATH_FSTAB */
-# include <stdbool.h>/* booleans */
-# include <sys/stat.h>/* lstat */
-# include <dirent.h>/* opendir, closedir */
-# include <signal.h>/* signal handling */
+# include <errno.h>			/* errno */
+# include <limits.h>		/* */
+# include <stdio.h>			/* readline, printf */
+# include <stdlib.h>		/* */
+# include <string.h>		/* */
+# include <unistd.h>		/* write, isatty */
+# include <fstab.h>			/* _PATH_FSTAB */
+# include <stdbool.h>		/* booleans */
+# include <sys/stat.h>		/* lstat */
+# include <dirent.h>		/* opendir, closedir */
+# include <signal.h>		/* signal handling */
 
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# include "libft.h"/* */
-# include "_minishell.h"/* t_data, t_cmd */
+# include "libft.h"			/* */
+# include "_minishell.h"	/* t_data, t_cmd */
 
 # ifndef EXIT_SUCCESS
 #  define EXIT_SUCCESS		0
@@ -93,8 +93,8 @@ int		ft_env(t_data *data);
 int		ft_echo(t_cmd *cmd);
 int		ft_pwd(t_data *data);
 int		ft_cd(t_cmd *cmd, t_data *data);
-void	ft_unset(t_cmd *cmd, t_data *data);
-void	ft_export(t_cmd *cmd, t_data *data);
+int		ft_unset(t_cmd *cmd, t_data *data);
+int		ft_export(t_cmd *cmd, t_data *data);
 
 /* commands */
 
@@ -135,7 +135,7 @@ int		ft_cd_check_arguments(t_cmd *cmd);
 
 void	ft_signal_handler(int signal);
 
-/* Wildcard */
+/* wildcard */
 
 char	**ft_files_and_dirs(void);
 
