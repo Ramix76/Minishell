@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/27 16:29:56 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:10:26 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,10 @@ extern sig_atomic_t			g_running;
 int		ft_init_env(char **envp, t_data *data);
 int		ft_shlvl(char **envp, t_data *data);
 int		ft_sethome(t_data *data);
+
+/* parse.c */
+
+char	**ft_parse2tokens(char *str);
 
 /* builtins */
 

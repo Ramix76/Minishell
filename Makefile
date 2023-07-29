@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/07/24 14:49:27 by framos-p         ###   ########.fr        #
+#    Updated: 2023/07/29 15:11:29 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ endif
 
 SRC_FILES		:=	$(SRC_DIR)/enviroment.c \
 					$(SRC_DIR)/main.c \
+					$(SRC_DIR)/parse.c \
 					$(SRC_DIR)/builtins/builtin_do.c \
 					$(SRC_DIR)/builtins/echo.c \
 					$(SRC_DIR)/builtins/pwd.c \

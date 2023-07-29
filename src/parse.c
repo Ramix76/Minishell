@@ -1,42 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_strtok.c                                      :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/27 11:20:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/29 15:10:44 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/07/29 15:11:36 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/07/29 15:12:41 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_parse2tokens(char *line);
 static char	*ft_word(char *str);
-
-/*
-int	main(int argc, char **argv)
-{
-	char	*line;
-
-	if (argc != 2)
-		return (1);
-	line = ft_strdup(argv[1]);
-	char	**tokens = ft_parse2tokens(line);
-	if (tokens == NULL)
-		return (8);
-	int i = 0;
-	while (tokens != NULL && tokens[i] != NULL)
-	{
-		printf("w: %s\n", tokens[i]);
-		++i;
-	}
-	ft_free_arr(tokens);
-	free(line);
-	return (0);
-}
-*/
 
 char	**ft_parse2tokens(char *str)
 {
@@ -51,7 +27,7 @@ char	**ft_parse2tokens(char *str)
 		word = ft_word(str);
 		++arr_len;
 		tokens = (char **) ft_realloc(tokens, sizeof(char *) * arr_len,
-			sizeof(char *) * (arr_len + 1));
+				sizeof(char *) * (arr_len + 1));
 		tokens[arr_len - 1] = ft_strtrim(word, " ");
 		tokens[arr_len] = NULL;
 		str += ft_strlen(word);
