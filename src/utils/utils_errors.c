@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:21:08 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/20 14:54:36 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:34:49 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,8 @@ void	ft_error(int error, const char *command, const char *dir)
 	const char	*error_msg;
 
 	error_msg = NULL;
-	if (error == NO_SUCH_DIR)
-		error_msg = NO_SUCH_DIR_MSG;
-	else if (error == NO_PERMIT)
-		error_msg = NO_PERMIT_MSG;
-	else if (error == NO_DIR)
-		error_msg = NO_DIR_MSG;
+	if (error == ENOENT || error == EACCES || error == ENOTDIR)
+		error_msg = strerror(error);
 	else if (error == NO_HOME)
 		error_msg = NO_HOME_MSG;
 	else if (error == ERR_CD)

@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/24 11:54:59 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:34:02 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_change_to_parent_directory(const char *dir, t_data *data)
 	prev_dir = ft_strdup(prev_dir);
 	if (access("..", R_OK) == -1)
 	{
-		ft_error(NO_PERMIT, "cd", "..");
+		ft_error(EACCES, "cd", "..");
 		chdir(dir);
 	}
 	if (chdir("..") == 0)
@@ -52,7 +52,7 @@ static int	ft_change_to_home_directory(const char *dir, t_data *data)
 	if (!home_dir)
 		return (ft_error(NO_HOME, "cd", dir), EXIT_FAILURE);
 	if (access(home_dir, R_OK) != 0)
-		return (ft_error(NO_PERMIT, "cd", dir), EXIT_FAILURE);
+		return (ft_error(EACCES, "cd", dir), EXIT_FAILURE);
 	if (chdir(home_dir) != 0)
 		return (ft_error(NO_HOME, "cd", dir), EXIT_FAILURE);
 	if (ft_setenv("OLDPWD", prev_dir, 1, &data->envp) != 0)
@@ -72,9 +72,9 @@ static int	ft_change_to_previous_directory(t_data *data)
 
 	prev_dir = ft_getenv("OLDPWD", (const char **)data->envp);
 	if (!prev_dir || chdir(prev_dir) != 0)
-		return (ft_error(NO_SUCH_DIR, "..", "cd"), EXIT_FAILURE);
+		return (ft_error(ENOENT, "..", "cd"), EXIT_FAILURE);
 	if (!getcwd(current_dir, sizeof(current_dir)))
-		return (ft_error(NO_SUCH_DIR, current_dir, prev_dir), EXIT_FAILURE);
+		return (ft_error(ENOENT, current_dir, prev_dir), EXIT_FAILURE);
 	if (ft_setenv("OLDPWD", prev_dir, 1, &data->envp) != 0)
 		return (ft_error(ERR_OPWD, "cd", prev_dir), EXIT_FAILURE);
 	if (getcwd(cwd, PATH_MAX) == NULL
@@ -101,13 +101,13 @@ static int	ft_change_to_directory(const char *dir, t_data *data)
 						EXIT_SUCCESS);
 			}
 			else
-				return (ft_error(NO_PERMIT, "cd", dir), EXIT_FAILURE);
+				return (ft_error(EACCES, "cd", dir), EXIT_FAILURE);
 		}
 		else
-			return (ft_error(NO_DIR, "cd", dir), EXIT_FAILURE);
+			return (ft_error(ENOTDIR, "cd", dir), EXIT_FAILURE);
 	}
 	else if (access(dir, F_OK) == -1)
-		return (ft_error(NO_SUCH_DIR, "cd", dir), EXIT_FAILURE);
+		return (ft_error(ENOENT, "cd", dir), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 

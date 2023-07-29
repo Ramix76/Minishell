@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:54:40 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/13 11:55:11 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:24:21 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ int	ft_pwd(t_data *data)
 		return (EXIT_SUCCESS);
 	}
 	else
-		return (ft_error(ERR_CD, "", ""), EXIT_FAILURE);
+		return (ft_fprintf(stderr,"%s: pwd: Failed to get current directory"), EXIT_FAILURE);
 }

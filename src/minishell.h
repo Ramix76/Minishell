@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/29 15:10:26 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:34:15 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,6 @@
  * VERY THANK YOU
  */
 
-# define NO_SUCH_DIR		2
-# define NO_SUCH_DIR_MSG	"No such file or diectory" // ENOENT
-# define NO_DIR				3
-# define NO_DIR_MSG			"Not a directory" // same as ENOENT?
-# define NO_PERMIT			4
-# define NO_PERMIT_MSG		"Permission denied" // EACCES
 # define NO_HOME			5
 # define NO_HOME_MSG		"HOME not set"
 # define ERR_CD				6
