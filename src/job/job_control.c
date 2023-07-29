@@ -6,39 +6,64 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/25 17:04:03 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:19:25 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	ft_simple_command(char *job, t_data *data);
+int			ft_perform_redirections(char *job, t_data *data);
 
 int	ft_job_control(char *line, t_data *data)
 {
-	int		n;
-	int		fd;
-	char	*temp;
+	int		i;
 	char	*job;
-	size_t	cspn;
+	char	**split;
 
-	temp = line;
-	fd = STDIN_FILENO;
-	while (temp != NULL)
+	i = 0;
+	split = ft_split(line, '|');
+	while (split != NULL && split[i] != NULL)
 	{
-		n = 0;
-		cspn = ft_strcspn(temp + 1, CONTROLOP);
-		job = ft_strndup(temp, cspn + 1);
-		ft_redirect_in(job, &fd);
-		if (*job == '|')
-			n = ft_strspn(job, METACHARACTERS);
-		temp = ft_strpbrk(temp + 1, CONTROLOP);
-		ft_simple_command(job + n, data);
+		job = ft_strtrim(split[i], " ");
+		ft_simple_command(job, data);
 		free(job);
+		++i;
 	}
+	ft_free_arr(split);
 	return (EXIT_SUCCESS);
 }
 
+static int	ft_simple_command(char *job, t_data *data)
+{
+	printf("will execute: %s\n", job);
+	if (ft_perform_redirections(job, data) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	printf("\n");
+	return (EXIT_SUCCESS);
+}
+
+int	ft_perform_redirections(char *job, t_data *data)
+{
+	int		i;
+	char	*token;
+	char	**tokens;
+
+	i = 0;
+	(void) data;
+	tokens = ft_parse2tokens(job);
+	while (tokens != NULL && tokens[i] != NULL)
+	{
+		token = tokens[i];
+		if (*token == 074)
+			printf("alert: %s\n", token);
+		++i;
+	}
+	ft_free_arr(tokens);
+	return (EXIT_SUCCESS);
+}
+
+/*
 static int	ft_simple_command(char *job, t_data *data)
 {
 	int		n;
@@ -58,6 +83,7 @@ static int	ft_simple_command(char *job, t_data *data)
 	ft_command_do(job + n, data);
 	return (EXIT_SUCCESS);
 }
+*/
 
 // falta append line to cmd_path
 int	ft_command_do(char *line, t_data *data)
