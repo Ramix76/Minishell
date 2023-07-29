@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/29 12:52:19 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/29 16:20:16 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,25 @@ int	ft_export(t_cmd *cmd, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_process_export_token(char *token, t_data *data)
+static int	ft_process_export_token(char *t, t_data *data)
 {
-	char	*equal_sign;
 	char	*name;
 	char	*value;
 
-	equal_sign = ft_strchr(token, '=');
-	if (equal_sign == NULL || *(equal_sign + 1) == '\0')
+	if (ft_strchr(t, '=') == NULL || *(ft_strchr(t, '=') + 1) == '\0')
 	{
-		ft_unsetenv(token, data->envp);
-		ft_setenv(token, "", 1, &data->exported_vars);
+		if (ft_getenv(t, (const char **)data->envp) != NULL)
+			return (EXIT_SUCCESS);
+		ft_unsetenv(t, data->envp);
+		ft_setenv(t, "", 1, &data->exported_vars);
 		return (EXIT_SUCCESS);
 	}
-	value = ft_strdup(ft_strchr(token, '=') + 1);
-	name = ft_strndup(token, ft_strchr(token, '=') - token);
+	value = ft_strdup(ft_strchr(t, '=') + 1);
+	name = ft_strndup(t, ft_strchr(t, '=') - t);
 	if (ft_getenv(name, (const char **) data->exported_vars) != NULL)
 		ft_unsetenv(name, data->exported_vars);
-	if (ft_strnstr(token, "+=", ft_strlen(token)) != NULL
-		&& ft_strnstr(token, "+=", ft_strlen(token)) + 1 == equal_sign)
+	if (ft_strnstr(t, "+=", ft_strlen(t)) != NULL
+		&& ft_strnstr(t, "+=", ft_strlen(t)) + 1 == ft_strchr(t, '='))
 	{
 		*(ft_strchr(name, '+')) = '\0';
 		value = ft_concatenate_tokens(name, value, data);
