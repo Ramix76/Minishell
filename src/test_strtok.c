@@ -6,15 +6,16 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:20:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/29 15:03:53 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:10:44 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_parse_tokens(char *line);
+char	**ft_parse2tokens(char *line);
 static char	*ft_word(char *str);
 
+/*
 int	main(int argc, char **argv)
 {
 	char	*line;
@@ -22,7 +23,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (1);
 	line = ft_strdup(argv[1]);
-	char	**tokens = ft_parse_tokens(line);
+	char	**tokens = ft_parse2tokens(line);
 	if (tokens == NULL)
 		return (8);
 	int i = 0;
@@ -31,11 +32,13 @@ int	main(int argc, char **argv)
 		printf("w: %s\n", tokens[i]);
 		++i;
 	}
+	ft_free_arr(tokens);
 	free(line);
 	return (0);
 }
+*/
 
-char	**ft_parse_tokens(char *str)
+char	**ft_parse2tokens(char *str)
 {
 	char	*word;
 	char	**tokens;
@@ -56,28 +59,6 @@ char	**ft_parse_tokens(char *str)
 	}
 	return (tokens);
 }
-
-/*
-int	main(int argc, char **argv)
-{
-	char	*line;
-	char	*str;
-	char	*word;
-
-	if (argc != 2)
-		return (1);
-	line = ft_strdup(argv[1]);
-	str = line;
-	while (str != NULL && *str != '\0')
-	{
-		word = ft_word(str);
-		printf("word: %s\n", ft_strtrim(word, " "));
-		str += ft_strlen(word);
-	}
-	free(line);
-	return (0);
-}
-*/
 
 static char	*ft_word(char *str)
 {
