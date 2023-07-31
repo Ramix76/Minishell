@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/24 11:50:47 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:04:03 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,10 @@ int	ft_command_do(char *line, t_data *data)
 	cmd.tokens = ft_split(line, ' ');
 	if (cmd.tokens[0] == NULL)
 		return (ft_free_str_arr(cmd.tokens), EXIT_SUCCESS);
-	cmd_path = ft_which(cmd.tokens[0], data->path);
-	cmd_path = ft_realpath(cmd.tokens[0], NULL);
+	if (cmd.tokens[0][0] != '.' && cmd.tokens[0][0] != '/')
+		cmd_path = ft_which(cmd.tokens[0], data->path);
+	else
+		cmd_path = ft_realpath(cmd.tokens[0], NULL);
 	if (ft_is_builtin(cmd.tokens[0]) == EXIT_SUCCESS)
 		ft_builtin_do(&cmd, data);
 	else if (ft_strncmp(cmd.tokens[0], "exit", 4) == 0)
@@ -83,11 +85,20 @@ int	ft_command_do(char *line, t_data *data)
 		ft_fprintf(stderr, "%s: %s: command not found\n",
 			SH_NAME, cmd.tokens[0]);
 	else
+	{
 		ft_pipe_do(cmd_path, data);
+	}
 	free(cmd_path);
 	ft_free_str_arr(cmd.tokens);
 	return (EXIT_SUCCESS);
 }
+
+/*
+ * ft_pipe_do (char *line, t_data *data)
+ *
+ * 		should receive a t_cmd *cmd instead of a char *line.
+ *
+ */
 
 int	ft_pipe_do(char *line, t_data *data)
 {

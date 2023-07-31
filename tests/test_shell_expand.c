@@ -56,10 +56,12 @@ static int	init_data(int argc, char **argv, char **envp, t_data *data)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
+	char	*line;
 
-	char	line[] = "echo $?";
+	line = ft_strdup("echo $?");
 	init_log(argc, argv, envp);
 	init_data(argc, argv, envp, &data);
 	ft_printf("%s\n", shell_expand(line, &data));
+	free(line);
 	return (0);
 }

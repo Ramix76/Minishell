@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:19:32 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/17 14:03:32 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:02:39 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,19 @@ void	ft_sort_vars(char **vars)
 
 void	ft_print_sorted_vars(char **vars)
 {
-	int	i;
+	int		i;
+	char	*name;
+	char	*value;
 
 	i = 0;
 	while (vars[i])
 	{
-		printf("declare -x %s\n", vars[i]);
+		name = ft_strndup(vars[i], ft_strchr(vars[i], '=') - vars[i]);
+		value = ft_strchr(vars[i], '=') + 1;
+		if (*value == '\0')
+			printf("declare -x %s=\"\"\n", name);
+		else
+			printf("declare -x %s=\"%s\"\n", name, value);
 		i++;
 	}
 }

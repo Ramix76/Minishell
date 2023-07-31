@@ -6,18 +6,23 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:12:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/11 16:39:26 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:22:06 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_expand_quotes(char *line)
-{
-	char	*parsed;
+static char	*ft_quotes_closed(char *line);
 
-	parsed = line;
-	return (parsed);
+char	*ft_expand_quotes(char *line, t_data *data)
+{
+	char	*expanded;
+
+	(void) data;
+	expanded = line;
+	if (ft_quotes_closed(expanded) != NULL)
+		return (expanded);
+	return (expanded);
 }
 
 /*
@@ -27,7 +32,7 @@ char	*ft_expand_quotes(char *line)
  * of last unclosed quote (simple or double).
  */
 
-char	*ft_quotes_closed(char *line)
+static char	*ft_quotes_closed(char *line)
 {
 	char	c;
 	char	*s;
