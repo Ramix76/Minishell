@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/31 13:10:15 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:02:52 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,6 @@
 # define OPERATORS			"\n|&;()<>"
 # define CONTROLOP			"\n|&"
 # define REDIRECTOP			"<>"
-
-/*
- * PLEASE, replace macro strings with errno and perror();
- * VERY THANK YOU
- */
-
-# define ERR_CD				6
-# define ERR_CD_MSG			"Failed to get current directory"
-# define ERR_PWD			7
-# define ERR_PWD_MSG		"Failed to set PWD"
-# define ERR_OPWD			8
-# define ERR_OPWD_MSG		"Failed to set OLDPWD"
-# define ERR_FORMAT			9
-# define ERR_FORMAT_MSG		"not a valid identifier"
 
 /* used for: <insert reason> */
 
