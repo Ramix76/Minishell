@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/31 15:00:48 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:09:42 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	ft_change_to_home_directory(const char *dir, t_data *data)
 			EXIT_FAILURE);
 	if (getcwd(path, PATH_MAX) == NULL)
 		return (ft_fprintf(stderr, "%s: cd: Failed to get current directory\n",
-			SH_NAME), EXIT_FAILURE);
+				SH_NAME), EXIT_FAILURE);
 	if (ft_setenv("PWD", path, 1, &data->envp) != 0)
 		return (ft_fprintf(stderr, "%s: cd: OLDPWD not set\n", SH_NAME),
 			EXIT_FAILURE);
