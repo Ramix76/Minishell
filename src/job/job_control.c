@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/29 17:19:25 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:37:20 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ft_simple_command(char *job, t_data *data)
 	printf("will execute: %s\n", job);
 	if (ft_perform_redirections(job, data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	printf("\n");
+	ft_command_do(job, data);
 	return (EXIT_SUCCESS);
 }
 
@@ -55,7 +55,7 @@ int	ft_perform_redirections(char *job, t_data *data)
 	while (tokens != NULL && tokens[i] != NULL)
 	{
 		token = tokens[i];
-		if (*token == 074)
+		if (*token == 074 || *token == 076)
 			printf("alert: %s\n", token);
 		++i;
 	}
@@ -98,15 +98,15 @@ int	ft_command_do(char *line, t_data *data)
 		cmd_path = ft_which(cmd.tokens[0], data->path);
 	else
 		cmd_path = ft_realpath(cmd.tokens[0], NULL);
-	if (ft_is_builtin(cmd.tokens[0]) == EXIT_SUCCESS)
-		ft_builtin_do(&cmd, data);
-	else if (ft_strncmp(cmd.tokens[0], "exit", 4) == 0)
+	if (ft_strcmp("exit", cmd.tokens[0]) == 0)
 	{
 		free(line);
 		free(cmd_path);
 		ft_free_str_arr(cmd.tokens);
 		exit(EXIT_SUCCESS);
 	}
+	else if (ft_builtin_do(&cmd, data) == EXIT_SUCCESS)
+		return (EXIT_SUCCESS);
 	else if (cmd_path == NULL)
 		ft_fprintf(stderr, "%s: %s: command not found\n",
 			SH_NAME, cmd.tokens[0]);
@@ -116,30 +116,5 @@ int	ft_command_do(char *line, t_data *data)
 	}
 	free(cmd_path);
 	ft_free_str_arr(cmd.tokens);
-	return (EXIT_SUCCESS);
-}
-
-/*
- * ft_pipe_do (char *line, t_data *data)
- *
- * 		should receive a t_cmd *cmd instead of a char *line.
- *
- */
-
-int	ft_pipe_do(char *line, t_data *data)
-{
-	char	**pipe_split;
-	int		fd;
-	int		i;
-
-	i = 0;
-	fd = STDIN_FILENO;
-	pipe_split = ft_split(line, '|');
-	while (pipe_split[i] != NULL)
-	{
-		data->exit_code = ft_execute_command(pipe_split[i++], data->envp, &fd);
-	}
-	close(fd);
-	ft_free_str_arr(pipe_split);
 	return (EXIT_SUCCESS);
 }
