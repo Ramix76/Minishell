@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/31 18:00:53 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:18:31 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,8 @@ static int	ft_change_to_directory(const char *dir, t_data *data)
 	{
 		if (S_ISDIR(dir_stat.st_mode))
 		{
-			if (chdir(dir) == 0)
-				if (getcwd(cwd, PATH_MAX) != NULL)
-					return (ft_setenv("PWD", cwd, 1, &data->envp),
-						EXIT_SUCCESS);
+			if (chdir(dir) == 0 && getcwd(cwd, PATH_MAX) != NULL)
+				return (ft_setenv("PWD", cwd, 1, &data->envp), 0);
 			else
 				return (ft_error("cd", dir), EXIT_FAILURE);
 		}
