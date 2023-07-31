@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/29 15:10:26 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:34:57 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ char	**ft_parse2tokens(char *str);
 /* builtins */
 
 int		ft_builtin_do(t_cmd *cmd, t_data *data);
-int		ft_is_builtin(char *str);
 int		ft_env(t_data *data);
 int		ft_echo(t_cmd *cmd);
 int		ft_pwd(t_data *data);
