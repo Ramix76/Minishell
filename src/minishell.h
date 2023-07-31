@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/29 17:34:15 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:10:15 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@
  * VERY THANK YOU
  */
 
-# define NO_HOME			5
-# define NO_HOME_MSG		"HOME not set"
 # define ERR_CD				6
 # define ERR_CD_MSG			"Failed to get current directory"
 # define ERR_PWD			7
@@ -120,7 +118,7 @@ int		ft_redirect_in(char *line, int *fd);
 
 char	*ft_cmd_path(char *argv, const char **envp);
 void	ft_free_str_arr(char **split);
-void	ft_error(int error, const char *command, const char *directory);
+void	ft_error(const char *comd, const char *dir);
 bool	ft_is_valid_var_format(const char *var);
 char	**ft_strduparr(char **arr);
 void	ft_print_combined_vars(t_data *data);
