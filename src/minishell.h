@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/31 13:34:57 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:45:42 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,9 @@ int		ft_shell_do(t_data *data);
 int		ft_job_control(char *line, t_data *data);
 int		ft_command_do(char *line, t_data *data);
 int		ft_pipe_do(char *line, t_data *data);
+int		ft_perform_redirections(char *job, t_data *data);
+int		ft_simple_command(char *job, t_data *data);
+int		ft_perform_redirections(char *job, t_data *data);
 
 /* expansions */
 
