@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/29 17:34:02 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:11:46 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,23 @@ static int	ft_change_to_directory(const char *dir, t_data *data);
 static int	ft_change_to_parent_directory(const char *dir, t_data *data)
 {
 	char		cwd[PATH_MAX];
-	const char	*prev_dir;
+	char		prev_dir[PATH_MAX];
 
-	prev_dir = ft_getenv("PWD", (const char **)data->envp);
-	prev_dir = ft_strdup(prev_dir);
+	if (getcwd(prev_dir, PATH_MAX) == NULL)
+		return (EXIT_FAILURE);
 	if (access("..", R_OK) == -1)
 	{
-		ft_error(EACCES, "cd", "..");
+		ft_error("cd", "..");
 		chdir(dir);
+		return (EXIT_FAILURE);
 	}
 	if (chdir("..") == 0)
 	{
 		if (getcwd(cwd, PATH_MAX) != NULL)
 			ft_setenv("PWD", cwd, 1, &data->envp);
 		if (ft_setenv("OLDPWD", prev_dir, 1, &data->envp) != 0)
-			return (ft_error(ERR_OPWD, "cd", dir), EXIT_FAILURE);
+			return (ft_fprintf(stderr, "%s: cd: Failed to set PWD\n", SH_NAME),
+				EXIT_FAILURE);
 	}
 	else if (getcwd(cwd, PATH_MAX) != NULL)
 		ft_setenv("PWD", cwd, 1, &data->envp);
@@ -44,23 +46,20 @@ static int	ft_change_to_parent_directory(const char *dir, t_data *data)
 static int	ft_change_to_home_directory(const char *dir, t_data *data)
 {
 	char		path[PATH_MAX];
-	const char	*home_dir;
-	const char	*prev_dir;
+	char		*home_dir;
+	char		prev_dir[PATH_MAX];
 
-	prev_dir = ft_getenv("PWD", (const char **)data->envp);
 	home_dir = ft_getenv("HOME", (const char **)data->envp);
-	if (!home_dir)
-		return (ft_error(NO_HOME, "cd", dir), EXIT_FAILURE);
-	if (access(home_dir, R_OK) != 0)
-		return (ft_error(EACCES, "cd", dir), EXIT_FAILURE);
-	if (chdir(home_dir) != 0)
-		return (ft_error(NO_HOME, "cd", dir), EXIT_FAILURE);
+	if (getcwd(prev_dir, PATH_MAX) == NULL)
+		return (EXIT_FAILURE);
+	if (access(home_dir, R_OK) != 0 || chdir(home_dir) != 0)
+		return (ft_error("cd", dir), EXIT_FAILURE);
 	if (ft_setenv("OLDPWD", prev_dir, 1, &data->envp) != 0)
-		return (ft_error(ERR_PWD, "cd", dir), EXIT_FAILURE);
-	if (getcwd(path, sizeof(path)) == NULL)
-		return (ft_error(ERR_CD, "cd", dir), EXIT_FAILURE);
+		return (ft_error("cd", dir), ERR_OPWD);
+	if (getcwd(path, PATH_MAX) == NULL)
+		return (ft_error("cd", dir), ERR_CD);
 	if (ft_setenv("PWD", path, 1, &data->envp) != 0)
-		return (ft_error(ERR_PWD, "cd", dir), EXIT_FAILURE);
+		return (ft_error("cd", dir), ERR_PWD);
 	return (EXIT_SUCCESS);
 }
 
@@ -72,14 +71,14 @@ static int	ft_change_to_previous_directory(t_data *data)
 
 	prev_dir = ft_getenv("OLDPWD", (const char **)data->envp);
 	if (!prev_dir || chdir(prev_dir) != 0)
-		return (ft_error(ENOENT, "..", "cd"), EXIT_FAILURE);
+		return (ft_error("..", "cd"), ENOENT);
 	if (!getcwd(current_dir, sizeof(current_dir)))
-		return (ft_error(ENOENT, current_dir, prev_dir), EXIT_FAILURE);
+		return (ft_error(current_dir, prev_dir), ENOENT);
 	if (ft_setenv("OLDPWD", prev_dir, 1, &data->envp) != 0)
-		return (ft_error(ERR_OPWD, "cd", prev_dir), EXIT_FAILURE);
+		return (ft_error("cd", prev_dir), ERR_OPWD);
 	if (getcwd(cwd, PATH_MAX) == NULL
 		|| ft_setenv("PWD", cwd, 1, &data->envp) != 0)
-		return (ft_error(ERR_PWD, "cd", prev_dir), EXIT_FAILURE);
+		return (ft_error("cd", prev_dir), ERR_PWD);
 	return (EXIT_SUCCESS);
 }
 
@@ -101,29 +100,32 @@ static int	ft_change_to_directory(const char *dir, t_data *data)
 						EXIT_SUCCESS);
 			}
 			else
-				return (ft_error(EACCES, "cd", dir), EXIT_FAILURE);
+				return (ft_error("cd", dir), EXIT_FAILURE);
 		}
 		else
-			return (ft_error(ENOTDIR, "cd", dir), EXIT_FAILURE);
+			return (ft_error("cd", dir), EXIT_FAILURE);
 	}
 	else if (access(dir, F_OK) == -1)
-		return (ft_error(ENOENT, "cd", dir), EXIT_FAILURE);
+		return (ft_error("cd", dir), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
 int	ft_cd(t_cmd *cmd, t_data *data)
 {
-	int			ret;
-	const char	*home_dir;
-
-	ret = ft_cd_check_arguments(cmd);
-	if (ret == EXIT_FAILURE)
-		return (ret);
+	if (ft_cd_check_arguments(cmd) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (ft_strcmp("--", cmd->tokens[1]) == 0)
+	{
+		free(cmd->tokens[1]);
+		if (cmd->tokens[2] != NULL)
+			cmd->tokens[1] = ft_strdup(cmd->tokens[2]);
+		else
+			cmd->tokens[1] = NULL;
+	}
 	if (cmd->tokens[1] == NULL || cmd->tokens[1][0] == '\0')
 	{
-		home_dir = ft_getenv("HOME", (const char **)data->envp);
-		if (!home_dir)
-			return (ft_fprintf(stderr, "%s: cd: HOME no set\n", SH_NAME),
+		if (ft_getenv("HOME", (const char **)data->envp) == NULL)
+			return (ft_fprintf(stderr, "%s: cd: HOME not set\n", SH_NAME),
 				EXIT_FAILURE);
 		return (ft_change_to_home_directory(cmd->tokens[1], data),
 			EXIT_SUCCESS);
@@ -131,9 +133,7 @@ int	ft_cd(t_cmd *cmd, t_data *data)
 	else if (ft_strncmp(cmd->tokens[1], "..", 2) == 0)
 		return (ft_change_to_parent_directory(cmd->tokens[1], data),
 			EXIT_SUCCESS);
-	else if (ft_strncmp(cmd->tokens[1], "-", 1) == 0)
+	else if (ft_strcmp("-", cmd->tokens[1]) == 0)
 		return (ft_change_to_previous_directory(data), EXIT_SUCCESS);
-	else
-		return (ft_change_to_directory(cmd->tokens[1], data), EXIT_SUCCESS);
-	return (EXIT_FAILURE);
+	return (ft_change_to_directory(cmd->tokens[1], data));
 }
