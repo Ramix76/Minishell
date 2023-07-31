@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/07/29 15:11:29 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/07/31 15:47:46 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,10 +53,12 @@ SRC_FILES		:=	$(SRC_DIR)/enviroment.c \
 					$(SRC_DIR)/expansions/quote_removal.c \
 					$(SRC_DIR)/expansions/shell_expand.c \
 					$(SRC_DIR)/expansions/tilde.c \
+					$(SRC_DIR)/job/command.c \
 					$(SRC_DIR)/job/execute.c \
 					$(SRC_DIR)/job/here_doc.c \
 					$(SRC_DIR)/job/job_control.c \
 					$(SRC_DIR)/job/pipe_do.c \
+					$(SRC_DIR)/job/redirections.c \
 					$(SRC_DIR)/job/shell_do.c \
 					$(SRC_DIR)/utils/utils.c \
 					$(SRC_DIR)/utils/utils_export.c \
