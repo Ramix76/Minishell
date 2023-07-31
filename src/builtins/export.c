@@ -6,14 +6,14 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/31 16:20:18 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:31:28 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	ft_process_export_token(char *token, t_data *data);
-static int	ft_empty_values(char *name, char *value, t_data *data);
+static int	ft_empty_values(char *t, char *name, char *value, t_data *data);
 static char	*ft_concatenate_tokens(char *name, char *value, t_data *data);
 
 int	ft_export(t_cmd *cmd, t_data *data)
@@ -43,7 +43,7 @@ static int	ft_process_export_token(char *t, t_data *data)
 	value = ft_strdup(ft_strchr(t, '=') + 1);
 	name = ft_strndup(t, ft_strchr(t, '=') - t);
 	if (ft_strchr(t, '=') == NULL || *(ft_strchr(t, '=') + 1) == '\0')
-		return (ft_empty_values(name, data));
+		return (ft_empty_values(t, name, value, data));
 	if (ft_getenv(name, (const char **) data->exported_vars) != NULL)
 		ft_unsetenv(name, data->exported_vars);
 	if (ft_strnstr(t, "+=", ft_strlen(t)) != NULL
@@ -58,7 +58,7 @@ static int	ft_process_export_token(char *t, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_empty_values(char *name, char *value, t_data *data)
+static int	ft_empty_values(char *t, char *name, char *value, t_data *data)
 {
 	if (ft_getenv(name, (const char **)data->envp) != NULL)
 	{

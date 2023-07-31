@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/31 16:09:42 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:29:16 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,10 @@ static int	ft_change_to_previous_directory(t_data *data)
 	if (ft_setenv("OLDPWD", prev_dir, 1, &data->envp) != 0)
 		return (ft_fprintf(stderr, "%s: cd: OLDPWD not set\n", SH_NAME),
 			EXIT_FAILURE);
-	return (ft_error("cd", prev_dir), ERR_OPWD);
 	if (getcwd(cwd, PATH_MAX) == NULL
 		|| ft_setenv("PWD", cwd, 1, &data->envp) != 0)
 		return (ft_fprintf(stderr, "%s: cd: PWD not set\n", SH_NAME),
 			EXIT_FAILURE);
-	return (ft_error("cd", prev_dir), ERR_PWD);
 	return (EXIT_SUCCESS);
 }
 
