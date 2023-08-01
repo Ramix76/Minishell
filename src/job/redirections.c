@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:40:58 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/01 10:50:47 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:30:09 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ int	ft_redirections_do(char *job, t_data *data)
 	char	**tokens;
 
 	i = 0;
-	(void) data;
 	tokens = ft_parse2tokens(job);
 	while (tokens != NULL && tokens[i] != NULL)
 	{
 		token = tokens[i];
 		if (*token == 074 || *token == 076)
 		{
-			printf("alert: %s\n", token);
 			++i;
 		}
 		else
@@ -34,6 +32,7 @@ int	ft_redirections_do(char *job, t_data *data)
 	}
 	ft_free_arr(tokens);
 	return (EXIT_SUCCESS);
+	(void) data;
 }
 
 int	ft_redirections_rm(char *str)
@@ -43,15 +42,10 @@ int	ft_redirections_rm(char *str)
 		if (*str == 074 || *str == 076)
 		{
 			if (ft_strncmp(str, "<< ", 3) == 0
-				|| ft_strncmp(str, "<< ", 3) == 0)
-			{
-				*str = 040;
-				*(str + 1) = 040;
-				*(str + 2) = 040;
-				str += 3;
-			}
+				|| ft_strncmp(str, ">> ", 3) == 0)
+				ft_memset(str, 040, 3);
 			else
-				*str++ = 040;
+				ft_memset(str++, 040, 1);
 			while (*str != '\0' && *str == 040)
 				++str;
 			while (*str != '\0' && *str != 040)
