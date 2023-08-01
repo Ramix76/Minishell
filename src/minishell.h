@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/31 16:02:52 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:48:32 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@
 
 /* CONSIDER moving WR RD to file pipes */
 
-# define WR					1
-# define RD					0
-
 # define SH_NAME			"homersh"
 # define PROMPT				"homersh$ "
 # define SH_VERSION			"homersh, version 0.1-alpha"
@@ -70,7 +67,6 @@ char	**ft_parse2tokens(char *str);
 /* builtins */
 
 int		ft_builtin_do(t_cmd *cmd, t_data *data);
-int		ft_is_builtin(char *str);
 int		ft_env(t_data *data);
 int		ft_echo(t_cmd *cmd);
 int		ft_pwd(t_data *data);
@@ -80,11 +76,12 @@ int		ft_export(t_cmd *cmd, t_data *data);
 
 /* commands */
 
-int		ft_execute_command(char *argv, char **envp, int *fd);
 int		ft_shell_do(t_data *data);
 int		ft_job_control(char *line, t_data *data);
-int		ft_command_do(char *line, t_data *data);
-int		ft_pipe_do(char *line, t_data *data);
+int		ft_simple_command(char *job, t_data *data);
+int		ft_redirections_do(char *job, t_data *data);
+int		ft_redirections_rm(char *str);
+int		ft_execute_command(t_cmd *cmd, t_data *data);
 
 /* expansions */
 
@@ -118,6 +115,7 @@ int		ft_cd_check_arguments(t_cmd *cmd);
 void	ft_signal_handler(int signal);
 
 /* wildcard */
+/* migrate to expansions/ */
 
 char	**ft_files_and_dirs(void);
 

@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:36:58 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/24 12:06:25 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:06:34 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 
 typedef struct s_data
 {
+	int		exit_code;
+	int		in;
+	int		out;
 	char	*path;
 	char	*home;
 	char	*exec_dir;
 	char	**envp;
 	char	**exported_vars;
-	int		exit_code;
 }			t_data;
 
 typedef struct s_cmd
