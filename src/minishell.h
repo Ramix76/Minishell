@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/31 15:45:42 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/01 09:53:41 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,12 @@ int		ft_export(t_cmd *cmd, t_data *data);
 int		ft_execute_command(char *argv, char **envp, int *fd);
 int		ft_shell_do(t_data *data);
 int		ft_job_control(char *line, t_data *data);
-int		ft_command_do(char *line, t_data *data);
+int		ft_command_do(char *job, t_data *data);
 int		ft_pipe_do(char *line, t_data *data);
 int		ft_perform_redirections(char *job, t_data *data);
 int		ft_simple_command(char *job, t_data *data);
-int		ft_perform_redirections(char *job, t_data *data);
+int		ft_redirections_do(char *job, t_data *data);
+int		ft_redirections_rm(char *str);
 
 /* expansions */
 
@@ -142,6 +143,7 @@ int		ft_cd_check_arguments(t_cmd *cmd);
 void	ft_signal_handler(int signal);
 
 /* wildcard */
+/* migrate to expansions/ */
 
 char	**ft_files_and_dirs(void);
 
