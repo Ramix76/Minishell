@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:40:58 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/01 12:37:09 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/01 15:20:19 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 #define WR	1
 #define RD	0
+
+static int	ft_in(int i, char **tokens, t_data *data);
+static int	ft_out(int i, char **tokens, t_data *data);
 
 int	ft_redirections_do(char *job, t_data *data)
 {
@@ -26,8 +29,14 @@ int	ft_redirections_do(char *job, t_data *data)
 	while (tokens != NULL && tokens[i] != NULL)
 	{
 		token = tokens[i];
-		if (*token == 074 || *token == 076)
+		if (*token == 074)
 		{
+			ft_in(i, tokens, data);
+			++i;
+		}
+		else if (*token == 076)
+		{
+			ft_out(i, tokens, data);
 			++i;
 		}
 		else
@@ -36,6 +45,24 @@ int	ft_redirections_do(char *job, t_data *data)
 	ft_free_arr(tokens);
 	return (EXIT_SUCCESS);
 	(void) data;
+}
+
+static int	ft_in(int i, char **tokens, t_data *data)
+{
+	if (tokens[i + 1] == NULL)
+		ft_fprintf(stderr, "ft_in: error\n");
+	close(data->in);
+	//data->in = open();
+	return (EXIT_SUCCESS);
+}
+
+static int	ft_out(int i, char **tokens, t_data *data)
+{
+	if (tokens[i + 1] == NULL)
+		ft_fprintf(stderr, "ft_out: error\n");
+	close(data->out);
+	(void) data;
+	return (EXIT_SUCCESS);
 }
 
 int	ft_redirections_rm(char *str)
