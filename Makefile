@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/07/29 15:11:29 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/07/31 17:58:18 by framos-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRC_FILES		:=	$(SRC_DIR)/enviroment.c \
 					$(SRC_DIR)/utils/utils_export.c \
 					$(SRC_DIR)/utils/utils_errors.c \
 					$(SRC_DIR)/utils/utils_exported.c \
+					$(SRC_DIR)/utils/utils_cd.c \
 					$(SRC_DIR)/signals/handling.c \
 					$(SRC_DIR)/wildcard/wildcard.c
 

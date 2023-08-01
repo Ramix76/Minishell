@@ -6,14 +6,14 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/31 16:20:18 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:58:45 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	ft_process_export_token(char *token, t_data *data);
-static int	ft_empty_values(char *name, char *value, t_data *data);
+static int	ft_empty_values(char *t, t_data *data);
 static char	*ft_concatenate_tokens(char *name, char *value, t_data *data);
 
 int	ft_export(t_cmd *cmd, t_data *data)
@@ -40,10 +40,10 @@ static int	ft_process_export_token(char *t, t_data *data)
 	char	*name;
 	char	*value;
 
+	if (ft_strchr(t, '=') == NULL || *(ft_strchr(t, '=') + 1) == '\0')
+		return (ft_empty_values(t, data));
 	value = ft_strdup(ft_strchr(t, '=') + 1);
 	name = ft_strndup(t, ft_strchr(t, '=') - t);
-	if (ft_strchr(t, '=') == NULL || *(ft_strchr(t, '=') + 1) == '\0')
-		return (ft_empty_values(name, data));
 	if (ft_getenv(name, (const char **) data->exported_vars) != NULL)
 		ft_unsetenv(name, data->exported_vars);
 	if (ft_strnstr(t, "+=", ft_strlen(t)) != NULL
@@ -58,12 +58,19 @@ static int	ft_process_export_token(char *t, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_empty_values(char *name, char *value, t_data *data)
+static int	ft_empty_values(char *t, t_data *data)
 {
+	char	*name;
+
+	if (ft_strchr(t, '=') == NULL)
+		name = ft_strdup(t);
+	else
+		name = ft_strndup(t, ft_strchr(t, '=') - t);
+	if (ft_getenv(name, (const char **) data->exported_vars) != NULL)
+		ft_unsetenv(name, data->exported_vars);
 	if (ft_getenv(name, (const char **)data->envp) != NULL)
 	{
 		free(name);
-		free(value);
 		return (EXIT_SUCCESS);
 	}
 	ft_unsetenv(name, data->envp);
@@ -72,7 +79,6 @@ static int	ft_empty_values(char *name, char *value, t_data *data)
 	else
 		ft_setenv(name, "", 1, &data->envp);
 	free(name);
-	free(value);
 	return (EXIT_SUCCESS);
 }
 

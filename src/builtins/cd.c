@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/31 16:09:42 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:18:31 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	ft_change_to_parent_directory(const char *dir, t_data *data);
 static int	ft_change_to_home_directory(const char *dir, t_data *data);
 static int	ft_change_to_previous_directory(t_data *data);
 static int	ft_change_to_directory(const char *dir, t_data *data);
+int			ft_cd_ultra_specific_situation(void);
 
 static int	ft_change_to_parent_directory(const char *dir, t_data *data)
 {
@@ -81,12 +82,10 @@ static int	ft_change_to_previous_directory(t_data *data)
 	if (ft_setenv("OLDPWD", prev_dir, 1, &data->envp) != 0)
 		return (ft_fprintf(stderr, "%s: cd: OLDPWD not set\n", SH_NAME),
 			EXIT_FAILURE);
-	return (ft_error("cd", prev_dir), ERR_OPWD);
 	if (getcwd(cwd, PATH_MAX) == NULL
 		|| ft_setenv("PWD", cwd, 1, &data->envp) != 0)
 		return (ft_fprintf(stderr, "%s: cd: PWD not set\n", SH_NAME),
 			EXIT_FAILURE);
-	return (ft_error("cd", prev_dir), ERR_PWD);
 	return (EXIT_SUCCESS);
 }
 
@@ -97,16 +96,14 @@ static int	ft_change_to_directory(const char *dir, t_data *data)
 
 	if (dir == NULL || dir[0] == '\0')
 		return (EXIT_SUCCESS);
+	if (getcwd(cwd, PATH_MAX) == NULL)
+		return (ft_cd_ultra_specific_situation());
 	if (stat(dir, &dir_stat) == 0)
 	{
 		if (S_ISDIR(dir_stat.st_mode))
 		{
-			if (chdir(dir) == 0)
-			{
-				if (getcwd(cwd, PATH_MAX) != NULL)
-					return (ft_setenv("PWD", cwd, 1, &data->envp),
-						EXIT_SUCCESS);
-			}
+			if (chdir(dir) == 0 && getcwd(cwd, PATH_MAX) != NULL)
+				return (ft_setenv("PWD", cwd, 1, &data->envp), 0);
 			else
 				return (ft_error("cd", dir), EXIT_FAILURE);
 		}
