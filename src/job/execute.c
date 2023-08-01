@@ -6,19 +6,31 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:19:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/12 18:12:25 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:29:43 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_execute_command(char *argv, char **envp, int *fd)
-{
-	int			fildes[2];
-	char		**cmd;
-	pid_t		pid;
-	int			exit_code;
+#define WR	1
+#define RD	0
 
+int	ft_execute_command(t_cmd *cmd, t_data *data)
+{
+	char	*exec;
+	int		fildes[2];
+	pid_t	pid;
+
+	if (cmd->tokens[0][0] != '.' && cmd->tokens[0][0] != '/')
+		exec = ft_which(cmd->tokens[0], data->path);
+	else
+		exec = ft_realpath(cmd->tokens[0], NULL);
+	if (exec == NULL)
+	{
+		ft_fprintf(stderr, "%s: %s: command not found\n",
+			SH_NAME, cmd->tokens[0]);
+		return (EXIT_FAILURE);
+	}
 	if (pipe(fildes) == -1)
 		exit(4);
 	pid = fork();
@@ -26,27 +38,14 @@ int	ft_execute_command(char *argv, char **envp, int *fd)
 		exit(1);
 	if (pid == 0)
 	{
-		cmd = ft_split(argv, ' ');
-		ft_execvpe(cmd[0], (char const **) cmd, (const char **) envp);
-		exit (EXIT_FAILURE);
+		ft_execvpe(exec, (char const **) cmd->tokens,
+			(const char **) data->envp);
+		ft_printf("%s: %s: execution error\n", SH_NAME, exec);
+		exit(EXIT_FAILURE);
 	}
-	waitpid(pid, &exit_code, 0);
-	if (WIFEXITED(exit_code))
-		exit_code = WEXITSTATUS(exit_code);
+	waitpid(pid, &data->exit_code, 0);
+	if (WIFEXITED(data->exit_code))
+		data->exit_code = WEXITSTATUS(data->exit_code);
 	close(fildes[WR]);
-	*fd = fildes[RD];
-	return (exit_code);
+	return (EXIT_FAILURE);
 }
-
-/*
- * 	if (pid == 0)
- * 	{
- * 		cmd = ft_split(argv, ' ');
- * 		dup2(fildes[WR], STDOUT_FILENO);
- * 		close(fildes[RD]);
- * 		close(fildes[WR]);
- * 		ft_execvpe(cmd[0], (char const **) cmd, (const char **) envp);
- * 		exit (EXIT_FAILURE);
- * 		}
- *
- */
