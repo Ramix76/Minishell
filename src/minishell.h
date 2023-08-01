@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/01 09:53:41 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:25:50 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@
 # endif
 
 /* CONSIDER moving WR RD to file pipes */
-
-# define WR					1
-# define RD					0
 
 # define SH_NAME			"homersh"
 # define PROMPT				"homersh$ "
@@ -101,15 +98,12 @@ int		ft_export(t_cmd *cmd, t_data *data);
 
 /* commands */
 
-int		ft_execute_command(char *argv, char **envp, int *fd);
 int		ft_shell_do(t_data *data);
 int		ft_job_control(char *line, t_data *data);
-int		ft_command_do(char *job, t_data *data);
-int		ft_pipe_do(char *line, t_data *data);
-int		ft_perform_redirections(char *job, t_data *data);
 int		ft_simple_command(char *job, t_data *data);
 int		ft_redirections_do(char *job, t_data *data);
 int		ft_redirections_rm(char *str);
+int		ft_execute_command(t_cmd *cmd, t_data *data);
 
 /* expansions */
 
