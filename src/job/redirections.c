@@ -6,11 +6,14 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:40:58 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/01 12:30:09 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:37:09 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+#define WR	1
+#define RD	0
 
 int	ft_redirections_do(char *job, t_data *data)
 {
