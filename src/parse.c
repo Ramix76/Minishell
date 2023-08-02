@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 15:11:36 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/29 15:12:41 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/02 12:04:00 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ char	**ft_parse2tokens(char *str)
 		tokens[arr_len] = NULL;
 		str += ft_strlen(word);
 		free(word);
+	}
+	int i = 0;
+	while (tokens[i] != NULL)
+	{
+		printf("t: %s\n", tokens[i]);
+		++i;
 	}
 	return (tokens);
 }
