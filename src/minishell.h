@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/01 12:48:32 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:53:20 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define PROMPT				"homersh$ "
 # define SH_VERSION			"homersh, version 0.1-alpha"
 
-# define METACHARACTERS		" \n\t|&;()<>\0"
+# define METACHARACTERS		" \n\t|&;()<>"
 # define OPERATORS			"\n|&;()<>"
 # define CONTROLOP			"\n|&"
 # define REDIRECTOP			"<>"

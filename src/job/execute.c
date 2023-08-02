@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:19:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/01 12:29:43 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:55:28 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 int	ft_execute_command(t_cmd *cmd, t_data *data)
 {
 	char	*exec;
-	int		fildes[2];
-	pid_t	pid;
 
+	//int		fildes[2];
+	//pid_t	pid;
 	if (cmd->tokens[0][0] != '.' && cmd->tokens[0][0] != '/')
 		exec = ft_which(cmd->tokens[0], data->path);
 	else
@@ -31,21 +31,21 @@ int	ft_execute_command(t_cmd *cmd, t_data *data)
 			SH_NAME, cmd->tokens[0]);
 		return (EXIT_FAILURE);
 	}
-	if (pipe(fildes) == -1)
-		exit(4);
-	pid = fork();
-	if (pid == -1)
-		exit(1);
-	if (pid == 0)
-	{
-		ft_execvpe(exec, (char const **) cmd->tokens,
-			(const char **) data->envp);
-		ft_printf("%s: %s: execution error\n", SH_NAME, exec);
-		exit(EXIT_FAILURE);
-	}
-	waitpid(pid, &data->exit_code, 0);
-	if (WIFEXITED(data->exit_code))
-		data->exit_code = WEXITSTATUS(data->exit_code);
-	close(fildes[WR]);
+	//if (pipe(fildes) == -1)
+	//	exit(4);
+	//pid = fork();
+	//if (pid == -1)
+	//	exit(1);
+	//if (pid == 0)
+	//{
+	ft_execvpe(exec, (char const **) cmd->tokens,
+		(const char **) data->envp);
+	ft_printf("%s: %s: execution error\n", SH_NAME, exec);
+	exit(EXIT_FAILURE);
+	//}
+	//waitpid(pid, &data->exit_code, 0);
+	//if (WIFEXITED(data->exit_code))
+	//	data->exit_code = WEXITSTATUS(data->exit_code);
+	//close(fildes[WR]);
 	return (EXIT_FAILURE);
 }

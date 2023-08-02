@@ -6,13 +6,14 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 15:11:36 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/29 15:12:41 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:54:57 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ft_word(char *str);
+static char	*ft_gettoken(char *str);
+static char	*ft_getword(char *str);
 
 char	**ft_parse2tokens(char *str)
 {
@@ -24,11 +25,16 @@ char	**ft_parse2tokens(char *str)
 	arr_len = 0;
 	while (str != NULL && *str != '\0')
 	{
-		word = ft_word(str);
+		word = ft_gettoken(str);
 		++arr_len;
 		tokens = (char **) ft_realloc(tokens, sizeof(char *) * arr_len,
 				sizeof(char *) * (arr_len + 1));
 		tokens[arr_len - 1] = ft_strtrim(word, " ");
+		if (*tokens[arr_len - 1] == '\0')
+		{
+			free(tokens[arr_len - 1]);
+			tokens[arr_len -1] = ft_strdup(" ");
+		}
 		tokens[arr_len] = NULL;
 		str += ft_strlen(word);
 		free(word);
@@ -36,30 +42,47 @@ char	**ft_parse2tokens(char *str)
 	return (tokens);
 }
 
-static char	*ft_word(char *str)
+static char	*ft_gettoken(char *str)
 {
-	char	*word;
-	char	delimiter;
-	int		i;
+	size_t	len;
+	char	*token;
 
-	i = 0;
-	delimiter = 040;
-	if (*str == 042 || *str == 047)
-		delimiter = *str;
-	while (*(str + i) != '\0')
+	len = 0;
+	if (ft_strchr(METACHARACTERS, *str) != NULL)
 	{
-		++i;
-		if (*(str + i) == delimiter)
-		{
-			++i;
-			if (*(str + i) == ' ')
-				while (*(str + i) != '\0' && *(str + i) == ' ')
-					++i;
-			break ;
-		}
-		while (*(str + i) == delimiter && delimiter == ' ')
-			++i;
+		while (*(str + len) != '\0'
+			&& ft_strchr(METACHARACTERS, *(str + len)) != NULL)
+			++len;
+		token = ft_strndup(str, len);
 	}
-	word = ft_strndup(str, i);
+	else
+		token = ft_getword(str);
+	return (token);
+}
+
+static char	*ft_getword(char *str)
+{
+	char	quote;
+	char	*word;
+	size_t	len;
+
+	quote = '\0';
+	word = NULL;
+	len = 0;
+	if (*str == 042 || *str == 047)
+		quote = *str;
+	while (*(str + len) != '\0'
+		&& ft_strchr(METACHARACTERS, *(str + len)) == NULL)
+	{
+		++len;
+		if (quote != '\0')
+		{
+			while (*(str + len) != '\0' && *(str + len) != quote)
+				++len;
+			if (*(str + len) == quote)
+				quote = '\0';
+		}
+	}
+	word = ft_strndup(str, len);
 	return (word);
 }
