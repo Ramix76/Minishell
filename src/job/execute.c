@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:19:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/01 15:49:15 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:55:28 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 int	ft_execute_command(t_cmd *cmd, t_data *data)
 {
 	char	*exec;
+
 	//int		fildes[2];
 	//pid_t	pid;
-
 	if (cmd->tokens[0][0] != '.' && cmd->tokens[0][0] != '/')
 		exec = ft_which(cmd->tokens[0], data->path);
 	else
@@ -38,10 +38,10 @@ int	ft_execute_command(t_cmd *cmd, t_data *data)
 	//	exit(1);
 	//if (pid == 0)
 	//{
-		ft_execvpe(exec, (char const **) cmd->tokens,
-			(const char **) data->envp);
-		ft_printf("%s: %s: execution error\n", SH_NAME, exec);
-		exit(EXIT_FAILURE);
+	ft_execvpe(exec, (char const **) cmd->tokens,
+		(const char **) data->envp);
+	ft_printf("%s: %s: execution error\n", SH_NAME, exec);
+	exit(EXIT_FAILURE);
 	//}
 	//waitpid(pid, &data->exit_code, 0);
 	//if (WIFEXITED(data->exit_code))

@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/01 15:55:56 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:56:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	ft_job_control(char *line, t_data *data)
 	int		i;
 	char	*job;
 	char	**split;
-
 	int		fd;
 	int		fildes[2];
 	pid_t	pid;
@@ -31,14 +30,19 @@ int	ft_job_control(char *line, t_data *data)
 	while (split != NULL && split[i] != NULL)
 	{
 		job = ft_strtrim(split[i], " ");
-
 		//if (dup2(fd, STDIN_FILENO) != STDIN_FILENO)
 		//	close(fd);
 		if (pipe(fildes) == -1)
-		{ perror("pipe"); exit(8); }
+		{
+			perror("pipe");
+			exit(8);
+		}
 		pid = fork();
 		if (pid == -1)
-		{ perror("pipes"); exit(9); }
+		{
+			perror("pipes");
+			exit(9);
+		}
 		if (pid == 0)
 		{
 			//if (i > 0)
