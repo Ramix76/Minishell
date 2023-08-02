@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/31 16:58:45 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:46:34 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int	ft_export(t_cmd *cmd, t_data *data)
 	int	i;
 
 	count = 0;
+	if (cmd->tokens == NULL)
+	{
+		ft_print_combined_vars(data);
+		return (EXIT_SUCCESS);
+	}
 	while (cmd->tokens[count])
 		count++;
 	if (count == 1)
@@ -74,7 +79,7 @@ static int	ft_empty_values(char *t, t_data *data)
 		return (EXIT_SUCCESS);
 	}
 	ft_unsetenv(name, data->envp);
-	if (ft_strchr(t, '=') == NULL) 
+	if (ft_strchr(t, '=') == NULL)
 		ft_setenv(name, "", 1, &data->exported_vars);
 	else
 		ft_setenv(name, "", 1, &data->envp);
