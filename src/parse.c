@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 15:11:36 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 11:19:47 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:23:13 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ static char	*ft_getword(char *str)
 	{
 		if (quote == '\0' && (*(str + len) == 042 || *(str + len) == 047))
 			quote = *(str + len);
-		++len;
-		if (quote != '\0')
+		else if (quote != '\0')
 		{
 			while (*(str + len) != '\0' && *(str + len) != quote)
 				++len;
 			if (*(str + len) == quote)
 				quote = '\0';
 		}
+		++len;
 	}
 	word = ft_strndup(str, len);
 	return (word);
