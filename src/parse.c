@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 15:11:36 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/02 15:54:57 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:40:02 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,14 @@ char	**ft_parse2tokens(char *str)
 	while (str != NULL && *str != '\0')
 	{
 		word = ft_gettoken(str);
-		++arr_len;
-		tokens = (char **) ft_realloc(tokens, sizeof(char *) * arr_len,
-				sizeof(char *) * (arr_len + 1));
-		tokens[arr_len - 1] = ft_strtrim(word, " ");
-		if (*tokens[arr_len - 1] == '\0')
+		if (word != NULL && ft_strcmp(" ", word) != 0)
 		{
-			free(tokens[arr_len - 1]);
-			tokens[arr_len -1] = ft_strdup(" ");
+			++arr_len;
+			tokens = (char **) ft_realloc(tokens, sizeof(char *) * arr_len,
+					sizeof(char *) * (arr_len + 1));
+			tokens[arr_len - 1] = ft_strtrim(word, " ");
+			tokens[arr_len] = NULL;
 		}
-		tokens[arr_len] = NULL;
 		str += ft_strlen(word);
 		free(word);
 	}
