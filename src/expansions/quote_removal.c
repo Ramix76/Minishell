@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:12:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/25 17:22:06 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 12:18:38 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,29 @@
 
 static char	*ft_quotes_closed(char *line);
 
-char	*ft_expand_quotes(char *line, t_data *data)
+char	*ft_expand_quotes(char *str)
 {
+	size_t	len;
+	int		quote;
 	char	*expanded;
 
-	(void) data;
-	expanded = line;
-	if (ft_quotes_closed(expanded) != NULL)
-		return (expanded);
+	len = 0;
+	quote = '\0';
+	expanded = (char *) malloc(sizeof(char) * ft_strlen(str) + 1);
+	ft_memset(expanded, '\0', ft_strlen(str) + 1);
+	if (str != NULL && ft_quotes_closed(str) == NULL)
+	{
+		while (*str != '\0')
+		{
+			if ((*str == 042 || *str == 047) && quote == '\0')
+				quote = *str;
+			else if ((*str == 042 || *str == 047) && quote == *str)
+				quote = '\0';
+			else
+				expanded[len++] = *str;
+			++str;
+		}
+	}
 	return (expanded);
 }
 

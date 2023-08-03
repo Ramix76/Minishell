@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:32:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/25 16:50:54 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:02:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,32 @@
 
 static char	*ft_replace_dollar(char *expanded, char *dollar, t_data *data);
 static char	*ft_getname(char *ptr);
-static char	*ft_getvar(char	*ptr, t_data *data);
+static char	*ft_getvalue(char	*ptr, t_data *data);
 
-char	*ft_expand_dollar(char *expanded, t_data *data)
+char	*ft_expand_dollar(char *str, t_data *data)
 {
-	char	*dollar;
+	int		quote;
+	char	*ptr;
 	char	*temp;
+	char	*expanded;
 
-	dollar = ft_strchr(expanded, '$');
-	while (dollar != NULL)
+	quote = '\0';
+	expanded = ft_strdup(str);
+	ptr = expanded;
+	while (ptr != NULL && *ptr != '\0')
 	{
-		temp = ft_replace_dollar(expanded, dollar, data);
-		if (temp != expanded)
-			free(expanded);
-		expanded = temp;
-		dollar = ft_strchr(expanded, '$');
+		if (*ptr == 047 && quote == '\0')
+			quote = 047;
+		else if (*ptr == 047 && quote == *ptr)
+			quote = '\0';
+		else if (*ptr == '$' && quote == '\0')
+		{
+			temp = expanded;
+			expanded = ft_replace_dollar(expanded, ptr, data);
+			//if (expanded != temp)
+			//	free(temp);
+		}
+		++ptr;
 	}
 	return (expanded);
 }
@@ -45,10 +56,10 @@ static char	*ft_replace_dollar(char *expanded, char *dollar, t_data *data)
 	if (name != NULL)
 	{
 		name_len = ft_strlen(name);
-		value = ft_getvar(name, data);
+		value = ft_getvalue(name, data);
 		ft_memmove(dollar + 1, dollar + 1 + name_len,
 			ft_strlen(dollar + name_len));
-		p = ft_strchr(expanded, '$') - expanded;
+		p = dollar - expanded;
 		temp = ft_strpjoin_replace(expanded, value, p);
 		expanded = temp;
 		free(name);
@@ -89,12 +100,12 @@ static char	*ft_getname(char *ptr)
 /*
  * Function gets variable's (word) pointed by ptr value.
  *
- * ft_getvar(char *name, t_data *data)
+ * ft_getvalue(char *name, t_data *data)
  * no need to free
  *
  */
 
-static char	*ft_getvar(char	*name, t_data *data)
+static char	*ft_getvalue(char	*name, t_data *data)
 {
 	char	*value;
 

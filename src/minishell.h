@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/03 10:57:35 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:47:45 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		ft_export(t_cmd *cmd, t_data *data);
 int		ft_shell_expand(char **tokens, t_data *data);
 char	*ft_expand_tilde(char *line, t_data *data);
 char	*ft_expand_dollar(char *expanded, t_data *data);
-char	*ft_expand_quotes(char *line, t_data *data);
+char	*ft_expand_quotes(char *line);
 
 /* job */
 
