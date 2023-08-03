@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 15:11:36 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 10:40:02 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:19:47 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,17 @@ static char	*ft_gettoken(char *str)
 
 static char	*ft_getword(char *str)
 {
+	size_t	len;
 	char	quote;
 	char	*word;
-	size_t	len;
 
-	quote = '\0';
-	word = NULL;
 	len = 0;
-	if (*str == 042 || *str == 047)
-		quote = *str;
+	quote = '\0';
 	while (*(str + len) != '\0'
 		&& ft_strchr(METACHARACTERS, *(str + len)) == NULL)
 	{
+		if (quote == '\0' && (*(str + len) == 042 || *(str + len) == 047))
+			quote = *(str + len);
 		++len;
 		if (quote != '\0')
 		{
