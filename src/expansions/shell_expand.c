@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:45:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 13:02:38 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:12:52 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*ft_expand_token(char *str, t_data *data)
 	free(temp);
 	temp = expanded;
 	expanded = ft_expand_dollar(expanded, data);
-	free(temp);	
+	free(temp);
 	temp = expanded;
 	expanded = ft_expand_quotes(expanded);
 	free(temp);

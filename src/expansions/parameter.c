@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:32:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 13:02:22 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:36:26 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	*ft_replace_dollar(char *expanded, char *dollar, t_data *data);
 static char	*ft_getname(char *ptr);
-static char	*ft_getvalue(char	*ptr, t_data *data);
+static char	*ft_getvalue(char *ptr, t_data *data);
 
 char	*ft_expand_dollar(char *str, t_data *data)
 {
@@ -28,16 +28,15 @@ char	*ft_expand_dollar(char *str, t_data *data)
 	ptr = expanded;
 	while (ptr != NULL && *ptr != '\0')
 	{
-		if (*ptr == 047 && quote == '\0')
-			quote = 047;
-		else if (*ptr == 047 && quote == *ptr)
+		if (quote == '\0' && (*ptr == 042 || *ptr == 047))
+			quote = *str;
+		else if (quote != '\0' && quote == *ptr)
 			quote = '\0';
-		else if (*ptr == '$' && quote == '\0')
+		else if ((quote == '\0' || quote == 042) && *ptr == '$')
 		{
 			temp = expanded;
 			expanded = ft_replace_dollar(expanded, ptr, data);
-			//if (expanded != temp)
-			//	free(temp);
+			ptr = expanded + 1;
 		}
 		++ptr;
 	}
@@ -60,8 +59,9 @@ static char	*ft_replace_dollar(char *expanded, char *dollar, t_data *data)
 		ft_memmove(dollar + 1, dollar + 1 + name_len,
 			ft_strlen(dollar + name_len));
 		p = dollar - expanded;
-		temp = ft_strpjoin_replace(expanded, value, p);
-		expanded = temp;
+		temp = expanded;
+		expanded = ft_strpjoin_replace(expanded, value, p);
+		free(temp);
 		free(name);
 	}
 	return (expanded);
