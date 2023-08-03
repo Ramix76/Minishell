@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 11:05:52 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:56:21 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	ft_shell_do(t_data *data)
 			ft_shell_expand(tokens, data);
 		free(line);
 		ft_free_str_arr(tokens);
-		exit(0);
 		rl_on_new_line();
 	}
 	rl_clear_history();
