@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/03 15:51:31 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:30:12 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,12 @@
 #  define EXIT_FAILURE		1
 # endif
 
-/* CONSIDER moving WR RD to file pipes */
-
 # define SH_NAME			"homersh"
-# define PROMPT				"homersh$ "
-# define SH_VERSION			"homersh, version 0.1-alpha"
+# define SH_VERSION			"version 0.1-alpha"
+# define METACHARACTERS		" \n\t|<>"	//not implemented: &;()
 
-# define METACHARACTERS		" \n\t|&;()<>"
-# define OPERATORS			"\n|&;()<>"
-# define CONTROLOP			"\n|&"
-# define REDIRECTOP			"<>"
+// consider allocating prompt in main.c -> data init
+# define PROMPT				"homersh$ "
 
 /* used for: <insert reason> */
 

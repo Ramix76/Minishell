@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/01 12:03:45 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:29:13 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_init_args(int argc, char **argv)
 {
 	if (argc >= 2 && ft_strcmp(argv[1], "--version") == 0)
 	{
-		printf("%s\n", SH_VERSION);
+		printf("%s, %s\n", SH_NAME, SH_VERSION);
 		exit(EXIT_SUCCESS);
 	}
 	return (EXIT_SUCCESS);
