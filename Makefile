@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/08/01 12:47:54 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/08/03 11:23:02 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRC_FILES		:=	$(SRC_DIR)/enviroment.c \
 					$(SRC_DIR)/job/job_control.c \
 					$(SRC_DIR)/job/redirections.c \
 					$(SRC_DIR)/job/shell_do.c \
+					$(SRC_DIR)/job/syntax.c \
 					$(SRC_DIR)/utils/utils.c \
 					$(SRC_DIR)/utils/utils_export.c \
 					$(SRC_DIR)/utils/utils_errors.c \
