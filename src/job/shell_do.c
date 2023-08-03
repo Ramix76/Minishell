@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/01 15:39:34 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:05:52 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_shell_do(t_data *data)
 {
 	char	*line;
-	char	*parsed_line;
+	char	**tokens;
 
 	while (g_running)
 	{
@@ -24,11 +24,12 @@ int	ft_shell_do(t_data *data)
 			return (printf("exit\n"), EXIT_SUCCESS);
 		if (line[0] != '\0')
 			add_history(line);
-		parsed_line = ft_shell_expand(line, data);
-		printf("parsed --%s--\n", parsed_line);
+		tokens = ft_parse2tokens(line);
+		if (ft_syntax_check(tokens) != EXIT_FAILURE)
+			ft_shell_expand(tokens, data);
 		free(line);
-		data->exit_code = ft_job_control(parsed_line, data);
-		free(parsed_line);
+		ft_free_str_arr(tokens);
+		exit(0);
 		rl_on_new_line();
 	}
 	rl_clear_history();
