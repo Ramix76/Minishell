@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:34:37 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/12 17:25:39 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:03:42 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ char	*ft_expand_tilde(char *line, t_data *data)
 		expanded = temp;
 		tilde = ft_strchr(expanded, '~');
 	}
+	free(line);
 	return (expanded);
 }
