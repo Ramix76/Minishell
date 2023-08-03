@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/02 15:53:20 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:57:35 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,14 @@ int		ft_cd(t_cmd *cmd, t_data *data);
 int		ft_unset(t_cmd *cmd, t_data *data);
 int		ft_export(t_cmd *cmd, t_data *data);
 
-/* commands */
+/* expansions */
+
+int		ft_shell_expand(char **tokens, t_data *data);
+char	*ft_expand_tilde(char *line, t_data *data);
+char	*ft_expand_dollar(char *expanded, t_data *data);
+char	*ft_expand_quotes(char *line, t_data *data);
+
+/* job */
 
 int		ft_shell_do(t_data *data);
 int		ft_job_control(char *line, t_data *data);
@@ -82,20 +89,15 @@ int		ft_simple_command(char *job, t_data *data);
 int		ft_redirections_do(char *job, t_data *data);
 int		ft_redirections_rm(char *str);
 int		ft_execute_command(t_cmd *cmd, t_data *data);
-
-/* expansions */
-
-char	*ft_shell_expand(char *str, t_data *data);
-char	*ft_expand_tilde(char *line, t_data *data);
-char	*ft_expand_dollar(char *expanded, t_data *data);
-char	*ft_expand_quotes(char *line, t_data *data);
-
-/* redirections */
-
 int		ft_here_doc(char *limiter);
 int		ft_read_stdin(int wr_fd, char *limiter);
 int		ft_write_output(int fd, char *output);
 int		ft_redirect_in(char *line, int *fd);
+int		ft_syntax_check(char **tokens);
+
+/* signals */
+
+void	ft_signal_handler(int signal);
 
 /* utils */
 
@@ -109,10 +111,6 @@ void	ft_sort_vars(char **vars);
 void	ft_print_sorted_vars(char **vars);
 void	ft_free_vars(char **vars);
 int		ft_cd_check_arguments(t_cmd *cmd);
-
-/* signals */
-
-void	ft_signal_handler(int signal);
 
 /* wildcard */
 /* migrate to expansions/ */
