@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:45:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 11:04:39 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:02:38 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,18 @@ int	ft_shell_expand(char **tokens, t_data *data)
 
 static char	*ft_expand_token(char *str, t_data *data)
 {
+	char	*temp;
 	char	*expanded;
 
 	expanded = ft_strdup(str);
+	temp = expanded;
 	expanded = ft_expand_tilde(expanded, data);
+	free(temp);
+	temp = expanded;
 	expanded = ft_expand_dollar(expanded, data);
-	expanded = ft_expand_quotes(expanded, data);
+	free(temp);	
+	temp = expanded;
+	expanded = ft_expand_quotes(expanded);
+	free(temp);
 	return (expanded);
 }
