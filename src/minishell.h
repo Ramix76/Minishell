@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/03 16:30:12 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:09:20 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	ft_signal_handler(int signal);
 
 /* utils */
 
+size_t	ft_arrlen(char **arr);
 char	*ft_cmd_path(char *argv, const char **envp);
 void	ft_free_str_arr(char **split);
 void	ft_error(const char *comd, const char *dir);

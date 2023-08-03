@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 10:09:37 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/27 17:31:02 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:09:08 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,14 @@ char	**ft_strduparr(char **arr)
 	while (count-- > 0 && arr[count] != NULL)
 		copy[count] = ft_strdup(arr[count]);
 	return (copy);
+}
+
+size_t	ft_arrlen(char **arr)
+{
+	size_t	len;
+
+	len = 0;
+	while (arr != NULL && arr[len] != NULL)
+		++len;
+	return (len);
 }
