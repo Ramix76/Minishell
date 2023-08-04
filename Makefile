@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/08/04 11:45:40 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/08/04 13:05:43 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,9 +58,9 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/job/job_control.c \
 					$(SRC_DIR)/job/redirections.c \
 					$(SRC_DIR)/job/shell_do.c \
-					$(SRC_DIR)/job/syntax.c \
 					$(SRC_DIR)/parse/operators.c \
 					$(SRC_DIR)/parse/parse.c \
+					$(SRC_DIR)/parse/syntax.c \
 					$(SRC_DIR)/signals/handling.c \
 					$(SRC_DIR)/utils/utils.c \
 					$(SRC_DIR)/utils/utils_export.c \
