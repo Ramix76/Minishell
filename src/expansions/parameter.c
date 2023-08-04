@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:32:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 15:36:26 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/04 14:34:40 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_expand_dollar(char *str, t_data *data)
 		{
 			temp = expanded;
 			expanded = ft_replace_dollar(expanded, ptr, data);
-			ptr = expanded + 1;
+			ptr = expanded;
 		}
 		++ptr;
 	}
@@ -51,7 +51,10 @@ static char	*ft_replace_dollar(char *expanded, char *dollar, t_data *data)
 	size_t	name_len;
 	size_t	p;
 
-	name = ft_getname(dollar);
+	if (*(dollar + 1) == '?')
+		name = ft_strdup("?");
+	else
+		name = ft_getname(dollar);
 	if (name != NULL)
 	{
 		name_len = ft_strlen(name);
@@ -105,10 +108,15 @@ static char	*ft_getname(char *ptr)
  *
  */
 
-static char	*ft_getvalue(char	*name, t_data *data)
+static char	*ft_getvalue(char *name, t_data *data)
 {
 	char	*value;
 
+	if (ft_strcmp("?", name) == 0)
+	{
+		value = ft_strdup(ft_itoa(data->exit_code));
+		return (value);
+	}
 	value = ft_getenv(name, (const char **) data->envp);
 	if (value == NULL)
 		value = "";

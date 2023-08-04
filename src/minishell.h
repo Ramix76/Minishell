@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/04 11:46:02 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/04 15:13:58 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,10 @@ int		ft_syntax_check(char **tokens);
 
 char	**ft_parse2tokens(char *str);
 char	**ft_parse_operators(char **tokens);
+int		ft_quotes(char *token);
+int		ft_redir_in(char *token);
+int		ft_redir_out(char *token);
+int		ft_operators(char **tokens, int i);
 
 /* signals */
 
