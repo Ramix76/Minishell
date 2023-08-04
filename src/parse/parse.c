@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 15:11:36 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/04 11:46:11 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/04 13:21:58 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ static char	*ft_gettoken(char *str)
 		token = ft_strndup(str, len);
 	}
 	else
+	{
 		token = ft_getword(str);
+	}
 	return (token);
 }
 
@@ -68,7 +70,8 @@ static char	*ft_getword(char *str)
 	len = 0;
 	quote = '\0';
 	while (*(str + len) != '\0'
-		&& ft_strchr(METACHARACTERS, *(str + len)) == NULL)
+		&& (ft_strchr(METACHARACTERS, *(str + len)) == NULL
+			|| quote != '\0'))
 	{
 		if (quote == '\0' && (*(str + len) == 042 || *(str + len) == 047))
 			quote = *(str + len);
