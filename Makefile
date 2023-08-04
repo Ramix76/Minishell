@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/08/03 11:23:02 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/08/04 11:45:40 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,8 @@ endif
 
 #/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 
-SRC_FILES		:=	$(SRC_DIR)/enviroment.c \
-					$(SRC_DIR)/main.c \
-					$(SRC_DIR)/parse.c \
+SRC_FILES		:=	$(SRC_DIR)/main.c \
+					$(SRC_DIR)/enviroment.c\
 					$(SRC_DIR)/builtins/builtin_do.c \
 					$(SRC_DIR)/builtins/echo.c \
 					$(SRC_DIR)/builtins/pwd.c \
@@ -60,12 +59,14 @@ SRC_FILES		:=	$(SRC_DIR)/enviroment.c \
 					$(SRC_DIR)/job/redirections.c \
 					$(SRC_DIR)/job/shell_do.c \
 					$(SRC_DIR)/job/syntax.c \
+					$(SRC_DIR)/parse/operators.c \
+					$(SRC_DIR)/parse/parse.c \
+					$(SRC_DIR)/signals/handling.c \
 					$(SRC_DIR)/utils/utils.c \
 					$(SRC_DIR)/utils/utils_export.c \
 					$(SRC_DIR)/utils/utils_errors.c \
 					$(SRC_DIR)/utils/utils_exported.c \
 					$(SRC_DIR)/utils/utils_cd.c \
-					$(SRC_DIR)/signals/handling.c \
 					$(SRC_DIR)/wildcard/wildcard.c
 
 OBJ_FILES		=	$(SRC_FILES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
