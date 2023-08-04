@@ -6,13 +6,12 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 15:11:36 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 17:48:19 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/04 11:46:11 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**ft_parse_operators(char **tokens);
 static char	*ft_gettoken(char *str);
 static char	*ft_getword(char *str);
 
@@ -40,46 +39,6 @@ char	**ft_parse2tokens(char *str)
 	}
 	tokens = ft_parse_operators(tokens);
 	return (tokens);
-}
-
-static char	**ft_parse_operators(char **tokens)
-{
-	int		i;
-	int		x;
-	size_t	arr_len;
-	char	**split;
-	char	**merged;
-
-	i = 0;
-	arr_len = 0;
-	merged = NULL;
-	while (tokens != NULL && tokens[i] != NULL)
-	{
-		if (ft_strchr(METACHARACTERS, *(tokens[i])) == NULL)
-		{
-			++arr_len;
-			merged = (char **) ft_realloc(merged, sizeof(char *) * arr_len,
-					sizeof(char *) * (arr_len + 1));
-			merged[arr_len - 1] = ft_strdup(tokens[i]);
-			merged[arr_len] = NULL;
-		}
-		else
-		{
-			split = ft_split(tokens[i], ' ');
-			x = ft_arrlen(split);
-			arr_len += x;
-			merged = (char **) ft_realloc(merged, sizeof(char *) * arr_len,
-					sizeof(char *) * (arr_len + 1));
-			while (x-- > 0)
-			{
-				printf("x: %d: %s\n", x, split[x]);
-				merged[arr_len - x] = ft_strdup(split[x]);
-			}
-			merged[arr_len] = NULL;
-		}
-		++i;
-	}
-	return (merged);
 }
 
 static char	*ft_gettoken(char *str)
