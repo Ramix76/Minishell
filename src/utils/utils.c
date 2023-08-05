@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 10:09:37 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/05 14:02:00 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 15:06:47 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_free_str_arr(char **split)
 	i = 0;
 	while (split[i] != NULL)
 	{
-		free(split[i]);
+		if (split[i] != NULL)
+			free(split[i]);
 		++i;
 	}
 	free(split);
@@ -65,7 +66,7 @@ char	**ft_arrndup(char **arr, size_t n)
 		return (NULL);
 	dup[n] = NULL;
 	while (n-- > 0)
-		dup[n] = arr[n];
+		dup[n] = ft_strdup(arr[n]);
 	return (dup);
 }
 
