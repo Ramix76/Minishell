@@ -6,18 +6,25 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:40:58 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/01 15:20:19 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 14:12:35 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#define WR	1
-#define RD	0
-
 static int	ft_in(int i, char **tokens, t_data *data);
 static int	ft_out(int i, char **tokens, t_data *data);
 
+int	ft_redirections_do(char **job, t_data *data)
+{
+	(void) job;
+	(void) data;
+	return (EXIT_SUCCESS);
+	(void) ft_in;
+	(void) ft_out;
+}
+
+/*
 int	ft_redirections_do(char *job, t_data *data)
 {
 	int		i;
@@ -46,6 +53,7 @@ int	ft_redirections_do(char *job, t_data *data)
 	return (EXIT_SUCCESS);
 	(void) data;
 }
+*/
 
 static int	ft_in(int i, char **tokens, t_data *data)
 {
@@ -65,6 +73,13 @@ static int	ft_out(int i, char **tokens, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
+int	ft_redirections_rm(char **job)
+{
+	(void) job;
+	return (EXIT_SUCCESS);
+}
+
+/*
 int	ft_redirections_rm(char *str)
 {
 	while (str != NULL && *str != '\0')
@@ -86,3 +101,4 @@ int	ft_redirections_rm(char *str)
 	}
 	return (EXIT_SUCCESS);
 }
+*/

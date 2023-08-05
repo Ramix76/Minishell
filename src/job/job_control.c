@@ -6,27 +6,60 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/05 12:58:50 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 14:14:41 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#define WR	1
-#define RD	0
+#define START	0
+#define END		1
+
+static int	ft_job_do(char **tokens, int start, int end, t_data *data);
 
 int	ft_job_control(char **tokens, t_data *data)
 {
-	int	i;
+	int		i;
+	int		job[2];
 
 	i = 0;
 	while (tokens != NULL && tokens[i] != NULL)
 	{
-		printf("t: %s\n", tokens[i]);
+		job[START] = i;
+		while (tokens[i] != NULL && ft_strcmp("|", tokens[i]) != 0)
+			++i;
+		if (tokens[i] == NULL)
+			--i;
+		if (*(tokens[i]) == '|')
+			job[END] = i - 1;
+		else
+			job[END] = i;
+		ft_job_do(tokens, job[START], job[END], data);
 		++i;
 	}
 	return (EXIT_SUCCESS);
-	(void) data;
+}
+
+static int	ft_job_do(char **tokens, int start, int end, t_data *data)
+{
+	size_t	arr_len;
+	char	**job;
+
+	arr_len = end - start + 1;
+	job = ft_arrndup(tokens, arr_len);
+	if (job == NULL)
+	{
+		errno = ENOMEM;
+		return (EXIT_FAILURE);
+	}
+	if (ft_redirections_do(job, data) == EXIT_FAILURE
+		|| ft_command_do(job, data) == EXIT_FAILURE)
+	{
+		ft_free_arr(job);
+		return (EXIT_FAILURE);
+	}
+	ft_free_arr(job);
+	return (EXIT_SUCCESS);
 }
 
 /*
@@ -48,6 +81,7 @@ int	ft_job_control(char *line, t_data *data)
 		//if (dup2(fd, STDIN_FILENO) != STDIN_FILENO)
 		//	close(fd);
 		if (pipe(fildes) == -1)
+		}
 		{
 			perror("pipe");
 			exit(8);
