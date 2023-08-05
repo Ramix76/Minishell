@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/05 12:36:01 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 12:55:30 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*ft_quotes_closed(char *line);
 /* job */
 
 int		ft_shell_do(t_data *data);
-int		ft_job_control(char *line, t_data *data);
+int		ft_job_control(char **tokens, t_data *data);
 int		ft_simple_command(char *job, t_data *data);
 int		ft_redirections_do(char *job, t_data *data);
 int		ft_redirections_rm(char *str);
@@ -86,7 +86,7 @@ int		ft_here_doc(char *limiter);
 int		ft_read_stdin(int wr_fd, char *limiter);
 int		ft_write_output(int fd, char *output);
 int		ft_redirect_in(char *line, int *fd);
-int		ft_syntax_check(char **tokens);
+int		ft_syntax_check(char **tokens, t_data *data);
 
 /* parse */
 
