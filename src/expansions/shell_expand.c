@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:45:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 15:12:52 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 12:57:45 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	ft_shell_expand(char **tokens, t_data *data)
 	{
 		token = tokens[i];
 		tokens[i] = ft_expand_token(token, data);
-		printf("t: %s\n", tokens[i]);
 		free(token);
 		++i;
 	}
