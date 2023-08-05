@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 10:46:20 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/05 13:02:49 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 16:17:07 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	ft_syntax_check(char **tokens, t_data *data)
 		}
 		++i;
 	}
-	data->exit_code = 0;
 	return (EXIT_SUCCESS);
 }
 
