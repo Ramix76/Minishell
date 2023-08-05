@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 10:46:20 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/05 12:42:50 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 12:51:28 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define SYNERR	"syntax error"
 
-int	ft_syntax_check(char **tokens)
+int	ft_syntax_check(char **tokens, t_data *data)
 {
 	int	i;
 
@@ -24,9 +24,13 @@ int	ft_syntax_check(char **tokens)
 		if (ft_quotes(tokens[i]) == EXIT_FAILURE
 			|| ft_operators(tokens, i) == EXIT_FAILURE
 			|| ft_redir_out(tokens, i) == EXIT_FAILURE)
+		{
+			data->exit_code = 2;
 			return (EXIT_FAILURE);
+		}
 		++i;
 	}
+	data->exit_code = 0;
 	return (EXIT_SUCCESS);
 }
 
