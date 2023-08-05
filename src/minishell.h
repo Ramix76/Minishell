@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/05 12:55:30 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 14:07:31 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ char	*ft_quotes_closed(char *line);
 
 int		ft_shell_do(t_data *data);
 int		ft_job_control(char **tokens, t_data *data);
-int		ft_simple_command(char *job, t_data *data);
-int		ft_redirections_do(char *job, t_data *data);
-int		ft_redirections_rm(char *str);
+int		ft_command_do(char **job, t_data *data);
+int		ft_redirections_do(char **job, t_data *data);
+int		ft_redirections_rm(char **job);
 int		ft_execute_command(t_cmd *cmd, t_data *data);
 int		ft_here_doc(char *limiter);
 int		ft_read_stdin(int wr_fd, char *limiter);
@@ -103,6 +103,7 @@ void	ft_signal_handler(int signal);
 /* utils */
 
 size_t	ft_arrlen(char **arr);
+char	**ft_arrndup(char **arr, size_t n);
 char	*ft_cmd_path(char *argv, const char **envp);
 void	ft_free_str_arr(char **split);
 void	ft_error(const char *comd, const char *dir);
