@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/08/04 14:41:14 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/08/05 12:43:47 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ AUTHOR			?=	framos-p, mpuig-ma
 BUILD_DIR		:=	build
 CC				:=	gcc
 CFLAGS			:=	-Wall -Wextra -Werror -MMD
+CFLAGS			+=	-O3
 CFLAGS			+=	-g -fsanitize='address,undefined'# uncomment for debugging
 INC				=	-I $(SRC_DIR) -I $(SRC_DIR)/builtins -I $(SRC_DIR)/libft/src
 INC				+=	$(shell pkg-config --cflags readline)
@@ -61,7 +62,6 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/parse/operators.c \
 					$(SRC_DIR)/parse/parse.c \
 					$(SRC_DIR)/parse/syntax.c \
-					$(SRC_DIR)/parse/syntax_pipes.c \
 					$(SRC_DIR)/signals/handling.c \
 					$(SRC_DIR)/utils/utils.c \
 					$(SRC_DIR)/utils/utils_export.c \

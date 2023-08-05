@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 10:46:20 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/04 15:14:13 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 12:42:50 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	ft_syntax_check(char **tokens)
 	{
 		if (ft_quotes(tokens[i]) == EXIT_FAILURE
 			|| ft_operators(tokens, i) == EXIT_FAILURE
-			|| ft_redir_in(tokens[i]) == EXIT_FAILURE
-			|| ft_redir_out(tokens[i]) == EXIT_FAILURE)
+			|| ft_redir_out(tokens, i) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		++i;
 	}
@@ -62,6 +61,13 @@ int	ft_operators(char **tokens, int i)
 				SH_NAME, SYNERR);
 			return (EXIT_FAILURE);
 		}
+		else if (*token == '\0'
+			&& ft_strchr(METACHARACTERS, *(tokens[i + 1])) != 0)
+		{
+			ft_fprintf(stderr, "%s: %s: near unexpected token `%s'\n",
+				SH_NAME, SYNERR, tokens[i + 1]);
+			return (EXIT_FAILURE);
+		}
 		else if (*token != '\0')
 		{
 			ft_fprintf(stderr, "%s: %s near unexpected token `%s'\n",
@@ -72,14 +78,22 @@ int	ft_operators(char **tokens, int i)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_redir_in(char *token)
+int	ft_redir_out(char **tokens, int i)
 {
-	(void) token;
-	return (EXIT_SUCCESS);
-}
+	char	*token;
 
-int	ft_redir_out(char *token)
-{
-	(void) token;
+	token = tokens[i];
+	if (*token == 074 && *(token + 1) == 074)
+	{
+		if (ft_strcmp("-", tokens[i + 1]) == 0)
+		{
+			ft_fprintf(stderr, "%s: %s near unexpected token `newline'\n",
+				SH_NAME, SYNERR);
+			return (EXIT_FAILURE);
+		}
+		else if (*(tokens[i + 1]) == '-')
+			ft_memmove(tokens[i + 1], tokens[i + 1] + 1,
+				ft_strlen(tokens[i + 1]));
+	}
 	return (EXIT_SUCCESS);
 }
