@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/08/05 12:43:47 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/08/05 12:46:18 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/expansions/quote_removal.c \
 					$(SRC_DIR)/expansions/shell_expand.c \
 					$(SRC_DIR)/expansions/tilde.c \
+					$(SRC_DIR)/expansions/wildcard.c \
 					$(SRC_DIR)/job/command.c \
 					$(SRC_DIR)/job/execute.c \
 					$(SRC_DIR)/job/here_doc.c \
@@ -68,7 +69,6 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/utils/utils_errors.c \
 					$(SRC_DIR)/utils/utils_exported.c \
 					$(SRC_DIR)/utils/utils_cd.c \
-					$(SRC_DIR)/wildcard/wildcard.c
 
 OBJ_FILES		=	$(SRC_FILES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEP_FILES		=	$(OBJ_FILES:.o=.d)
