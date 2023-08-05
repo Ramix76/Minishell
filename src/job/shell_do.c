@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/05 12:01:49 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 12:55:18 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ int	ft_shell_do(t_data *data)
 		if (line[0] != '\0')
 			add_history(line);
 		tokens = ft_parse2tokens(line);
-		if (ft_syntax_check(tokens) != EXIT_FAILURE)
+		if (ft_syntax_check(tokens, data) != EXIT_FAILURE)
+		{
 			ft_shell_expand(tokens, data);
-		else
-			data->exit_code = 2;
+			ft_job_control(tokens, data);
+		}
 		free(line);
 		ft_free_str_arr(tokens);
 		rl_on_new_line();

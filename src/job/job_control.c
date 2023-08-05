@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/02 15:56:22 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 12:58:50 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,21 @@
 #define WR	1
 #define RD	0
 
+int	ft_job_control(char **tokens, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (tokens != NULL && tokens[i] != NULL)
+	{
+		printf("t: %s\n", tokens[i]);
+		++i;
+	}
+	return (EXIT_SUCCESS);
+	(void) data;
+}
+
+/*
 int	ft_job_control(char *line, t_data *data)
 {
 	int		i;
@@ -63,3 +78,4 @@ int	ft_job_control(char *line, t_data *data)
 	ft_free_arr(split);
 	return (EXIT_SUCCESS);
 }
+*/
