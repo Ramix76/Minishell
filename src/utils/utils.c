@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 10:09:37 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/04 13:07:40 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 14:02:00 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,19 @@ size_t	ft_arrlen(char **arr)
 	while (arr != NULL && arr[len] != NULL)
 		++len;
 	return (len);
+}
+
+char	**ft_arrndup(char **arr, size_t n)
+{
+	char	**dup;
+
+	dup = (char **) malloc(sizeof(char *) * (n + 1));
+	if (dup == NULL)
+		return (NULL);
+	dup[n] = NULL;
+	while (n-- > 0)
+		dup[n] = arr[n];
+	return (dup);
 }
 
 /*
