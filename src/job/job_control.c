@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/05 14:14:41 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 15:07:07 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	ft_job_do(char **tokens, int start, int end, t_data *data)
 		return (EXIT_FAILURE);
 	}
 	if (ft_redirections_do(job, data) == EXIT_FAILURE
+		|| ft_redirections_rm(job) == EXIT_FAILURE
 		|| ft_command_do(job, data) == EXIT_FAILURE)
 	{
 		ft_free_arr(job);
