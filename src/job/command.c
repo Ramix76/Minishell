@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:44:21 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/05 14:05:17 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 14:26:30 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,8 @@ int	ft_command_do(char **job, t_data *data)
 		++i;
 	}
 	(void) data;
-	(void) ft_command_do;
 	return (EXIT_SUCCESS);
 }
-
-/*
-int	ft_simple_command(char *job, t_data *data)
-{
-	if (ft_redirections_do(job, data) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	ft_redirections_rm(job);
-	ft_command_do(ft_strtrim(job, " "), data);
-	return (EXIT_SUCCESS);
-}
-*/
 
 /*
 static int	ft_command_do(char *job, t_data *data)
