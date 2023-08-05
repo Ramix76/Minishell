@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/05 15:07:07 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:14:39 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #define END		1
 
 static int	ft_job_do(char **tokens, int start, int end, t_data *data);
+static int	ft_reset_redirections(t_data *data);
 
 int	ft_job_control(char **tokens, t_data *data)
 {
@@ -60,6 +61,16 @@ static int	ft_job_do(char **tokens, int start, int end, t_data *data)
 		return (EXIT_FAILURE);
 	}
 	ft_free_arr(job);
+	ft_reset_redirections(data);
+	return (EXIT_SUCCESS);
+}
+
+static int	ft_reset_redirections(t_data *data)
+{
+	if (data->in != STDIN_FILENO)
+		close(data->in);
+	if (data->out != STDOUT_FILENO)
+		close(data->out);
 	return (EXIT_SUCCESS);
 }
 
