@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:19:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/02 15:55:28 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 17:34:38 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,27 @@
 #define WR	1
 #define RD	0
 
+int	ft_execute_command(t_cmd *cmd, t_data *data)
+{
+	char	*exec;
+
+	if (cmd->tokens[0][0] != '.' && cmd->tokens[0][0] != '/')
+		exec = ft_which(cmd->tokens[0], data->path);
+	else
+		exec = ft_realpath(cmd->tokens[0], NULL);
+	if (exec == NULL)
+	{
+		ft_fprintf(stderr, "%s: %s: command not found\n",
+			SH_NAME, cmd->tokens[0]);
+		return (EXIT_FAILURE);
+	}
+	ft_execvpe(exec, (char const **) cmd->tokens,
+		(const char **) data->envp);
+	ft_printf("%s: %s: execution error\n", SH_NAME, exec);
+	return (EXIT_FAILURE);
+}
+
+/*
 int	ft_execute_command(t_cmd *cmd, t_data *data)
 {
 	char	*exec;
@@ -49,3 +70,4 @@ int	ft_execute_command(t_cmd *cmd, t_data *data)
 	//close(fildes[WR]);
 	return (EXIT_FAILURE);
 }
+*/
