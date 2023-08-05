@@ -6,13 +6,18 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 10:46:20 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/05 16:17:07 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/05 17:27:33 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 #define SYNERR	"syntax error"
+
+static int	ft_quotes(char *token);
+static int	ft_operators(char **tokens, int i);
+static int	ft_operators_stderr(char *token, char **tokens, int i);
+static int	ft_redir_out(char **tokens, int i);
 
 int	ft_syntax_check(char **tokens, t_data *data)
 {
@@ -33,7 +38,7 @@ int	ft_syntax_check(char **tokens, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_quotes(char *token)
+static int	ft_quotes(char *token)
 {
 	if (ft_quotes_closed(token) != NULL)
 	{
@@ -45,7 +50,7 @@ int	ft_quotes(char *token)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_operators(char **tokens, int i)
+static int	ft_operators(char **tokens, int i)
 {
 	int		c;
 	int		max_allowed;
@@ -60,30 +65,37 @@ int	ft_operators(char **tokens, int i)
 		c = *token;
 		while (max_allowed-- > 0 && *token != '\0' && *token == c)
 			++token;
-		if (*token == '\0' && tokens[i + 1] == NULL)
-		{
-			ft_fprintf(stderr, "%s: %s near unexpected token `newline'\n",
-				SH_NAME, SYNERR);
+		if (ft_operators_stderr(token, tokens, i) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		}
-		else if (*token == '\0'
-			&& ft_strchr(METACHARACTERS, *(tokens[i + 1])) != 0)
-		{
-			ft_fprintf(stderr, "%s: %s: near unexpected token `%s'\n",
-				SH_NAME, SYNERR, tokens[i + 1]);
-			return (EXIT_FAILURE);
-		}
-		else if (*token != '\0')
-		{
-			ft_fprintf(stderr, "%s: %s near unexpected token `%s'\n",
-				SH_NAME, SYNERR, token);
-			return (EXIT_FAILURE);
-		}
 	}
 	return (EXIT_SUCCESS);
 }
 
-int	ft_redir_out(char **tokens, int i)
+static int	ft_operators_stderr(char *token, char **tokens, int i)
+{
+	if (*token == '\0' && tokens[i + 1] == NULL)
+	{
+		ft_fprintf(stderr, "%s: %s near unexpected token `newline'\n",
+			SH_NAME, SYNERR);
+		return (EXIT_FAILURE);
+	}
+	else if (*token == '\0'
+		&& ft_strchr(METACHARACTERS, *(tokens[i + 1])) != 0)
+	{
+		ft_fprintf(stderr, "%s: %s: near unexpected token `%s'\n",
+			SH_NAME, SYNERR, tokens[i + 1]);
+		return (EXIT_FAILURE);
+	}
+	else if (*token != '\0')
+	{
+		ft_fprintf(stderr, "%s: %s near unexpected token `%s'\n",
+			SH_NAME, SYNERR, token);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+static int	ft_redir_out(char **tokens, int i)
 {
 	char	*token;
 
