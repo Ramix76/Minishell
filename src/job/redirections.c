@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-static void	ft_mv_end(char **arr, size_t position);
-
 int	ft_redirections_do(char **job, t_data *data)
 {
 	int	i;
@@ -36,41 +34,19 @@ int	ft_redirections_do(char **job, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_redirections_rm(char **job)
+int	ft_redirections_rm(char **arr)
 {
-	int	i;
+	size_t	i;
 
-	return (EXIT_SUCCESS);
-	i = ft_arrlen(job) - 1;
-	while (job != NULL && job[i] != NULL)
+	i = ft_arrlen(arr);
+	while (i > 0)
 	{
-		if (*job == job[i])
-			break ;
-		if (*(job[i - 1]) == 074 || *(job[i - 1]) == 076)
+		if (*(arr[i - 1]) == '<' || *(arr[i - 1]) == '>')
 		{
-			ft_mv_end(job, i);
-			ft_mv_end(job, i - 1);
+			ft_arr_rm_item(arr, i);
+			ft_arr_rm_item(arr, i - 1);
 		}
 		--i;
 	}
 	return (EXIT_SUCCESS);
-}
-
-static void	ft_mv_end(char **arr, size_t position)
-{
-	size_t	i;
-	char	*temp;
-
-	i = position;
-	while (arr != NULL && arr[i] != NULL)
-	{
-		if (arr[i + 1] == NULL)
-			break ;
-		temp = arr[i];
-		arr[i] = arr[i + 1];
-		arr[i + 1] = temp;
-		++i;
-	}
-	free(arr[i]);
-	arr[i] = NULL;
 }
