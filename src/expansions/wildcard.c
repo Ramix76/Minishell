@@ -15,27 +15,19 @@
 
 static t_list	*ft_getentries(char *expanded);
 static int		ft_matches_pattern(char *pattern, char *d_name);
-static char		*ft_concat_list(t_list *list);
 
 char	*ft_expand_wildcard(char *str, t_data *data)
 {
-	char	*temp;
-	char	*expanded;
 	t_list	*list;
+	char	*expanded;
 
-	expanded = ft_strdup(str);
-	list = ft_getentries(expanded);
+	list = ft_getentries(str);
 	if (list == NULL)
-		return (expanded);
-	else
-	{
-		temp = expanded;
-		expanded = ft_concat_list(list);
-		ft_lstclear(&list, &free);
-		free(list);
-		free(temp);
-	}
-	return (expanded);
+		return (ft_strdup(expanded));
+	// sort list
+	expanded = ft_concat_list(list);
+	ft_lstclear(&list, &free);
+	return (free(list), expanded);
 	(void) data;
 }
 
@@ -81,11 +73,11 @@ static int	ft_matches_pattern(char *pattern, char *name)
 		prefix = asterisc - pattern;
 	if (*(asterisc + 1) != '\0')
 		suffix = ft_strlen(asterisc + 1);
+	if (*name == '.' && *pattern != *name)
+		return (EXIT_FAILURE);
 	if (ft_strncmp(pattern, name, prefix) == 0)
 	{
-		ft_strrev(pattern);
-		ft_strrev(name);
-		if (ft_strncmp(pattern, name, suffix) == 0)
+		if (ft_strncmp(ft_strrev(pattern), ft_strrev(name), suffix) == 0)
 		{
 			ft_strrev(pattern);
 			return (ft_strrev(name), EXIT_SUCCESS);
@@ -94,32 +86,4 @@ static int	ft_matches_pattern(char *pattern, char *name)
 		ft_strrev(name);
 	}
 	return (EXIT_FAILURE);
-}
-
-static char	*ft_concat_list(t_list *list)
-{
-	size_t	len;
-	char	*concat;
-	t_list	*lst;
-
-	len = 0;
-	if (list == NULL)
-		return (NULL);
-	lst = list;
-	while (lst != NULL)
-	{
-		len += ft_strlen(lst->content);
-		lst = lst->next;
-		++len;
-	}
-	concat = (char *) malloc(sizeof(char) * len);
-	ft_memset(concat, '\0', len);
-	lst = list;
-	while (lst != NULL)
-	{
-		ft_strlcat(concat, lst->content, len);
-		ft_strlcat(concat, " ", len);
-		lst = lst->next;
-	}
-	return (concat);
 }
