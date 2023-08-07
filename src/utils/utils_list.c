@@ -39,3 +39,9 @@ char	*ft_concat_list(t_list *list)
 	}
 	return (concat);
 }
+
+int	ft_sort_list(t_list *list)
+{
+	(void) list;
+	return (EXIT_SUCCESS);
+}

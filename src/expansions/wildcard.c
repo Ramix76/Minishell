@@ -16,6 +16,10 @@
 static t_list	*ft_getentries(char *expanded);
 static int		ft_matches_pattern(char *pattern, char *d_name);
 
+/* wildcard: case> quotes ?? 
+ * Status: PENDING
+ * */
+
 char	*ft_expand_wildcard(char *str, t_data *data)
 {
 	t_list	*list;
@@ -24,7 +28,7 @@ char	*ft_expand_wildcard(char *str, t_data *data)
 	list = ft_getentries(str);
 	if (list == NULL)
 		return (ft_strdup(str));
-	// sort list by ascii; primer majuscules, despres minuscules
+	ft_sort_list(list); // sort list by ascii
 	expanded = ft_concat_list(list);
 	ft_lstclear(&list, &free);
 	return (free(list), expanded);

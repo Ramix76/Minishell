@@ -116,5 +116,6 @@ void	ft_print_sorted_vars(char **vars);
 void	ft_free_vars(char **vars);
 int		ft_cd_check_arguments(t_cmd *cmd);
 char	*ft_concat_list(t_list *list);
+int		ft_sort_list(t_list *list);
 
 #endif /* minishell.h */
