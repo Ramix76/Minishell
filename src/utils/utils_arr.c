@@ -72,7 +72,7 @@ char	**ft_arrndup(char **arr, size_t n)
 
 void	ft_arr_rm_item(char **arr, int position)
 {
-	int	i;
+	int		i;
 	char	*temp;
 
 	i = position;
