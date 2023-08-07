@@ -15,6 +15,8 @@
 #define WR	1
 #define RD	0
 
+static int	ft_execute_fork(char *exec, t_cmd *cmd, t_data *data);
+
 int	ft_execute_command(t_cmd *cmd, t_data *data)
 {
 	char	*exec;
@@ -30,47 +32,34 @@ int	ft_execute_command(t_cmd *cmd, t_data *data)
 	{
 		ft_fprintf(stderr, "%s: %s: command not found\n",
 			SH_NAME, cmd->tokens[0]);
+		data->exit_code = 127;
 		return (EXIT_FAILURE);
 	}
-	ft_execvpe(exec, (char const **) cmd->tokens,
-		(const char **) data->envp);
-	ft_printf("%s: %s: execution error\n", SH_NAME, exec);
-	return (EXIT_FAILURE);
+	ft_execute_fork(exec, cmd, data);
+	return (EXIT_SUCCESS);
 }
 
-/*
-int	ft_execute_command(t_cmd *cmd, t_data *data)
+static int	ft_execute_fork(char *exec, t_cmd *cmd, t_data *data)
 {
-	char	*exec;
+	int		fildes[2];
+	pid_t	pid;
 
-	//int		fildes[2];
-	//pid_t	pid;
-	if (cmd->tokens[0][0] != '.' && cmd->tokens[0][0] != '/')
-		exec = ft_which(cmd->tokens[0], data->path);
-	else
-		exec = ft_realpath(cmd->tokens[0], NULL);
-	if (exec == NULL)
-	{
-		ft_fprintf(stderr, "%s: %s: command not found\n",
-			SH_NAME, cmd->tokens[0]);
+	if (pipe(fildes) == -1)
 		return (EXIT_FAILURE);
+	pid = fork();
+	if (pid == -1)
+		exit (888);
+	else if (pid == 0)
+	{
+		ft_execvpe(exec, (char const **) cmd->tokens,
+			(const char **) data->envp);
+		ft_printf("%s: %s: execution error\n", SH_NAME, exec);
+		exit (1);
 	}
-	//if (pipe(fildes) == -1)
-	//	exit(4);
-	//pid = fork();
-	//if (pid == -1)
-	//	exit(1);
-	//if (pid == 0)
-	//{
-	ft_execvpe(exec, (char const **) cmd->tokens,
-		(const char **) data->envp);
-	ft_printf("%s: %s: execution error\n", SH_NAME, exec);
-	exit(EXIT_FAILURE);
-	//}
-	//waitpid(pid, &data->exit_code, 0);
-	//if (WIFEXITED(data->exit_code))
-	//	data->exit_code = WEXITSTATUS(data->exit_code);
-	//close(fildes[WR]);
-	return (EXIT_FAILURE);
+	else
+	{
+		waitpid(pid, NULL, 0);
+		close(fildes[WR]);
+	}
+	return (EXIT_SUCCESS);
 }
-*/
