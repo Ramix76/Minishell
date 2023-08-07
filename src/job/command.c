@@ -16,11 +16,13 @@ int	ft_command_do(char **job, t_data *data)
 {
 	t_cmd	cmd;
 	char	*exec;
-	int		i;
+	// int		i;
 
+	/*
 	i = 0;
 	while (job[i] != NULL)
 		printf("job: %s\n", job[i++]);
+	*/
 	cmd.tokens = job;
 	exec = *job;
 	if (ft_strcmp("exit", exec) == 0)

@@ -73,6 +73,12 @@ static int	ft_operators(char **tokens, int i)
 
 static int	ft_operators_stderr(char *token, char **tokens, int i)
 {
+	if (*(tokens[i]) == 0174 && i == 0)
+	{
+		ft_fprintf(stderr, "%s: %s: near unexpected token `%s'\n",
+			SH_NAME, SYNERR, tokens[i]);
+		return (EXIT_FAILURE);
+	}
 	if (*token == '\0' && tokens[i + 1] == NULL)
 	{
 		ft_fprintf(stderr, "%s: %s near unexpected token `newline'\n",
