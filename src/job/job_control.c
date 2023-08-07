@@ -35,7 +35,10 @@ int	ft_job_control(char **tokens, t_data *data)
 			job[END] = i - 1;
 		else
 			job[END] = i;
-		ft_job_do(tokens, job[START], job[END], data);
+		if (ft_job_do(tokens, job[START], job[END], data) == EXIT_FAILURE)
+		{
+			return (EXIT_FAILURE);
+		}
 		++i;
 	}
 	return (EXIT_SUCCESS);
@@ -69,8 +72,10 @@ static int	ft_reset_redirections(t_data *data)
 {
 	if (data->in != STDIN_FILENO)
 		close(data->in);
+	data->in = STDIN_FILENO;
 	if (data->out != STDOUT_FILENO)
 		close(data->out);
+	data->out = STDOUT_FILENO;
 	return (EXIT_SUCCESS);
 }
 
