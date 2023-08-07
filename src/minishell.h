@@ -28,7 +28,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# include "libft.h"			/* */
+# include "libft.h"			/* ... */
 # include "_minishell.h"	/* t_data, t_cmd */
 
 # ifndef EXIT_SUCCESS
@@ -71,7 +71,8 @@ int		ft_export(t_cmd *cmd, t_data *data);
 int		ft_shell_expand(char **tokens, t_data *data);
 char	*ft_expand_tilde(char *line, t_data *data);
 char	*ft_expand_dollar(char *expanded, t_data *data);
-char	*ft_expand_quotes(char *line);
+char	*ft_expand_wildcard(char *expanded, t_data *data);
+char	*ft_expand_quotes(char *line, t_data *data);
 char	*ft_quotes_closed(char *line);
 
 /* job */
@@ -114,10 +115,5 @@ void	ft_sort_vars(char **vars);
 void	ft_print_sorted_vars(char **vars);
 void	ft_free_vars(char **vars);
 int		ft_cd_check_arguments(t_cmd *cmd);
-
-/* wildcard */
-/* migrate to expansions/ */
-
-char	**ft_files_and_dirs(void);
 
 #endif /* minishell.h */
