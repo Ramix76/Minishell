@@ -20,6 +20,8 @@ int	ft_execute_command(t_cmd *cmd, t_data *data)
 	char	*exec;
 
 	printf("execute_command: %s\n", cmd->tokens[0]);
+	if (cmd->tokens[0] == NULL)
+		return (EXIT_SUCCESS);
 	if (cmd->tokens[0][0] != '.' && cmd->tokens[0][0] != '/')
 		exec = ft_which(cmd->tokens[0], data->path);
 	else
