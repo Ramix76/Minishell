@@ -23,8 +23,8 @@ char	*ft_expand_wildcard(char *str, t_data *data)
 
 	list = ft_getentries(str);
 	if (list == NULL)
-		return (ft_strdup(expanded));
-	// sort list
+		return (ft_strdup(str));
+	// sort list by ascii; primer majuscules, despres minuscules
 	expanded = ft_concat_list(list);
 	ft_lstclear(&list, &free);
 	return (free(list), expanded);
