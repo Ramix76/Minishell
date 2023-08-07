@@ -12,78 +12,36 @@
 
 #include "minishell.h"
 
-#define MAX_STRING_LENGTH 10000
+static int	ft_matches_pattern(char *pattern, char *d_name);
 
-static int	ft_is_hidden_file(const char *name);
-static char	*ft_allocate_and_copy_name(const char *src);
-static void	ft_add_to_result(char ***result, size_t *count, const char *name);
-
-static int	ft_is_hidden_file(const char *name)
-{
-	return (name[0] == '.' && ft_strcmp(name, ".") != 0
-		&& ft_strcmp(name, "..") != 0);
-}
-
-static char	*ft_allocate_and_copy_name(const char *src)
-{
-	char	*name;
-	size_t	src_len;
-
-	src_len = ft_strlen(src);
-	name = (char *)malloc(src_len + 1);
-	if (name == NULL)
-	{
-		ft_fprintf(stderr, "Memory allocation error\n");
-		return (NULL);
-	}
-	else
-		ft_strlcpy(name, src, src_len + 1);
-	return (name);
-}
-
-static void	ft_add_to_result(char ***result, size_t *count, const char *name)
-{
-	char	**temp;
-
-	temp = (char **)ft_realloc(*result,
-			(*count + 1) * sizeof(char *), (*count) * sizeof(char *));
-	if (temp != NULL)
-	{
-		*result = temp;
-		(*result)[*count] = ft_allocate_and_copy_name(name);
-		if ((*result)[*count] != NULL)
-		{
-			(*count)++;
-			(*result)[*count] = NULL;
-		}
-	}
-	else
-		ft_fprintf(stderr, "Memory reallocation error\n");
-}
-
-char	**ft_files_and_dirs(void)
+char	*ft_expand_wildcard(char *str, t_data *data)
 {
 	DIR				*dir;
 	struct dirent	*entry;
-	char			**result;
-	size_t			count;
-	char			*name;
+	char			*temp;
+	char			*expanded;
 
-	result = NULL;
+	expanded = ft_strdup(str);
+	printf("str: %s\n", str);
 	dir = opendir(".");
 	if (dir == NULL)
-		return (ft_fprintf(stderr, "Error opening dir\n"), NULL);
+		return (ft_fprintf(stderr, "%s: %s\n", SH_NAME, strerror(errno)), NULL);
 	entry = readdir(dir);
 	while (entry != NULL)
 	{
-		if (!ft_is_hidden_file(entry->d_name))
-		{
-			name = ft_allocate_and_copy_name(entry->d_name);
-			if (name != NULL)
-				ft_add_to_result(&result, &count, name);
-		}
+		if (ft_matches_pattern(str, entry->d_name) == EXIT_SUCCESS)
+			printf("add: %s\n", entry->d_name);
 		entry = readdir(dir);
 	}
 	closedir(dir);
-	return (result);
+	printf("return: %s\n", expanded);
+	return (expanded);
+	(void) temp;
+	(void) data;
+}
+
+static int	ft_matches_pattern(char *pattern, char *d_name)
+{
+	printf("pattern: %s, d_name: %s\n", pattern, d_name);
+	return (EXIT_SUCCESS);
 }

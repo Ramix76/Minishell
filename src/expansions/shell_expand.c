@@ -42,8 +42,14 @@ static char	*ft_expand_token(char *str, t_data *data)
 	temp = expanded;
 	expanded = ft_expand_dollar(expanded, data);
 	free(temp);
+	if (ft_strchr(expanded, '*') != NULL)
+	{
+		temp = expanded;
+		expanded = ft_expand_wildcard(expanded, data);
+		free(temp);
+	}
 	temp = expanded;
-	expanded = ft_expand_quotes(expanded);
+	expanded = ft_expand_quotes(expanded, data);
 	free(temp);
 	return (expanded);
 }
