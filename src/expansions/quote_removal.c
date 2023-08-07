@@ -12,12 +12,13 @@
 
 #include "minishell.h"
 
-char	*ft_expand_quotes(char *str)
+char	*ft_expand_quotes(char *str, t_data *data)
 {
 	size_t	len;
 	int		quote;
 	char	*expanded;
 
+	(void) data;
 	len = 0;
 	quote = '\0';
 	expanded = (char *) malloc(sizeof(char) * ft_strlen(str) + 1);
