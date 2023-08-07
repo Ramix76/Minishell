@@ -25,7 +25,8 @@ int	ft_command_do(char **job, t_data *data)
 	exec = *job;
 	if (ft_strcmp("exit", exec) == 0)
 	{
-		// not properly implemented at all
+		printf("exit\n");
+		g_running = 0;
 		return (EXIT_SUCCESS);
 	}
 	else if (ft_builtin_do(&cmd, data) == EXIT_SUCCESS)
