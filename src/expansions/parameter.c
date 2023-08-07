@@ -37,6 +37,7 @@ char	*ft_expand_dollar(char *str, t_data *data)
 			temp = expanded;
 			expanded = ft_replace_dollar(expanded, ptr, data);
 			ptr = expanded;
+			(void) temp;
 		}
 		++ptr;
 	}
