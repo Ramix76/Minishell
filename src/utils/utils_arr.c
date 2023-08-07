@@ -28,7 +28,7 @@ void	ft_free_str_arr(char **split)
 	free(split);
 }
 
-char	**ft_strduparr(char **arr)
+char	**ft_arrdup(char **arr)
 {
 	int		count;
 	char	**copy;
@@ -70,34 +70,19 @@ char	**ft_arrndup(char **arr, size_t n)
 	return (dup);
 }
 
-/*
- * ft_quotes_closed
- * if quotes (single or double) are closed, returns NULL
- * else (if not closed) returns position
- * of last unclosed quote (simple or double).
- */
-
-char	*ft_quotes_closed(char *line)
+void	ft_arr_rm_item(char **arr, int position)
 {
-	char	c;
-	char	*s;
-	char	*ss;
+	int	i;
+	char	*temp;
 
-	s = line;
-	while (s != NULL && *s != '\0')
+	i = position;
+	while (arr[i + 1] != NULL)
 	{
-		if (*s == 042 || *s == 047)
-		{
-			c = *s;
-			ss = s + 1;
-			while (*ss != '\0' && *ss != c)
-				++ss;
-			if (*ss == '\0')
-				return (s);
-			else
-				s = ss;
-		}
-		++s;
+		temp = arr[i];
+		arr[i] = arr[i + 1];
+		arr[i + 1] = temp;
+		++i;
 	}
-	return (NULL);
+	free(arr[i]);
+	arr[i] = NULL;
 }

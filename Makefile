@@ -66,11 +66,12 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/parse/parse.c \
 					$(SRC_DIR)/parse/syntax.c \
 					$(SRC_DIR)/signals/handling.c \
-					$(SRC_DIR)/utils/utils.c \
-					$(SRC_DIR)/utils/utils_export.c \
-					$(SRC_DIR)/utils/utils_errors.c \
-					$(SRC_DIR)/utils/utils_exported.c \
+					$(SRC_DIR)/utils/utils_arr.c \
 					$(SRC_DIR)/utils/utils_cd.c \
+					$(SRC_DIR)/utils/utils_errors.c \
+					$(SRC_DIR)/utils/utils_export.c \
+					$(SRC_DIR)/utils/utils_exported.c \
+					$(SRC_DIR)/utils/utils_quotes.c
 
 OBJ_FILES		=	$(SRC_FILES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEP_FILES		=	$(OBJ_FILES:.o=.d)

@@ -100,8 +100,8 @@ void	ft_print_combined_vars(t_data *data)
 		while (data->envp[env_count])
 			env_count++;
 	}
-	env_copy = ft_strduparr(data->envp);
-	exported_copy = ft_strduparr(data->exported_vars);
+	env_copy = ft_arrdup(data->envp);
+	exported_copy = ft_arrdup(data->exported_vars);
 	combined_vars = ft_combine_vars(env_copy, exported_copy);
 	if (combined_vars != NULL)
 	{

@@ -102,12 +102,13 @@ void	ft_signal_handler(int signal);
 /* utils */
 
 size_t	ft_arrlen(char **arr);
+char	**ft_arrdup(char **arr);
 char	**ft_arrndup(char **arr, size_t n);
+void	ft_arr_rm_item(char **arr, int position);
 char	*ft_cmd_path(char *argv, const char **envp);
 void	ft_free_str_arr(char **split);
 void	ft_error(const char *comd, const char *dir);
 bool	ft_is_valid_var_format(const char *var);
-char	**ft_strduparr(char **arr);
 void	ft_print_combined_vars(t_data *data);
 void	ft_sort_vars(char **vars);
 void	ft_print_sorted_vars(char **vars);
