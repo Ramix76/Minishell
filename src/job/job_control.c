@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:43:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/05 18:14:39 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 10:23:05 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	ft_job_do(char **tokens, int start, int end, t_data *data)
 	char	**job;
 
 	arr_len = end - start + 1;
-	job = ft_arrndup(tokens, arr_len);
+	job = ft_arrndup(tokens + start, arr_len);
 	if (job == NULL)
 	{
 		errno = ENOMEM;
