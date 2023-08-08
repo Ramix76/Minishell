@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/05 17:24:05 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 12:38:05 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int		ft_pwd(t_data *data);
 int		ft_cd(t_cmd *cmd, t_data *data);
 int		ft_unset(t_cmd *cmd, t_data *data);
 int		ft_export(t_cmd *cmd, t_data *data);
+int		ft_exit(t_cmd *cmd, t_data *data);
 
 /* expansions */
 
