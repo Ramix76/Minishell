@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:44:21 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 14:09:07 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 15:52:03 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #define START	0
 #define END		1
 
+static int		ft_getcommandlist(char **tokens, int *position);
 //static int	ft_job_do(char **tokens, int start, int end, t_data *data);
 //static int	ft_reset_redirections(t_data *data);
 
@@ -29,17 +30,7 @@ int	ft_command_do(char **tokens, t_data *data)
 	while (tokens != NULL && tokens[i] != NULL)
 	{
 		list[START] = i;
-		while (tokens[i] != NULL)
-		{
-			if (parenthesis == false && ft_strcmp(tokens[i], "(") == 0)
-				parenthesis = true;
-			if (parenthesis == true && ft_strcmp(tokens[i], ")") == 0)
-				parenthesis = false;
-			if (tokens[i] != NULL && parenthesis == false
-				&& (ft_strcmp(tokens[i], "&&") == 0 || ft_strcmp(tokens[i], "||") == 0))
-				break ;
-			++i;
-		}
+		ft_getcommandlist(tokens, &i);
 		if (tokens[i] == NULL)
 			--i;
 		list[END] = i;
@@ -48,6 +39,29 @@ int	ft_command_do(char **tokens, t_data *data)
 	}
 	return (EXIT_SUCCESS);
 	(void) data;
+}
+
+static int	ft_getcommandlist(char **tokens, int *position)
+{
+	int		i;
+	bool	parenthesis;
+
+	i = *position;
+	parenthesis = false;
+	while (tokens[i] != NULL)
+	{
+		if (parenthesis == false && ft_strcmp(tokens[i], "(") == 0)
+			parenthesis = true;
+		if (parenthesis == true && ft_strcmp(tokens[i], ")") == 0)
+			parenthesis = false;
+		if (tokens[i] != NULL && parenthesis == false
+			&& (ft_strcmp(tokens[i], "&&") == 0
+				|| ft_strcmp(tokens[i], "||") == 0))
+			break ;
+		++i;
+	}
+	*position = i;
+	return (EXIT_SUCCESS);
 }
 
 /*
