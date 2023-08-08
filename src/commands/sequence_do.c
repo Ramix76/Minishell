@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:20:28 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 18:24:29 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 18:36:10 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,21 @@ int	ft_sequence_do(char **tokens, int start, int end, t_data *data)
 		if (ft_redirections_do(job, data) == EXIT_FAILURE
 			|| ft_redirections_rm(job) == EXIT_FAILURE
 			|| ft_simple_command(job, data) == EXIT_FAILURE)
-		{
-			ft_free_arr(job);
-			return (EXIT_FAILURE);
-		}
+			return (ft_free_arr(job), EXIT_FAILURE);
 	}
 	else
-		ft_pipeline(tokens, data);
-	ft_free_arr(job);
+	{
+		if (ft_pipeline(tokens, data) == EXIT_FAILURE)
+			ft_fprintf(stderr, "ft_pipeline return FAILURE\n");
+	}
 	ft_reset_redirections(data);
-	return (EXIT_SUCCESS);
+	return (ft_free_arr(job), EXIT_SUCCESS);
 }
 
 static int	ft_has_pipe(char **tokens)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (tokens[i])
 	{
