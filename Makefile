@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/08/05 14:29:13 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/08/08 12:03:04 by framos-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,8 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/utils/utils_export.c \
 					$(SRC_DIR)/utils/utils_exported.c \
 					$(SRC_DIR)/utils/utils_list.c \
-					$(SRC_DIR)/utils/utils_quotes.c
+					$(SRC_DIR)/utils/utils_quotes.c \
+					$(SRC_DIR)/builtins/exit.c
 
 OBJ_FILES		=	$(SRC_FILES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEP_FILES		=	$(OBJ_FILES:.o=.d)
