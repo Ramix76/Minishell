@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:52:40 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/13 11:55:47 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/08 17:54:13 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	ft_echoed(char **tokens, int newline)
 	}
 }
 
-int	ft_echo(t_cmd *cmd)
+int	ft_echo(t_cmd *cmd, t_data *data)
 {
 	int		i;
 	int		j;
@@ -54,5 +54,6 @@ int	ft_echo(t_cmd *cmd)
 		newline = 0;
 	}
 	ft_echoed(&cmd->tokens[i], newline);
+	data->exit_code = 0;
 	return (EXIT_SUCCESS);
 }

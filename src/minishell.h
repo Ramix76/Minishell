@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/08 16:38:26 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 17:54:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ extern sig_atomic_t			g_running;
 
 int		ft_builtin_do(t_cmd *cmd, t_data *data);
 int		ft_env(t_data *data);
-int		ft_echo(t_cmd *cmd);
+int		ft_echo(t_cmd *cmd, t_data *data);
 int		ft_pwd(t_data *data);
 int		ft_cd(t_cmd *cmd, t_data *data);
 int		ft_unset(t_cmd *cmd, t_data *data);
