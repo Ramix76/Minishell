@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:40:58 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/05 18:20:31 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:10:31 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,16 @@ int	ft_redirections_rm(char **arr)
 		}
 		--i;
 	}
+	return (EXIT_SUCCESS);
+}
+
+int	ft_reset_redirections(t_data *data)
+{
+	if (data->in != STDIN_FILENO)
+		close(data->in);
+	data->in = STDIN_FILENO;
+	if (data->out != STDOUT_FILENO)
+		close(data->out);
+	data->out = STDOUT_FILENO;
 	return (EXIT_SUCCESS);
 }

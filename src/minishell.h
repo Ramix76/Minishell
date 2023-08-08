@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/08 13:35:36 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:30:01 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,6 @@
 
 extern sig_atomic_t			g_running;
 
-/* enviroment.c */
-
-int		ft_init_env(char **envp, t_data *data);
-int		ft_shlvl(char **envp, t_data *data);
-int		ft_sethome(t_data *data);
-
 /* builtins */
 
 int		ft_builtin_do(t_cmd *cmd, t_data *data);
@@ -67,6 +61,19 @@ int		ft_unset(t_cmd *cmd, t_data *data);
 int		ft_export(t_cmd *cmd, t_data *data);
 int		ft_exit(t_cmd *cmd, t_data *data);
 
+/* commands */
+
+int		ft_shell_do(t_data *data);
+int		ft_command_do(char **tokens, t_data *data);
+int		ft_simple_command(char **job, t_data *data);
+int		ft_execute_command(t_cmd *cmd, t_data *data);
+
+/* enviroment.c */
+
+int		ft_init_env(char **envp, t_data *data);
+int		ft_shlvl(char **envp, t_data *data);
+int		ft_sethome(t_data *data);
+
 /* expansions */
 
 int		ft_shell_expand(char **tokens, t_data *data);
@@ -76,27 +83,24 @@ char	*ft_expand_wildcard(char *expanded, t_data *data);
 char	*ft_expand_quotes(char *line, t_data *data);
 char	*ft_quotes_closed(char *line);
 
-/* job */
-
-int		ft_shell_do(t_data *data);
-int		ft_command_do(char **tokens, t_data *data);
-
-int		ft_job_control(char **tokens, t_data *data);
-int		ft_redirections_do(char **job, t_data *data);
-int		ft_redirections_rm(char **job);
-int		ft_execute_command(t_cmd *cmd, t_data *data);
-int		ft_here_doc(char *limiter);
-int		ft_read_stdin(int wr_fd, char *limiter);
-int		ft_write_output(int fd, char *output);
-int		ft_redirect_in(char *line, int *fd);
-int		ft_syntax_check(char **tokens, t_data *data);
-int		ft_in(char *op, char *value, t_data *data);
-int		ft_out(char *op, char *value, t_data *data);
-
 /* parse */
 
 char	**ft_parse2tokens(char *str);
 char	**ft_parse_operators(char **tokens);
+int		ft_syntax_check(char **tokens, t_data *data);
+
+/* redirections */
+
+int		ft_redirections_do(char **job, t_data *data);
+int		ft_redirections_rm(char **job);
+int		ft_reset_redirections(t_data *data);
+
+int		ft_here_doc(char *limiter);
+int		ft_read_stdin(int wr_fd, char *limiter);
+int		ft_write_output(int fd, char *output);
+int		ft_redirect_in(char *line, int *fd);
+int		ft_in(char *op, char *value, t_data *data);
+int		ft_out(char *op, char *value, t_data *data);
 
 /* signals */
 

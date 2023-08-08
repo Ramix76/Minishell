@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/08/08 13:27:42 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/08/08 16:31:09 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,12 +48,9 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/builtins/cd.c \
 					$(SRC_DIR)/builtins/unset.c \
 					$(SRC_DIR)/builtins/export.c \
-					$(SRC_DIR)/commands/command.c \
+					$(SRC_DIR)/commands/command_do.c \
+					$(SRC_DIR)/commands/command_simple.c \
 					$(SRC_DIR)/commands/execute.c \
-					$(SRC_DIR)/commands/here_doc.c \
-					$(SRC_DIR)/commands/redirections.c \
-					$(SRC_DIR)/commands/redirections_in.c \
-					$(SRC_DIR)/commands/redirections_out.c \
 					$(SRC_DIR)/commands/shell_do.c \
 					$(SRC_DIR)/expansions/filename.c \
 					$(SRC_DIR)/expansions/parameter.c \
@@ -65,6 +62,10 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/parse/parse.c \
 					$(SRC_DIR)/parse/syntax.c \
 					$(SRC_DIR)/signals/handling.c \
+					$(SRC_DIR)/redirections/here_doc.c \
+					$(SRC_DIR)/redirections/redirections.c \
+					$(SRC_DIR)/redirections/redirections_in.c \
+					$(SRC_DIR)/redirections/redirections_out.c \
 					$(SRC_DIR)/utils/utils_arr.c \
 					$(SRC_DIR)/utils/utils_cd.c \
 					$(SRC_DIR)/utils/utils_errors.c \
