@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:32:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/04 14:34:40 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 11:04:27 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_expand_dollar(char *str, t_data *data)
 	while (ptr != NULL && *ptr != '\0')
 	{
 		if (quote == '\0' && (*ptr == 042 || *ptr == 047))
-			quote = *str;
+			quote = *ptr;
 		else if (quote != '\0' && quote == *ptr)
 			quote = '\0';
 		else if ((quote == '\0' || quote == 042) && *ptr == '$')
