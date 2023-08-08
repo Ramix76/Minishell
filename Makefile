@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/08/08 16:31:09 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/08/08 16:37:59 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/commands/command_do.c \
 					$(SRC_DIR)/commands/command_simple.c \
 					$(SRC_DIR)/commands/execute.c \
+					$(SRC_DIR)/commands/pipeline.c \
 					$(SRC_DIR)/commands/shell_do.c \
 					$(SRC_DIR)/expansions/filename.c \
 					$(SRC_DIR)/expansions/parameter.c \

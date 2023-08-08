@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/08 16:30:01 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:38:26 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int		ft_exit(t_cmd *cmd, t_data *data);
 
 int		ft_shell_do(t_data *data);
 int		ft_command_do(char **tokens, t_data *data);
+int		ft_pipeline(char **tokens, t_data *data);
 int		ft_simple_command(char **job, t_data *data);
 int		ft_execute_command(t_cmd *cmd, t_data *data);
 
