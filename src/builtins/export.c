@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/08 12:00:36 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 18:31:27 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static int	ft_process_export_token(char *t, t_data *data)
 		return (free(name), EXIT_FAILURE);
 	}
 	value = ft_strdup(ft_strchr(t, '=') + 1);
-	printf("value: %s, name: %s\n", value, name);
 	if (ft_getenv(name, (const char **) data->exported_vars) != NULL)
 		ft_unsetenv(name, data->exported_vars);
 	if (ft_strnstr(t, "+=", ft_strlen(t)) != NULL
