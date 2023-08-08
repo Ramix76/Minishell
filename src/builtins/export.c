@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/08 11:49:45 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 12:00:36 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	ft_process_export_token(char *t, t_data *data)
 	if (ft_strchr(t, '=') == NULL || *(ft_strchr(t, '=') + 1) == '\0')
 		return (ft_empty_values(t, data));
 	name = ft_strndup(t, ft_strchr(t, '=') - t);
-	if (ft_strchr(name, '-') != NULL)
+	if (ft_strchr(name, '-') != NULL || ft_quotes_closed(name) != NULL)
 	{
 		ft_fprintf(stderr, "%s: export: `%s': not a valid identifier\n",
 			SH_NAME, name);
@@ -65,7 +65,7 @@ static int	ft_empty_values(char *t, t_data *data)
 {
 	char	*name;
 
-	if (ft_strchr(t, '-') != NULL)
+	if (ft_strchr(t, '-') != NULL) 
 		return (ft_fprintf(stderr, "%s: export: `%s': not a valid identifier\n",
 				SH_NAME, t), EXIT_FAILURE);
 	if (ft_strchr(t, '=') == NULL)
