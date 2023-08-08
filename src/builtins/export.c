@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/02 15:46:34 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/08 11:17:33 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,10 @@ int	ft_export(t_cmd *cmd, t_data *data)
 	int	i;
 
 	count = 0;
-	if (cmd->tokens == NULL)
-	{
-		ft_print_combined_vars(data);
-		return (EXIT_SUCCESS);
-	}
-	while (cmd->tokens[count])
+	while (cmd->tokens != NULL && cmd->tokens[count])
 		count++;
-	if (count == 1)
-	{
-		ft_print_combined_vars(data);
-		return (EXIT_SUCCESS);
-	}
+	if (count < 2)
+		return (ft_print_combined_vars(data), EXIT_SUCCESS);
 	i = 0;
 	while (++i < count)
 		ft_process_export_token(cmd->tokens[i], data);
@@ -86,6 +78,8 @@ static int	ft_empty_values(char *t, t_data *data)
 	free(name);
 	return (EXIT_SUCCESS);
 }
+
+/* REDO: without ft_strjoin; using malloc once + strlcat */
 
 static char	*ft_concatenate_tokens(char *name, char *value, t_data *data)
 {
