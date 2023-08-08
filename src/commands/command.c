@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:44:21 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 13:27:06 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 14:09:07 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,43 @@
 #define START	0
 #define END		1
 
-static int	ft_job_do(char **tokens, int start, int end, t_data *data);
-static int	ft_reset_redirections(t_data *data);
+//static int	ft_job_do(char **tokens, int start, int end, t_data *data);
+//static int	ft_reset_redirections(t_data *data);
 
-int	ft_command_do(char **job, t_data *data)
+int	ft_command_do(char **tokens, t_data *data)
+{
+	int		i;
+	int		list[2];
+	bool	parenthesis;
+
+	i = 0;
+	parenthesis = 0;
+	while (tokens != NULL && tokens[i] != NULL)
+	{
+		list[START] = i;
+		while (tokens[i] != NULL)
+		{
+			if (parenthesis == false && ft_strcmp(tokens[i], "(") == 0)
+				parenthesis = true;
+			if (parenthesis == true && ft_strcmp(tokens[i], ")") == 0)
+				parenthesis = false;
+			if (tokens[i] != NULL && parenthesis == false
+				&& (ft_strcmp(tokens[i], "&&") == 0 || ft_strcmp(tokens[i], "||") == 0))
+				break ;
+			++i;
+		}
+		if (tokens[i] == NULL)
+			--i;
+		list[END] = i;
+		printf("start: %s, end: %s\n", tokens[list[START]], tokens[list[END]]);
+		++i;
+	}
+	return (EXIT_SUCCESS);
+	(void) data;
+}
+
+/*
+int	ft_command_do(char **tokens, t_data *data)
 {
 	t_cmd	cmd;
 	char	*exec;
@@ -33,7 +66,9 @@ int	ft_command_do(char **job, t_data *data)
 		ft_execute_command(&cmd, data);
 	return (EXIT_SUCCESS);
 }
+*/
 
+/*
 int	ft_job_control(char **tokens, t_data *data)
 {
 	int		i;
@@ -59,7 +94,9 @@ int	ft_job_control(char **tokens, t_data *data)
 	}
 	return (EXIT_SUCCESS);
 }
+*/
 
+/*
 static int	ft_job_do(char **tokens, int start, int end, t_data *data)
 {
 	size_t	arr_len;
@@ -83,7 +120,9 @@ static int	ft_job_do(char **tokens, int start, int end, t_data *data)
 	ft_reset_redirections(data);
 	return (EXIT_SUCCESS);
 }
+*/
 
+/*
 static int	ft_reset_redirections(t_data *data)
 {
 	if (data->in != STDIN_FILENO)
@@ -94,6 +133,7 @@ static int	ft_reset_redirections(t_data *data)
 	data->out = STDOUT_FILENO;
 	return (EXIT_SUCCESS);
 }
+*/
 
 /*
 int	ft_job_control(char *line, t_data *data)

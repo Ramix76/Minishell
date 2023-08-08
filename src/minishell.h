@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/08 13:11:49 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 13:35:36 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 
 # define SH_NAME			"homersh"
 # define SH_VERSION			"version 0.1-alpha"
-# define METACHARACTERS		" \n\t|<>&"	//not implemented: &;()
+# define METACHARACTERS		" \n\t|<>&()"	// `;' not implemented
 
 // consider allocating prompt in main.c -> data init
 # define PROMPT				"homersh$ "
@@ -79,8 +79,9 @@ char	*ft_quotes_closed(char *line);
 /* job */
 
 int		ft_shell_do(t_data *data);
+int		ft_command_do(char **tokens, t_data *data);
+
 int		ft_job_control(char **tokens, t_data *data);
-int		ft_command_do(char **job, t_data *data);
 int		ft_redirections_do(char **job, t_data *data);
 int		ft_redirections_rm(char **job);
 int		ft_execute_command(t_cmd *cmd, t_data *data);
