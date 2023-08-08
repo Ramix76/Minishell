@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:31:50 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/01 15:55:21 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 17:55:19 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_builtin_do(t_cmd *cmd, t_data *data)
 	if (ft_strcmp("pwd", exec_name) == 0)
 		return (ft_pwd(data), EXIT_SUCCESS);
 	else if (ft_strcmp("echo", exec_name) == 0)
-		return (ft_echo(cmd), EXIT_SUCCESS);
+		return (ft_echo(cmd, data), EXIT_SUCCESS);
 	else if (ft_strcmp("cd", exec_name) == 0)
 		return (ft_cd(cmd, data), EXIT_SUCCESS);
 	else if (ft_strcmp("env", exec_name) == 0)
