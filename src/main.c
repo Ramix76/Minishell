@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/08 12:42:53 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 18:47:07 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int		ft_init_args(int argc, char **argv);
 static int		ft_init_data(int argc, char **argv, char **envp, t_data *data);
 static int		ft_init_signals(void);
+static void		ft_free_some_stuff(t_data *data);
 sig_atomic_t	g_running = 1;
 
 int	main(int argc, char **argv, char **envp)
@@ -24,8 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_args(argc, argv);
 	ft_init_data(argc, argv, envp, &data);
 	ft_shell_do(&data);
-	ft_free_str_arr(data.envp);
-	ft_free_str_arr(data.exported_vars);
+	ft_free_some_stuff(&data);
 	return (data.exit_code);
 }
 
@@ -72,4 +72,12 @@ static int	ft_init_signals(void)
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
 	return (EXIT_SUCCESS);
+}
+
+static void	ft_free_some_stuff(t_data *data)
+{
+	ft_free_str_arr(data->envp);
+	ft_free_str_arr(data->exported_vars);
+	free(data->home);
+	free(data->exec_dir);
 }
