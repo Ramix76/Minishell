@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:19:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 16:20:19 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 18:42:46 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	ft_execute_fork(char *exec, t_cmd *cmd, t_data *data)
 	}
 	else
 	{
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &data->exit_code, 0);
 		close(fildes[WR]);
 	}
 	return (EXIT_SUCCESS);
