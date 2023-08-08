@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:48:38 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/26 17:16:36 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/08 11:47:29 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_expand_wildcard(char *str, t_data *data)
 	list = ft_getentries(str);
 	if (list == NULL)
 		return (ft_strdup(str));
-	ft_sort_list(list); // sort list by ascii
+	ft_sort_list(list);
 	expanded = ft_concat_list(list);
 	ft_lstclear(&list, &free);
 	return (free(list), expanded);
