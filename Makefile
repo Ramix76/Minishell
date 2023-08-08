@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/08/08 13:24:48 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/08/08 13:27:42 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,6 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/commands/command.c \
 					$(SRC_DIR)/commands/execute.c \
 					$(SRC_DIR)/commands/here_doc.c \
-					$(SRC_DIR)/commands/job_control.c \
 					$(SRC_DIR)/commands/redirections.c \
 					$(SRC_DIR)/commands/redirections_in.c \
 					$(SRC_DIR)/commands/redirections_out.c \
