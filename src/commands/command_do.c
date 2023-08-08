@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:44:21 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 16:25:50 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 17:52:31 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ int	ft_command_do(char **tokens, t_data *data)
 		else
 			sequence[END] = i;
 		ft_sequence_do(tokens, sequence[START], sequence[END], data);
+		if ((data->exit_code != 0 && tokens[i] != NULL
+				&& ft_strcmp(tokens[i], "&&") == 0)
+			|| (data->exit_code == 0 && tokens[i] != NULL
+				&& ft_strcmp(tokens[i], "||") == 0))
+			return (EXIT_FAILURE);
 		++i;
 	}
 	return (EXIT_SUCCESS);
