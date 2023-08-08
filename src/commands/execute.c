@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:19:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/05 18:24:59 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:20:19 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	ft_execute_command(t_cmd *cmd, t_data *data)
 {
 	char	*exec;
 
-	printf("execute_command: %s\n", cmd->tokens[0]);
 	if (cmd->tokens[0] == NULL)
 		return (EXIT_SUCCESS);
 	if (cmd->tokens[0][0] != '.' && cmd->tokens[0][0] != '/')
