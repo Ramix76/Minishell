@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/08/08 12:03:04 by framos-p         ###   ########.fr        #
+#    Updated: 2023/08/08 13:24:48 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,20 +48,20 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/builtins/cd.c \
 					$(SRC_DIR)/builtins/unset.c \
 					$(SRC_DIR)/builtins/export.c \
+					$(SRC_DIR)/commands/command.c \
+					$(SRC_DIR)/commands/execute.c \
+					$(SRC_DIR)/commands/here_doc.c \
+					$(SRC_DIR)/commands/job_control.c \
+					$(SRC_DIR)/commands/redirections.c \
+					$(SRC_DIR)/commands/redirections_in.c \
+					$(SRC_DIR)/commands/redirections_out.c \
+					$(SRC_DIR)/commands/shell_do.c \
 					$(SRC_DIR)/expansions/filename.c \
 					$(SRC_DIR)/expansions/parameter.c \
 					$(SRC_DIR)/expansions/quote_removal.c \
 					$(SRC_DIR)/expansions/shell_expand.c \
 					$(SRC_DIR)/expansions/tilde.c \
 					$(SRC_DIR)/expansions/wildcard.c \
-					$(SRC_DIR)/job/command.c \
-					$(SRC_DIR)/job/execute.c \
-					$(SRC_DIR)/job/here_doc.c \
-					$(SRC_DIR)/job/job_control.c \
-					$(SRC_DIR)/job/redirections.c \
-					$(SRC_DIR)/job/redirections_in.c \
-					$(SRC_DIR)/job/redirections_out.c \
-					$(SRC_DIR)/job/shell_do.c \
 					$(SRC_DIR)/parse/operators.c \
 					$(SRC_DIR)/parse/parse.c \
 					$(SRC_DIR)/parse/syntax.c \

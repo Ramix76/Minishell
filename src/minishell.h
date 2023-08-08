@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/08 12:38:05 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 13:11:49 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 
 # define SH_NAME			"homersh"
 # define SH_VERSION			"version 0.1-alpha"
-# define METACHARACTERS		" \n\t|<>"	//not implemented: &;()
+# define METACHARACTERS		" \n\t|<>&"	//not implemented: &;()
 
 // consider allocating prompt in main.c -> data init
 # define PROMPT				"homersh$ "

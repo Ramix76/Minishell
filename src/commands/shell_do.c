@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/05 12:55:18 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 13:13:05 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ int	ft_shell_do(t_data *data)
 		if (ft_syntax_check(tokens, data) != EXIT_FAILURE)
 		{
 			ft_shell_expand(tokens, data);
+			
+			int i = 0;
+			while (tokens != NULL && tokens[i] != NULL)
+				printf("%s\n", tokens[i++]);
+
 			ft_job_control(tokens, data);
 		}
 		free(line);
