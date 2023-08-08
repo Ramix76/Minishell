@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 15:11:36 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/04 13:21:58 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 11:15:11 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static char	*ft_gettoken(char *str);
 static char	*ft_getword(char *str);
+
+// redo without ft_realloc !!
 
 char	**ft_parse2tokens(char *str)
 {
