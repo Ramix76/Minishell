@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:44:21 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 17:52:31 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/08 18:21:05 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #define END		1
 
 static int	ft_getcommandlist(char **tokens, int *position);
-static int	ft_sequence_do(char **tokens, int start, int end, t_data *data);
 
 int	ft_command_do(char **tokens, t_data *data)
 {
@@ -67,29 +66,5 @@ static int	ft_getcommandlist(char **tokens, int *position)
 		++i;
 	}
 	*position = i;
-	return (EXIT_SUCCESS);
-}
-
-static int	ft_sequence_do(char **tokens, int start, int end, t_data *data)
-{
-	size_t	arr_len;
-	char	**job;
-
-	arr_len = end - start + 1;
-	job = ft_arrndup(tokens + start, arr_len);
-	if (job == NULL)
-	{
-		errno = ENOMEM;
-		return (EXIT_FAILURE);
-	}
-	if (ft_redirections_do(job, data) == EXIT_FAILURE
-		|| ft_redirections_rm(job) == EXIT_FAILURE
-		|| ft_simple_command(job, data) == EXIT_FAILURE)
-	{
-		ft_free_arr(job);
-		return (EXIT_FAILURE);
-	}
-	ft_free_arr(job);
-	ft_reset_redirections(data);
 	return (EXIT_SUCCESS);
 }
