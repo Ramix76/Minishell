@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:36:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 18:37:33 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:42:28 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 		errno = ENOMEM;
 		return (EXIT_FAILURE);
 	}
-	if (ft_redirections_do(job, data) == EXIT_FAILURE
-		|| ft_redirections_rm(job) == EXIT_FAILURE
-		|| ft_simple_command(job, data) == EXIT_FAILURE)
+	// set pipe/fork
+	if (ft_simple_command_do(job, data) == EXIT_FAILURE)
 		return (ft_free_arr(job), EXIT_FAILURE);
+	// resolve end pipe/fork
 	return (EXIT_SUCCESS);
 }
