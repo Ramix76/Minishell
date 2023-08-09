@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:19:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 18:42:46 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:19:48 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ static int	ft_execute_fork(char *exec, t_cmd *cmd, t_data *data)
 	if (pipe(fildes) == -1)
 		return (EXIT_FAILURE);
 	pid = fork();
-	if (pid == -1)
-		exit (888);
-	else if (pid == 0)
+	if (pid == 0)
 	{
 		ft_execvpe(exec, (char const **) cmd->tokens,
 			(const char **) data->envp);
