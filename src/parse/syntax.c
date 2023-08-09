@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 10:46:20 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/09 15:27:41 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:44:09 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	ft_syntax_check(char **tokens, t_data *data)
 	{
 		if (ft_quotes(tokens[i]) == EXIT_FAILURE
 			|| ft_operators(tokens, i) == EXIT_FAILURE
-			|| ft_redir_out(tokens, i) == EXIT_FAILURE)
+			|| ft_redir_out(tokens, i) == EXIT_FAILURE
+			|| ft_syntax_parenthesis(tokens, i) == EXIT_FAILURE)
 		{
 			data->exit_code = 2;
 			return (EXIT_FAILURE);

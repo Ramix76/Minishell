@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/08/09 13:23:34 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/08/09 17:44:34 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/parse/operators.c \
 					$(SRC_DIR)/parse/parse.c \
 					$(SRC_DIR)/parse/syntax.c \
+					$(SRC_DIR)/parse/syntax_parenthesis.c \
 					$(SRC_DIR)/signals/handling.c \
 					$(SRC_DIR)/redirections/here_doc.c \
 					$(SRC_DIR)/redirections/redirections.c \

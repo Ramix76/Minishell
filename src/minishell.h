@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/09 17:24:25 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:43:58 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ char	*ft_quotes_closed(char *line);
 char	**ft_parse2tokens(char *str);
 char	**ft_parse_operators(char **tokens);
 int		ft_syntax_check(char **tokens, t_data *data);
+int		ft_syntax_parenthesis(char **tokens, int i);
 
 /* redirections */
 
