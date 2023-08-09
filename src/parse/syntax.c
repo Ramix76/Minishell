@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 10:46:20 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 16:35:09 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:27:41 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static int	ft_operators(char **tokens, int i)
 	int		max_allowed;
 	char	*token;
 
-	return (EXIT_SUCCESS);
 	max_allowed = 2;
 	token = tokens[i];
 	if (*token == 0174)
