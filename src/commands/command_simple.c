@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:24:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/09 11:02:38 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:10:34 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	ft_simple_command_do(char **job, t_data *data)
 		|| ft_simple_command(job, data) == EXIT_FAILURE)
 		ret = EXIT_FAILURE;
 	dup2(data->saved_out, STDOUT_FILENO);
+	dup2(data->saved_in, STDIN_FILENO);
 	return (EXIT_SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 16:34:13 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:11:42 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ int	ft_shell_do(t_data *data)
 	{
 		line = readline(PROMPT);
 		if (line == NULL)
-			return (printf("exit\n"), EXIT_SUCCESS);
-		if (line[0] != '\0')
-			add_history(line);
+			continue ;
+		//	return (printf("exit\n"), EXIT_SUCCESS);
+		//if (line[0] != '\0')
+		add_history(line);
 		tokens = ft_parse2tokens(line);
 		if (ft_syntax_check(tokens, data) != EXIT_FAILURE)
 		{
