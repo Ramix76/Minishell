@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:22:16 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/09 15:12:51 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:21:02 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_parenthesis_do(char **tokens, int start, int end, t_data *data)
 	arr_len = end - start + 1;
 	job = ft_arrndup(tokens + start, arr_len);
 	if (job == NULL)
-		return (errno = ENOMEM, EXIT_FAILURE);	
+		return (errno = ENOMEM, EXIT_FAILURE);
 	ft_command_do(job, data);
 	return (EXIT_SUCCESS);
 }

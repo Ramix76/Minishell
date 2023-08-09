@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 15:08:16 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/09 16:44:04 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:22:39 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_init_signals(int mode, t_data *data)
 	printf("made is: %d\n", mode);
 	data->running = 1;
 	sa.sa_flags = SA_SIGINFO;
-	if (0 == 1 &&  mode == 1)
+	if (0 == 1 && mode == 1)
 		sa.sa_handler = SIG_IGN;
 	else if (mode == 2)
 		sa.sa_handler = &ft_signal_handler;

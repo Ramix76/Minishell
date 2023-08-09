@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/09 16:47:38 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:23:02 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 
 /* used for: <insert reason> */
 
-extern int			g_in_heredoc;
+extern int					g_in_heredoc;
 
 /* builtins */
 
