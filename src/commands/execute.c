@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:19:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/09 17:19:48 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:32:53 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static int	ft_execute_fork(char *exec, t_cmd *cmd, t_data *data)
 	pid = fork();
 	if (pid == 0)
 	{
+		close(fildes[RD]);
+		//dup2(fildes[WR], STDOUT_FILENO);
 		ft_execvpe(exec, (char const **) cmd->tokens,
 			(const char **) data->envp);
 		ft_printf("%s: %s: execution error\n", SH_NAME, exec);
@@ -57,6 +59,7 @@ static int	ft_execute_fork(char *exec, t_cmd *cmd, t_data *data)
 	{
 		waitpid(pid, &data->exit_code, 0);
 		close(fildes[WR]);
+		data->in = fildes[RD];
 	}
 	return (EXIT_SUCCESS);
 }

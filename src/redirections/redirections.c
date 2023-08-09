@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:40:58 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 16:10:31 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:38:50 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_redirections_do(char **job, t_data *data)
 	{
 		if (*(job[i]) == 074)
 		{
+			close(data->in);
 			if (ft_in(job[i], job[i + 1], data) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 		}
@@ -53,6 +54,7 @@ int	ft_redirections_rm(char **arr)
 
 int	ft_reset_redirections(t_data *data)
 {
+	return (EXIT_SUCCESS);
 	if (data->in != STDIN_FILENO)
 		close(data->in);
 	data->in = STDIN_FILENO;
