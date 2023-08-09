@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 15:08:16 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/09 16:44:04 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:50:04 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static void	ft_signal_handler(int signal)
 {
 	if (signal == SIGQUIT)
 	{
-		rl_on_new_line();
 		rl_redisplay();
+		return ;
 	}
 	else if (signal == SIGINT)
 	{
@@ -60,10 +60,9 @@ int	ft_init_signals(int mode, t_data *data)
 	struct sigaction	sa;
 
 	(void)data;
-	printf("made is: %d\n", mode);
 	data->running = 1;
 	sa.sa_flags = SA_SIGINFO;
-	if (0 == 1 &&  mode == 1)
+	if (mode == 1)
 		sa.sa_handler = SIG_IGN;
 	else if (mode == 2)
 		sa.sa_handler = &ft_signal_handler;
