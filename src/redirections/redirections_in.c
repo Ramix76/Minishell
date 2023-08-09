@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 14:27:04 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/09 11:21:05 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 12:26:08 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,11 @@ static int	ft_file_in(char *filename, t_data *data);
 int	ft_in(char *operator, char *value, t_data *data)
 {
 	if (*(operator + 1) != '\0')
-	{
-		if (ft_here_doc(value, data) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
-	}
+		ft_here_doc(value, data);
 	else
-	{
-		if (ft_file_in(value, data) == EXIT_FAILURE)
-		{
-			ft_fprintf(stderr, "%s: %s: %s\n", SH_NAME, value, strerror(errno));
-			data->exit_code = 1;
-			return (EXIT_FAILURE);
-		}
-	}
+		ft_file_in(value, data);
+	data->saved_in = dup(STDIN_FILENO);
+	dup2(data->in, STDIN_FILENO);
 	return (EXIT_SUCCESS);
 }
 
@@ -53,7 +45,5 @@ static int	ft_file_in(char *filename, t_data *data)
 		}
 	}
 	data->in = fd;
-	data->saved_in = dup(STDIN_FILENO);
-	dup2(fd, STDIN_FILENO);
 	return (EXIT_SUCCESS);
 }
