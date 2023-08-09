@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/09 13:24:14 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:47:38 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/stat.h>		/* lstat */
 # include <dirent.h>		/* opendir, closedir */
 # include <signal.h>		/* signal handling */
+# include <termios.h>		/* avoid echoing */
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -48,7 +49,7 @@
 
 /* used for: <insert reason> */
 
-extern sig_atomic_t			g_running;
+extern int			g_in_heredoc;
 
 /* builtins */
 
@@ -104,7 +105,10 @@ int		ft_out(char *op, char *value, t_data *data);
 
 /* signals */
 
-void	ft_signal_handler(int signal);
+//void	ft_signal_handler(int signal);
+//void	ft_handle_signals_heredoc(int signal);
+void	ft_set_term(void);
+int	ft_init_signals(int mode, t_data *data);
 
 /* utils */
 

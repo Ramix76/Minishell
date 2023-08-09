@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/09 16:38:16 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:47:09 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_shell_do(t_data *data)
 	char	*line;
 	char	**tokens;
 
-	while (g_running)
+	while (data->running)
 	{
 		line = readline(PROMPT);
 		if (line == NULL)
