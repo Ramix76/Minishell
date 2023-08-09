@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:36:55 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/08 14:59:36 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:19:37 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_exit(t_cmd *cmd, t_data *data)
 	}
 	else if (len > 1)
 		data->exit_code = ft_atoi(cmd->tokens[1]);
-	g_running = 0;
+	data->running = 0;
 	return (EXIT_SUCCESS);
 }
 

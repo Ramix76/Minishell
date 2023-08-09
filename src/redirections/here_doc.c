@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:17:18 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/09 12:37:08 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:44:09 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ int	ft_here_doc(char *limiter, t_data *data)
 	int		fildes[2];
 	pid_t	pid;
 
+	g_in_heredoc = 1;
 	if (pipe(fildes) == -1)
 		return (EXIT_FAILURE);
+	ft_init_signals(2, data);
 	pid = fork();
 	if (pid == -1)
 		return (EXIT_FAILURE);
 	if (pid == 0)
 	{
+		ft_init_signals(0, data);
 		close(fildes[RD]);
 		ft_read_stdin(fildes[WR], limiter, data);
 		exit (0);
@@ -36,6 +39,7 @@ int	ft_here_doc(char *limiter, t_data *data)
 	waitpid(pid, NULL, 0);
 	close(fildes[WR]);
 	data->in = fildes[RD];
+	g_in_heredoc = 0;
 	return (EXIT_SUCCESS);
 }
 
