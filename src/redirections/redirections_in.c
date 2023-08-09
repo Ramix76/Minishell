@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 14:27:04 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/09 11:06:45 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:21:05 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_in(char *operator, char *value, t_data *data)
 {
 	if (*(operator + 1) != '\0')
 	{
-		if (ft_here_doc(value) == EXIT_FAILURE)
+		if (ft_here_doc(value, data) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	}
 	else

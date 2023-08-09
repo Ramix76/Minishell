@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/09 10:42:28 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:18:34 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,7 @@ int		ft_syntax_check(char **tokens, t_data *data);
 int		ft_redirections_do(char **job, t_data *data);
 int		ft_redirections_rm(char **job);
 int		ft_reset_redirections(t_data *data);
-
-int		ft_here_doc(char *limiter);
-int		ft_read_stdin(int wr_fd, char *limiter);
-int		ft_write_output(int fd, char *output);
-int		ft_redirect_in(char *line, int *fd);
+int		ft_here_doc(char *limiter, t_data *data);
 int		ft_in(char *op, char *value, t_data *data);
 int		ft_out(char *op, char *value, t_data *data);
 
