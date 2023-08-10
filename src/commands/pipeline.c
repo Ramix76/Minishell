@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:36:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/10 13:20:16 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:35:43 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,15 @@ int	ft_pipeline(char **tokens, t_data *data)
 {
 	int	i;
 	int	pipeline[2];
+	int	savedstdin;
 
+	savedstdin = dup(STDIN_FILENO);
 	i = 0;
+	data->pipe = 1;
 	while (tokens != NULL && tokens[i] != NULL)
 	{
+		if (tokens[i + 1] == NULL)
+			data->pipe = 0;
 		pipeline[START] = i;
 		ft_getpipelines(tokens, &i);
 		if (ft_strcmp(tokens[i], "|") == 0)
@@ -35,10 +40,10 @@ int	ft_pipeline(char **tokens, t_data *data)
 		else
 			pipeline[END] = i;
 		ft_pipe_do(tokens, pipeline[START], pipeline[END], data);
-		dup2(data->fd, STDIN_FILENO);
 		++i;
 	}
-	dup2(data->fd, STDOUT_FILENO);
+	dup2(savedstdin, STDIN_FILENO);
+	data->pipe = 0;
 	return (EXIT_SUCCESS);
 }
 
@@ -60,7 +65,6 @@ static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 	size_t	arr_len;
 	char	**job;
 
-	printf("pipe_do: %s, %s\n", tokens[start], tokens[end]);
 	arr_len = end - start + 1;
 	job = ft_arrndup(tokens + start, arr_len);
 	if (job == NULL)

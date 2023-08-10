@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:20:28 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/10 13:19:01 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/10 15:15:38 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	ft_sequence_do(char **tokens, int start, int end, t_data *data)
 	char	**job;
 	int		ret;
 
-	printf("start: %s, end: %s\n", tokens[start], tokens[end]);
 	ret = EXIT_SUCCESS;
 	arr_len = end - start + 1;
 	job = ft_arrndup(tokens + start, arr_len);
@@ -32,7 +31,6 @@ int	ft_sequence_do(char **tokens, int start, int end, t_data *data)
 	}
 	else if (ft_has_pipe(tokens, start, end) == 0)
 	{
-		printf("ft_has_pipe() == 0\n");
 		ret = ft_simple_command_do(job, data, 1);
 	}
 	else

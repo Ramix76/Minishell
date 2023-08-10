@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:19:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/10 12:51:26 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:41:39 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,19 @@ static int	ft_execute_fork(char *exec, t_cmd *cmd, t_data *data)
 {
 	int		fildes[2];
 	pid_t	pid;
+	int		savedstdout;
 
 	if (pipe(fildes) == -1)
 		return (EXIT_FAILURE);
+	if (data->pipe == 0)
+		savedstdout = dup(STDOUT_FILENO);
+	printf("pipe: [data->fd] %d, [WR]: %d, [RD]: %d\n", data->fd, fildes[WR], fildes[RD]);
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(fildes[WR], STDOUT_FILENO);
 		close(fildes[RD]);
+		if (data->pipe == 1)
+			dup2(fildes[WR], STDOUT_FILENO);
 		close(fildes[WR]);
 		ft_execvpe(exec, (char const **) cmd->tokens,
 			(const char **) data->envp);
@@ -70,7 +75,10 @@ static int	ft_execute_fork(char *exec, t_cmd *cmd, t_data *data)
 	}
 	waitpid(pid, &data->exit_code, 0);
 	close(fildes[WR]);
-	data->fd = fildes[RD];
-	dup2(fildes[RD], data->fd);
+	if (data->pipe == 1)
+		dup2(fildes[RD], STDOUT_FILENO);
+	else
+		dup2(savedstdout, STDOUT_FILENO);
+	close(fildes[RD]);
 	return (EXIT_SUCCESS);
 }
