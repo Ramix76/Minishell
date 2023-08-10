@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:36:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/10 11:28:49 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/10 12:24:57 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #define RD		0
 
 static int	ft_getpipelines(char **tokens, int *position);
-static int	ft_pipe_do(char **tokens, int start, int end, t_data *data);
+static int	ft_pipe_do(char **t, int start, int end, t_data *data);
 
 int	ft_pipeline(char **tokens, t_data *data)
 {
@@ -26,6 +26,7 @@ int	ft_pipeline(char **tokens, t_data *data)
 	int	pipeline[2];
 
 	i = 0;
+	data->fd = dup(STDIN_FILENO);
 	while (tokens != NULL && tokens[i] != NULL)
 	{
 		pipeline[START] = i;
@@ -34,12 +35,10 @@ int	ft_pipeline(char **tokens, t_data *data)
 			pipeline[END] = i - 1;
 		else
 			pipeline[END] = i;
-		data->saved_in = dup(STDIN_FILENO);
-		dup2(data->in, STDIN_FILENO);
 		ft_pipe_do(tokens, pipeline[START], pipeline[END], data);
-		dup2(data->saved_in, STDIN_FILENO);
 		++i;
 	}
+	dup2(data->fd, STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }
 
@@ -58,8 +57,6 @@ static int	ft_getpipelines(char **tokens, int *position)
 
 static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 {
-	int		pipefd[2];
-	pid_t	pid;
 	size_t	arr_len;
 	char	**job;
 
@@ -67,19 +64,7 @@ static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 	job = ft_arrndup(tokens + start, arr_len);
 	if (job == NULL)
 		return (errno = ENOMEM, EXIT_FAILURE);
-	pipe(pipefd);
-	pid = fork();
-	if (pid == 0)
-	{
-		dup2(pipefd[WR], STDOUT_FILENO);
-		close(pipefd[RD]);
-		if (ft_simple_command_do(job, data, 0) == EXIT_FAILURE)
-			return (ft_free_arr(job), EXIT_FAILURE);
-		close(pipefd[WR]);
-		exit(data->exit_code);
-	}
-	waitpid(pid, &data->exit_code, 0);
-	close(pipefd[WR]);
-	data->in = pipefd[RD];
+	if (ft_simple_command_do(job, data, 0) == EXIT_FAILURE)
+		return (ft_free_arr(job), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
