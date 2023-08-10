@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 14:28:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/09 11:01:55 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/10 12:29:57 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	ft_out(char *operator, char *value, t_data *data)
 		return (EXIT_FAILURE);
 	}
 	data->out = fd;
-	data->saved_out = dup(STDOUT_FILENO);
 	dup2(data->out, STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }
