@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:40:58 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/09 17:38:50 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/10 11:32:42 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	ft_redirections_rm(char **arr)
 
 int	ft_reset_redirections(t_data *data)
 {
-	return (EXIT_SUCCESS);
 	if (data->in != STDIN_FILENO)
 		close(data->in);
 	data->in = STDIN_FILENO;
