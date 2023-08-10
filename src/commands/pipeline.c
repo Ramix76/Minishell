@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:36:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/09 17:31:54 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/10 11:28:49 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 	pid = fork();
 	if (pid == 0)
 	{
-		close(pipefd[RD]);
 		dup2(pipefd[WR], STDOUT_FILENO);
-		if (ft_simple_command_do(job, data) == EXIT_FAILURE)
+		close(pipefd[RD]);
+		if (ft_simple_command_do(job, data, 0) == EXIT_FAILURE)
 			return (ft_free_arr(job), EXIT_FAILURE);
 		close(pipefd[WR]);
 		exit(data->exit_code);
