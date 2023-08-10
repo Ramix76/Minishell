@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:24:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/10 11:29:59 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/10 11:38:37 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,4 @@ int	ft_simple_command(char **job, t_data *data, int fork)
 	else
 		ft_execute_command(&cmd, data, fork);
 	return (EXIT_SUCCESS);
-	(void) fork;
 }
