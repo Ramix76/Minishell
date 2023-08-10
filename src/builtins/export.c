@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/08 18:31:27 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:13:01 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,14 @@ int	ft_export(t_cmd *cmd, t_data *data)
 	while (cmd->tokens != NULL && cmd->tokens[count])
 		count++;
 	if (count < 2)
+	{
+		data->exit_code = 0;
 		return (ft_print_combined_vars(data), EXIT_SUCCESS);
+	}
 	i = 0;
 	while (++i < count)
 		ft_process_export_token(cmd->tokens[i], data);
+	data->exit_code = 0;
 	return (EXIT_SUCCESS);
 }
 
@@ -41,11 +45,8 @@ static int	ft_process_export_token(char *t, t_data *data)
 		return (ft_empty_values(t, data));
 	name = ft_strndup(t, ft_strchr(t, '=') - t);
 	if (ft_strchr(name, '-') != NULL || ft_quotes_closed(name) != NULL)
-	{
-		ft_fprintf(stderr, "%s: export: `%s': not a valid identifier\n",
-			SH_NAME, name);
-		return (free(name), EXIT_FAILURE);
-	}
+		return (ft_fprintf(stderr, "%s: export: '%s': not a valid identifier\n",
+				SH_NAME, name), (data->exit_code = 1), EXIT_FAILURE);
 	value = ft_strdup(ft_strchr(t, '=') + 1);
 	if (ft_getenv(name, (const char **) data->exported_vars) != NULL)
 		ft_unsetenv(name, data->exported_vars);
@@ -57,6 +58,7 @@ static int	ft_process_export_token(char *t, t_data *data)
 	}
 	ft_setenv(name, value, 1, &data->envp);
 	free(name);
+	data->exit_code = 0;
 	return (free(value), EXIT_SUCCESS);
 }
 
@@ -64,9 +66,9 @@ static int	ft_empty_values(char *t, t_data *data)
 {
 	char	*name;
 
-	if (ft_strchr(t, '-') != NULL) 
+	if (ft_strchr(t, '-') != NULL)
 		return (ft_fprintf(stderr, "%s: export: `%s': not a valid identifier\n",
-				SH_NAME, t), EXIT_FAILURE);
+				SH_NAME, t), (data->exit_code = 1), EXIT_FAILURE);
 	if (ft_strchr(t, '=') == NULL)
 		name = ft_strdup(t);
 	else
@@ -76,6 +78,7 @@ static int	ft_empty_values(char *t, t_data *data)
 	if (ft_getenv(name, (const char **)data->envp) != NULL)
 	{
 		free(name);
+		data->exit_code = 0;
 		return (EXIT_SUCCESS);
 	}
 	ft_unsetenv(name, data->envp);
@@ -84,6 +87,7 @@ static int	ft_empty_values(char *t, t_data *data)
 	else
 		ft_setenv(name, "", 1, &data->envp);
 	free(name);
+	data->exit_code = 0;
 	return (EXIT_SUCCESS);
 }
 
