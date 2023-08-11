@@ -6,13 +6,15 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:19:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/11 11:37:07 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/11 12:08:41 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_execute_command(t_cmd *cmd, t_data *data)
+static void	ft_execute_cmd(char *exec, t_cmd *cmd, t_data *data, int fork);
+
+int	ft_execute_command(t_cmd *cmd, t_data *data, int fork)
 {
 	char	*exec;
 
@@ -29,6 +31,25 @@ int	ft_execute_command(t_cmd *cmd, t_data *data)
 		data->exit_code = 127;
 		return (EXIT_FAILURE);
 	}
-	ft_execvpe(exec, (char const **) cmd->tokens, (const char **) data->envp);
+	ft_execute_cmd(exec, cmd, data, fork);
 	return (EXIT_SUCCESS);
+}
+
+static void	ft_execute_cmd(char *exec, t_cmd *cmd, t_data *data, int frk)
+{
+	pid_t	pid;
+
+	if (frk == 0)
+		ft_execvpe(exec, (char const **) cmd->tokens, (const char **) data->envp);
+	else
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			ft_execvpe(exec, (char const **) cmd->tokens,
+				(const char **) data->envp);
+		}
+		else
+			waitpid(pid, &data->exit_code, 0);
+	}
 }

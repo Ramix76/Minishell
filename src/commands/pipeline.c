@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:36:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/11 11:36:49 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/11 12:09:25 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,38 @@ static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 {
 	size_t	arr_len;
 	char	**job;
+	int		fildes[2];
+	pid_t	pid;
 
 	arr_len = end - start + 1;
 	job = ft_arrndup(tokens + start, arr_len);
 	if (job == NULL)
 		return (errno = ENOMEM, EXIT_FAILURE);
+	/* open pipe */
+	pipe(fildes);
+	/* fork */
+	pid = fork();
 
-	if (ft_simple_command_do(job, data) == EXIT_FAILURE)
-		return (ft_free_arr(job), EXIT_FAILURE);
-	
+	/* child */
+	if (pid == 0)
+	{
+		dup2(data->fd, STDIN_FILENO);
+		if (data->pipe == 1)
+			dup2(fildes[WR], STDOUT_FILENO);
+		else
+			close(fildes[WR]);
+		close(fildes[RD]);
+		ft_simple_command_do(job, data);
+		exit (data->exit_code);
+	}
+	else /* parent */
+	{
+		waitpid(pid, NULL, 0);
+		if (data->pipe == 1)
+			data->fd = fildes[RD];
+		else
+			close(data->fd);
+		close(fildes[WR]);
+	}
 	return (EXIT_SUCCESS);
 }
