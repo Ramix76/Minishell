@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 14:27:04 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/09 12:26:08 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/10 12:29:46 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	ft_in(char *operator, char *value, t_data *data)
 		ft_here_doc(value, data);
 	else
 		ft_file_in(value, data);
-	data->saved_in = dup(STDIN_FILENO);
 	dup2(data->in, STDIN_FILENO);
 	return (EXIT_SUCCESS);
 }

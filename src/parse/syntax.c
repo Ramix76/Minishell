@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 10:46:20 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 16:35:09 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/10 11:29:25 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	ft_syntax_check(char **tokens, t_data *data)
 	{
 		if (ft_quotes(tokens[i]) == EXIT_FAILURE
 			|| ft_operators(tokens, i) == EXIT_FAILURE
-			|| ft_redir_out(tokens, i) == EXIT_FAILURE)
+			|| ft_redir_out(tokens, i) == EXIT_FAILURE
+			|| ft_syntax_parenthesis(tokens, i) == EXIT_FAILURE)
 		{
 			data->exit_code = 2;
 			return (EXIT_FAILURE);
@@ -56,11 +57,8 @@ static int	ft_operators(char **tokens, int i)
 	int		max_allowed;
 	char	*token;
 
-	return (EXIT_SUCCESS);
 	max_allowed = 2;
 	token = tokens[i];
-	if (*token == 0174)
-		max_allowed = 1;
 	if (*token == 0174 || *token == 074 || *token == 076)
 	{
 		c = *token;

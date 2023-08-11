@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/09 17:51:10 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/11 12:24:10 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 
 /* used for: <insert reason> */
 
-extern int			g_in_heredoc;
+extern int					g_in_heredoc;
 
 /* builtins */
 
@@ -68,9 +68,9 @@ int		ft_shell_do(t_data *data);
 int		ft_command_do(char **tokens, t_data *data);
 int		ft_simple_command_do(char **job, t_data *data);
 int		ft_sequence_do(char **tokens, int start, int end, t_data *data);
+int		ft_parenthesis_do(char **tokens, int start, int end, t_data *data);
 int		ft_pipeline(char **tokens, t_data *data);
-int		ft_simple_command(char **job, t_data *data);
-int		ft_execute_command(t_cmd *cmd, t_data *data);
+int		ft_execute_command(t_cmd *cmd, t_data *data, int fork);
 
 /* enviroment.c */
 
@@ -92,6 +92,7 @@ char	*ft_quotes_closed(char *line);
 char	**ft_parse2tokens(char *str);
 char	**ft_parse_operators(char **tokens);
 int		ft_syntax_check(char **tokens, t_data *data);
+int		ft_syntax_parenthesis(char **tokens, int i);
 
 /* redirections */
 
@@ -104,6 +105,9 @@ int		ft_out(char *op, char *value, t_data *data);
 
 /* signals */
 
+//void	ft_signal_handler(int signal);
+//void	ft_handle_signals_heredoc(int signal);
+void	ft_set_term(void);
 int		ft_init_signals(int mode, t_data *data);
 
 /* utils */

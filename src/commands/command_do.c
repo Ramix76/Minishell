@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:44:21 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 18:21:05 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:27:58 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 #define END		1
 
 static int	ft_getcommandlist(char **tokens, int *position);
+
+/* ft_command_do() */
+/* Sends tokens delimited between `()' `||' `&&' */
 
 int	ft_command_do(char **tokens, t_data *data)
 {

@@ -6,13 +6,13 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:20:28 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/09 10:41:46 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/11 12:13:39 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_has_pipe(char **tokens);
+static int	ft_has_pipe(char **tokens, int start, int end);
 
 int	ft_sequence_do(char **tokens, int start, int end, t_data *data)
 {
@@ -25,7 +25,9 @@ int	ft_sequence_do(char **tokens, int start, int end, t_data *data)
 	job = ft_arrndup(tokens + start, arr_len);
 	if (job == NULL)
 		return (errno = ENOMEM, EXIT_FAILURE);
-	if (ft_has_pipe(tokens) == 0)
+	if (ft_strcmp(tokens[start], "(") == 0)
+		ft_parenthesis_do(tokens, start + 1, end - 1, data);
+	else if (ft_has_pipe(tokens, start, end) == 0)
 		ret = ft_simple_command_do(job, data);
 	else
 	{
@@ -39,12 +41,12 @@ int	ft_sequence_do(char **tokens, int start, int end, t_data *data)
 	return (ft_free_arr(job), ret);
 }
 
-static int	ft_has_pipe(char **tokens)
+static int	ft_has_pipe(char **tokens, int start, int end)
 {
 	int	i;
 
-	i = 0;
-	while (tokens[i])
+	i = start;
+	while (tokens[i] && i <= end)
 	{
 		if (ft_strcmp(tokens[i], "|") == 0)
 			return (1);

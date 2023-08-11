@@ -6,38 +6,38 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:24:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/09 11:10:34 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/11 12:04:47 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	ft_simple_command(t_cmd *cmd, t_data *data);
+
 int	ft_simple_command_do(char **job, t_data *data)
 {
-	int	ret;
+	int		ret;
+	t_cmd	cmd;
 
 	ret = EXIT_SUCCESS;
+	cmd.tokens = job;
 	if (ft_redirections_do(job, data) == EXIT_FAILURE
-		|| ft_redirections_rm(job) == EXIT_FAILURE
-		|| ft_simple_command(job, data) == EXIT_FAILURE)
+		|| ft_redirections_rm(job) == EXIT_FAILURE)
 		ret = EXIT_FAILURE;
-	dup2(data->saved_out, STDOUT_FILENO);
-	dup2(data->saved_in, STDIN_FILENO);
-	return (EXIT_SUCCESS);
+	if (ft_strcmp("exit", *(cmd.tokens)) == 0)
+		return (ft_exit(&cmd, data));
+	if (ft_simple_command(&cmd, data) == EXIT_FAILURE)
+		ret = EXIT_FAILURE;
+	return (ret);
 }
 
-int	ft_simple_command(char **job, t_data *data)
+static int	ft_simple_command(t_cmd *cmd, t_data *data)
 {
-	t_cmd	cmd;
-	char	*exec;
-
-	cmd.tokens = job;
-	exec = *job;
-	if (ft_strcmp("exit", exec) == 0)
-		return (ft_exit(&cmd, data));
-	else if (ft_builtin_do(&cmd, data) == EXIT_SUCCESS)
+	if (ft_builtin_do(cmd, data) == EXIT_SUCCESS)
 		return (EXIT_SUCCESS);
+	else if (data->pipe == 1)
+		ft_execute_command(cmd, data, 0);
 	else
-		ft_execute_command(&cmd, data);
+		ft_execute_command(cmd, data, 1);
 	return (EXIT_SUCCESS);
 }

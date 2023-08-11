@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirections_out.c                                 :+:      :+:    :+:   */
+/*   syntax_parenthesis.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/05 14:28:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/10 12:29:57 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/08/09 17:41:43 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/08/10 11:33:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_out(char *operator, char *value, t_data *data)
+int	ft_syntax_parenthesis(char **tokens, int i)
 {
-	int	fd;
-
-	if (data->out != STDOUT_FILENO)
-		close(data->out);
-	if (*(operator + 1) == 076)
-		fd = open(value, O_APPEND | O_WRONLY | O_CREAT, 0666);
-	else
-		fd = open(value, O_WRONLY | O_CREAT, 0666);
-	if (fd == -1)
+	if (ft_strcmp(tokens[i], "()") == 0 && i == 0)
 	{
-		ft_fprintf(stderr, "%s: %s: %s\n", SH_NAME, value, strerror(errno));
+		ft_fprintf(stderr, "%s: syntax error near unexpected token `)'\n",
+			SH_NAME);
 		return (EXIT_FAILURE);
 	}
-	data->out = fd;
-	dup2(data->out, STDOUT_FILENO);
+	else if (ft_strcmp(tokens[i], "()") == 0 && i > 0)
+	{
+		if (ft_strchr(METACHARACTERS, *(tokens[i - 1])) != 0)
+		{
+			ft_fprintf(stderr, "%s: syntax error near unexpected token `)'\n",
+				SH_NAME);
+			return (EXIT_FAILURE);
+		}
+	}
 	return (EXIT_SUCCESS);
 }
