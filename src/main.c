@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/11 12:23:19 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/11 12:42:50 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static int	ft_init_data(int argc, char **argv, char **envp, t_data *data)
 	data->running = 1;
 	data->in = STDIN_FILENO;
 	data->out = STDOUT_FILENO;
+	data->pipe = 0;
 	data->home = NULL;
 	data->exported_vars = NULL;
 	ft_shlvl(envp, data);
