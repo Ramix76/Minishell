@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:20:28 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/10 15:15:38 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/11 11:06:44 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_sequence_do(char **tokens, int start, int end, t_data *data)
 	}
 	else if (ft_has_pipe(tokens, start, end) == 0)
 	{
-		ret = ft_simple_command_do(job, data, 1);
+		ret = ft_simple_command_do(job, data);
 	}
 	else
 	{
