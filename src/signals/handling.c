@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 15:08:16 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/11 12:24:42 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/11 12:25:08 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	ft_init_signals(int mode, t_data *data)
 	(void)data;
 	data->running = 1;
 	sa.sa_flags = SA_SIGINFO;
-<<<<<<< HEAD
 	if (mode == 1)
 		sa.sa_handler = SIG_IGN;
 	else if (mode == 2)
