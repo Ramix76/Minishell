@@ -6,36 +6,34 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:24:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/10 12:12:41 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/11 11:35:12 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_simple_command_do(char **job, t_data *data, int fork)
+int	ft_simple_command_do(char **job, t_data *data)
 {
-	int	ret;
+	int		ret;
+	t_cmd	cmd;
 
 	ret = EXIT_SUCCESS;
+	cmd.tokens = job;
 	if (ft_redirections_do(job, data) == EXIT_FAILURE
-		|| ft_redirections_rm(job) == EXIT_FAILURE
-		|| ft_simple_command(job, data, fork) == EXIT_FAILURE)
+		|| ft_redirections_rm(job) == EXIT_FAILURE)
 		ret = EXIT_FAILURE;
+	if (ft_simple_command(&cmd, data) == EXIT_FAILURE)
+		ret = EXIT_FAILURE;
+	if (ft_strcmp("exit", *(cmd.tokens)) == 0)
+		return (ft_exit(&cmd, data));
 	return (ret);
 }
 
-int	ft_simple_command(char **job, t_data *data, int fork)
+int	ft_simple_command(t_cmd *cmd, t_data *data)
 {
-	t_cmd	cmd;
-	char	*exec;
-
-	cmd.tokens = job;
-	exec = *job;
-	if (ft_strcmp("exit", exec) == 0)
-		return (ft_exit(&cmd, data));
-	else if (ft_builtin_do(&cmd, data) == EXIT_SUCCESS)
+	if (ft_builtin_do(cmd, data) == EXIT_SUCCESS)
 		return (EXIT_SUCCESS);
 	else
-		ft_execute_command(&cmd, data, fork);
+		ft_execute_command(cmd, data);
 	return (EXIT_SUCCESS);
 }
