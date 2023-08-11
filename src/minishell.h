@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/11 11:33:29 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/11 11:41:25 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int		ft_simple_command_do(char **job, t_data *data);
 int		ft_sequence_do(char **tokens, int start, int end, t_data *data);
 int		ft_parenthesis_do(char **tokens, int start, int end, t_data *data);
 int		ft_pipeline(char **tokens, t_data *data);
-int		ft_simple_command(t_cmd *cmd, t_data *data);
 int		ft_execute_command(t_cmd *cmd, t_data *data);
 
 /* enviroment.c */
