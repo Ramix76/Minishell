@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:36:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/11 12:09:25 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/11 12:13:57 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,8 @@ static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 	job = ft_arrndup(tokens + start, arr_len);
 	if (job == NULL)
 		return (errno = ENOMEM, EXIT_FAILURE);
-	/* open pipe */
 	pipe(fildes);
-	/* fork */
 	pid = fork();
-
-	/* child */
 	if (pid == 0)
 	{
 		dup2(data->fd, STDIN_FILENO);
@@ -87,7 +83,7 @@ static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 		ft_simple_command_do(job, data);
 		exit (data->exit_code);
 	}
-	else /* parent */
+	else
 	{
 		waitpid(pid, NULL, 0);
 		if (data->pipe == 1)

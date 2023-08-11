@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:20:28 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/11 11:06:44 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/11 12:13:39 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,9 @@ int	ft_sequence_do(char **tokens, int start, int end, t_data *data)
 	if (job == NULL)
 		return (errno = ENOMEM, EXIT_FAILURE);
 	if (ft_strcmp(tokens[start], "(") == 0)
-	{
 		ft_parenthesis_do(tokens, start + 1, end - 1, data);
-	}
 	else if (ft_has_pipe(tokens, start, end) == 0)
-	{
 		ret = ft_simple_command_do(job, data);
-	}
 	else
 	{
 		if (ft_pipeline(tokens, data) == EXIT_FAILURE)
