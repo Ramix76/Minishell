@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:52:40 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/10 14:35:59 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/14 12:30:38 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ static void	ft_echoed(char **tokens, int newline)
 	{
 		ft_putstr_fd(tokens[i], 1);
 		if (tokens[i + 1] && write(1, " ", 1) < 1)
-		{
 			printf("Error\n");
-			return ;
-		}
 	}
 	if (tokens == NULL || (newline && write(1, "\n", 1) < 0))
 	{
