@@ -22,11 +22,11 @@ int	ft_unset(t_cmd *cmd, t_data *data)
 	count = 0;
 	while (vars[count])
 		count++;
-	i = 0;
+	i = 1;
 	while (i < count)
 	{
-		ft_unsetenv(vars[1], data->envp);
-		ft_unsetenv(vars[1], data->exported_vars);
+		ft_unsetenv(vars[i], data->envp);
+		ft_unsetenv(vars[i], data->exported_vars);
 		i++;
 	}
 	return (EXIT_SUCCESS);
