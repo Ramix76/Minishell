@@ -38,6 +38,7 @@ int	ft_execute_command(t_cmd *cmd, t_data *data, int fork)
 static void	ft_execute_cmd(char *exec, t_cmd *cmd, t_data *data, int frk)
 {
 	pid_t	pid;
+	int		status;
 
 	if (frk == 0)
 		ft_execvpe(exec, (char const **) cmd->tokens,
@@ -51,6 +52,10 @@ static void	ft_execute_cmd(char *exec, t_cmd *cmd, t_data *data, int frk)
 				(const char **) data->envp);
 		}
 		else
-			waitpid(pid, &data->exit_code, 0);
+		{
+			waitpid(pid, &status, 0);
+			if (WIFEXITED(status))
+				data->exit_code = WEXITSTATUS(status);
+		}
 	}
 }
