@@ -20,7 +20,8 @@ int	ft_exit(t_cmd *cmd, t_data *data)
 	int		exit_value;
 
 	len = ft_arrlen(cmd->tokens);
-	printf("exit\n");
+	if (data->pipe == 0)
+		printf("exit\n");
 	if (len > 2)
 		return (ft_fprintf(stderr, "%s: exit: too many arguments\n",
 				SH_NAME), (data->exit_code = 1), EXIT_FAILURE);
