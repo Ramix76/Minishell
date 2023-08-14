@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/10 16:13:01 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/14 16:41:56 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	ft_process_export_token(char *token, t_data *data);
 static int	ft_empty_values(char *t, t_data *data);
 static char	*ft_concatenate_tokens(char *name, char *value, t_data *data);
+static bool	ft_is_valid_var_name(const char *name);
 
 int	ft_export(t_cmd *cmd, t_data *data)
 {
@@ -44,6 +45,9 @@ static int	ft_process_export_token(char *t, t_data *data)
 	if (ft_strchr(t, '=') == NULL || *(ft_strchr(t, '=') + 1) == '\0')
 		return (ft_empty_values(t, data));
 	name = ft_strndup(t, ft_strchr(t, '=') - t);
+	if (!ft_is_valid_var_name(name))
+		return (ft_fprintf(stderr, "%s: export: '%s': not a valid identifier\n",
+				SH_NAME, name), (data->exit_code = 1), EXIT_FAILURE);
 	if (ft_strchr(name, '-') != NULL || ft_quotes_closed(name) != NULL)
 		return (ft_fprintf(stderr, "%s: export: '%s': not a valid identifier\n",
 				SH_NAME, name), (data->exit_code = 1), EXIT_FAILURE);
@@ -91,8 +95,6 @@ static int	ft_empty_values(char *t, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-/* REDO: without ft_strjoin; using malloc once + strlcat */
-
 static char	*ft_concatenate_tokens(char *name, char *value, t_data *data)
 {
 	char	*result;
@@ -104,4 +106,22 @@ static char	*ft_concatenate_tokens(char *name, char *value, t_data *data)
 		value = result;
 	}
 	return (value);
+}
+
+static bool	ft_is_valid_var_name(const char *name)
+{
+	const char	*invalid_chars;
+	size_t		i;
+
+	invalid_chars = "=-!@#$%^&*()_+[]{}|;:,.<>?/`~";
+	i = 0;
+	while (invalid_chars[i] != '\0')
+	{
+		if (ft_strchr(name, invalid_chars[i]) != NULL)
+			return (false);
+		i++;
+	}
+	if (ft_isdigit(name[0]))
+		return (false);
+	return (true);
 }
