@@ -6,45 +6,53 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:36:55 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/10 14:56:47 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/14 16:49:15 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_str_isdigit(char *str, t_data *data);
+static int	ft_is_numeric_argument(char *str);
 
 int	ft_exit(t_cmd *cmd, t_data *data)
 {
 	size_t	len;
+	int		exit_value;
 
 	len = ft_arrlen(cmd->tokens);
 	printf("exit\n");
-	if (len > 2 && ft_str_isdigit(cmd->tokens[1], data) == EXIT_SUCCESS)
+	if (len > 2)
+		return (ft_fprintf(stderr, "%s: exit: too many arguments\n",
+				SH_NAME), (data->exit_code = 1), EXIT_FAILURE);
+	if (len > 1)
 	{
-		ft_fprintf(stderr, "%s: exit: too many arguments\n", SH_NAME);
-		return ((data->exit_code = 1), EXIT_FAILURE);
+		if (!ft_is_numeric_argument(cmd->tokens[1]))
+		{
+			ft_fprintf(stderr, "%s: exit: %s: numeric argument required\n",
+				SH_NAME, cmd->tokens[1]);
+			data->running = 0;
+			return ((data->exit_code = 2), EXIT_FAILURE);
+		}
+		exit_value = (unsigned char)ft_atoi(cmd->tokens[1]);
+		if (exit_value < 1 || exit_value > 255)
+			return ((data->running = 0), (data->exit_code = 2), EXIT_FAILURE);
+		data->exit_code = exit_value;
 	}
-	if (len > 1 && ft_str_isdigit(cmd->tokens[1], data) == EXIT_FAILURE)
-	{
-		ft_fprintf(stderr, "%s: exit: %s: numeric argument required\n",
-			SH_NAME, cmd->tokens[1]);
-		data->running = 0;
-		return ((data->exit_code = 2), EXIT_FAILURE);
-	}
-	else if (len > 1)
-		data->exit_code = ft_atoi(cmd->tokens[1]);
 	data->running = 0;
-	return ((data->exit_code = 0), EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
-static int	ft_str_isdigit(char *str, t_data *data)
+static int	ft_is_numeric_argument(char *str)
 {
-	while (str != NULL && *str != '\0')
+	if (*str == '-' || *str == '+')
+		str++;
+	if (*str == '\0')
+		return (0);
+	while (*str != '\0')
 	{
-		if (ft_isdigit(*str) == 0)
-			return ((data->exit_code = 2), EXIT_FAILURE);
-		++str;
+		if (!ft_isdigit(*str))
+			return (0);
+		str++;
 	}
-	return ((data->exit_code = 0), EXIT_SUCCESS);
+	return (1);
 }
