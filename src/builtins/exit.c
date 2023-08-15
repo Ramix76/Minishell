@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:36:55 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/14 16:49:15 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:05:58 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	ft_exit(t_cmd *cmd, t_data *data)
 	int		exit_value;
 
 	len = ft_arrlen(cmd->tokens);
-	printf("exit\n");
+	if (isatty(STDIN_FILENO))
+		ft_fprintf(stderr, "exit\n");
 	if (len > 2)
 		return (ft_fprintf(stderr, "%s: exit: too many arguments\n",
 				SH_NAME), (data->exit_code = 1), EXIT_FAILURE);
