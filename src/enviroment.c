@@ -112,6 +112,7 @@ static char	*ft_gethome_fstab(void)
 	char	*prev_line;
 	char	**split;
 
+	prev_line = NULL;
 	file = open(_PATH_FSTAB, O_RDONLY);
 	if (file == -1)
 		return (NULL);
@@ -128,6 +129,5 @@ static char	*ft_gethome_fstab(void)
 	split = ft_split(prev_line, ' ');
 	free(prev_line);
 	home = ft_strdup(split[1]);
-	ft_free_str_arr(split);
-	return (home);
+	return (ft_free_str_arr(split), home);
 }

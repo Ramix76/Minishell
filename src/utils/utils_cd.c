@@ -22,14 +22,15 @@ int	ft_cd_ultra_specific_situation(void)
 
 int	ft_cd_check_arguments(t_cmd *cmd)
 {
-	int			i;
+	int	i;
+	int	count;
 
-	i = -1;
-	cmd->tokens_count = 0;
-	while (cmd->tokens[++i] != NULL)
-		cmd->tokens_count++;
-	if (cmd->tokens_count - 1 > 2)
-		return (ft_fprintf(stderr, "%s: %s: No such file or directory\n",
-				SH_NAME, cmd->tokens[0], EXIT_FAILURE));
+	i = 1;
+	count = 0;
+	while (cmd->tokens[i++] != NULL)
+		count++;
+	if (count > 1)
+		return (ft_fprintf(stderr, "%s: %s: too many arguments\n",
+				SH_NAME, cmd->tokens[0]), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
