@@ -24,10 +24,8 @@ int	ft_command_do(char **tokens, t_data *data)
 {
 	int		i;
 	int		sequence[2];
-	bool	parenthesis;
 
 	i = 0;
-	parenthesis = 0;
 	while (tokens != NULL && tokens[i] != NULL)
 	{
 		sequence[START] = i;
