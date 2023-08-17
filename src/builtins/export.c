@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/14 16:41:56 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/17 13:34:05 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,15 @@ int	ft_export(t_cmd *cmd, t_data *data)
 		count++;
 	if (count < 2)
 	{
-		data->exit_code = 0;
+		data->exit_code = 1;
 		return (ft_print_combined_vars(data), EXIT_SUCCESS);
 	}
 	i = 0;
 	while (++i < count)
-		ft_process_export_token(cmd->tokens[i], data);
-	data->exit_code = 0;
+	{
+		if (ft_process_export_token(cmd->tokens[i], data) != EXIT_SUCCESS)
+			return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -46,10 +48,10 @@ static int	ft_process_export_token(char *t, t_data *data)
 		return (ft_empty_values(t, data));
 	name = ft_strndup(t, ft_strchr(t, '=') - t);
 	if (!ft_is_valid_var_name(name))
-		return (ft_fprintf(stderr, "%s: export: '%s': not a valid identifier\n",
-				SH_NAME, name), (data->exit_code = 1), EXIT_FAILURE);
+		return (ft_fprintf(stderr, "%s: export: `%s': not a valid identifier\n",
+				SH_NAME, t), (data->exit_code = 1), EXIT_SUCCESS);
 	if (ft_strchr(name, '-') != NULL || ft_quotes_closed(name) != NULL)
-		return (ft_fprintf(stderr, "%s: export: '%s': not a valid identifier\n",
+		return (ft_fprintf(stderr, "%s: export: `%s': not a valid identifier\n",
 				SH_NAME, name), (data->exit_code = 1), EXIT_FAILURE);
 	value = ft_strdup(ft_strchr(t, '=') + 1);
 	if (ft_getenv(name, (const char **) data->exported_vars) != NULL)
@@ -62,7 +64,6 @@ static int	ft_process_export_token(char *t, t_data *data)
 	}
 	ft_setenv(name, value, 1, &data->envp);
 	free(name);
-	data->exit_code = 0;
 	return (free(value), EXIT_SUCCESS);
 }
 
@@ -74,7 +75,10 @@ static int	ft_empty_values(char *t, t_data *data)
 		return (ft_fprintf(stderr, "%s: export: `%s': not a valid identifier\n",
 				SH_NAME, t), (data->exit_code = 1), EXIT_FAILURE);
 	if (ft_strchr(t, '=') == NULL)
+	{
+		printf("hey\n");
 		name = ft_strdup(t);
+	}
 	else
 		name = ft_strndup(t, ft_strchr(t, '=') - t);
 	if (ft_getenv(name, (const char **) data->exported_vars) != NULL)
@@ -113,7 +117,7 @@ static bool	ft_is_valid_var_name(const char *name)
 	const char	*invalid_chars;
 	size_t		i;
 
-	invalid_chars = "=-!@#$%^&*()_+[]{}|;:,.<>?/`~";
+	invalid_chars = "-!@#$%^&*()[]{}|;:,.<>?/`~";
 	i = 0;
 	while (invalid_chars[i] != '\0')
 	{
@@ -121,7 +125,11 @@ static bool	ft_is_valid_var_name(const char *name)
 			return (false);
 		i++;
 	}
-	if (ft_isdigit(name[0]))
+	if (ft_isdigit(name[0]) || ft_strchr(name, ' ') != NULL)
 		return (false);
+	if (ft_strnstr(name, "+=", strlen(name)) != NULL)
+		return (true);
 	return (true);
 }
+
+
