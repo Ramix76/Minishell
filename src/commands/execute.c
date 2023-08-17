@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:19:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/11 12:12:12 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:06:52 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	ft_execute_command(t_cmd *cmd, t_data *data, int fork)
 	if (cmd->tokens[0] == NULL)
 		return (EXIT_SUCCESS);
 	if (cmd->tokens[0][0] != '.' && cmd->tokens[0][0] != '/')
-		exec = ft_which(cmd->tokens[0],
-				ft_getenv("PATH", (const char **) data->envp));
+		exec = ft_which(cmd->tokens[0], ft_getenv("PATH", (const char **) data->envp));
 	else
 		exec = ft_realpath(cmd->tokens[0], NULL);
 	if (exec == NULL)
