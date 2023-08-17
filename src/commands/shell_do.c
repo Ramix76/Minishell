@@ -38,8 +38,7 @@ int	ft_shell_do(t_data *data)
 		ft_free_str_arr(tokens);
 		rl_on_new_line();
 	}
-	rl_clear_history();
-	return (EXIT_SUCCESS);
+	return (rl_clear_history(), EXIT_SUCCESS);
 }
 
 // when ctrl+D will need to rl_clear_history();
