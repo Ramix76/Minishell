@@ -25,12 +25,18 @@ int	ft_execute_command(t_cmd *cmd, t_data *data, int fork)
 				ft_getenv("PATH", (const char **) data->envp));
 	else
 		exec = ft_realpath(cmd->tokens[0], NULL);
-	if (exec == NULL)
+	if (exec == NULL && ft_getenv("PATH", (const char **) data->envp) != NULL)
 	{
 		ft_fprintf(stderr, "%s: %s: command not found\n",
 			SH_NAME, cmd->tokens[0]);
-		data->exit_code = 127;
-		return (EXIT_FAILURE);
+		return ((data->exit_code = 127), EXIT_FAILURE);
+	}
+	else if (exec == NULL
+		&& ft_getenv("PATH", (const char **) data->envp) == NULL)
+	{
+		ft_fprintf(stderr, "%s: %s: No such file or directory\n",
+			SH_NAME, cmd->tokens[0]);
+		return ((data->exit_code = 127), EXIT_FAILURE);
 	}
 	ft_execute_cmd(exec, cmd, data, fork);
 	return (EXIT_SUCCESS);
