@@ -34,12 +34,13 @@ int	ft_execute_command(t_cmd *cmd, t_data *data, int fork)
 	else if (exec == NULL
 		&& ft_getenv("PATH", (const char **) data->envp) == NULL)
 	{
-		ft_fprintf(stderr, "%s: %s: No such file or directory\n",
-			SH_NAME, cmd->tokens[0]);
-		return ((data->exit_code = 127), EXIT_FAILURE);
+		exec = ft_realpath(cmd->tokens[0], NULL);
+		if (exec == NULL)
+			return ((data->exit_code = 127),
+				(ft_fprintf(stderr, "%s: %s: No such file or directory\n",
+						SH_NAME, cmd->tokens[0])), EXIT_FAILURE);
 	}
-	ft_execute_cmd(exec, cmd, data, fork);
-	return (EXIT_SUCCESS);
+	return ((ft_execute_cmd(exec, cmd, data, fork)), EXIT_SUCCESS);
 }
 
 static void	ft_execute_cmd(char *exec, t_cmd *cmd, t_data *data, int frk)
