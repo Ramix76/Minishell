@@ -60,6 +60,7 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/expansions/quote_removal.c \
 					$(SRC_DIR)/expansions/shell_expand.c \
 					$(SRC_DIR)/expansions/tilde.c \
+					$(SRC_DIR)/expansions/variables.c \
 					$(SRC_DIR)/expansions/wildcard.c \
 					$(SRC_DIR)/parse/operators.c \
 					$(SRC_DIR)/parse/parse.c \
