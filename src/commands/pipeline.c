@@ -65,6 +65,7 @@ static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 	char	**job;
 	int		fildes[2];
 	pid_t	pid;
+	int		status;
 
 	arr_len = end - start + 1;
 	job = ft_arrndup(tokens + start, arr_len);
@@ -85,7 +86,8 @@ static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 	}
 	else
 	{
-		waitpid(pid, NULL, 0);
+		if (waitpid(pid, &status, 0) && WIFEXITED(status))
+			data->exit_code = WEXITSTATUS(status);
 		if (data->pipe == 1)
 			data->fd = fildes[RD];
 		else
