@@ -21,7 +21,8 @@ int	ft_execute_command(t_cmd *cmd, t_data *data, int fork)
 	if (cmd->tokens[0] == NULL)
 		return (EXIT_SUCCESS);
 	if (cmd->tokens[0][0] != '.' && cmd->tokens[0][0] != '/')
-		exec = ft_which(cmd->tokens[0], data->path);
+		exec = ft_which(cmd->tokens[0],
+				ft_getenv("PATH", (const char **) data->envp));
 	else
 		exec = ft_realpath(cmd->tokens[0], NULL);
 	if (exec == NULL)
