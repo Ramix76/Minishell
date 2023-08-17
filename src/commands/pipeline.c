@@ -19,6 +19,7 @@
 
 static int	ft_getpipelines(char **tokens, int *position);
 static int	ft_pipe_do(char **t, int start, int end, t_data *data);
+static void	ft_pipe_do_parent(pid_t pid, int *fildes, t_data *data);
 
 int	ft_pipeline(char **tokens, t_data *data)
 {
@@ -65,7 +66,6 @@ static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 	char	**job;
 	int		fildes[2];
 	pid_t	pid;
-	int		status;
 
 	arr_len = end - start + 1;
 	job = ft_arrndup(tokens + start, arr_len);
@@ -85,14 +85,19 @@ static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 		exit (data->exit_code);
 	}
 	else
-	{
-		if (waitpid(pid, &status, 0) && WIFEXITED(status))
-			data->exit_code = WEXITSTATUS(status);
-		if (data->pipe == 1)
-			data->fd = fildes[RD];
-		else
-			close(data->fd);
-		close(fildes[WR]);
-	}
+		ft_pipe_do_parent(pid, fildes, data);
 	return (EXIT_SUCCESS);
+}
+
+static void	ft_pipe_do_parent(pid_t pid, int *fildes, t_data *data)
+{
+	int	status;
+
+	if (waitpid(pid, &status, 0) && WIFEXITED(status))
+		data->exit_code = WEXITSTATUS(status);
+	if (data->pipe == 1)
+		data->fd = fildes[RD];
+	else
+		close(data->fd);
+	close(fildes[WR]);
 }

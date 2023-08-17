@@ -35,13 +35,8 @@ int	ft_sequence_do(char **tokens, int start, int end, t_data *data)
 		dup2(fd_out, STDOUT_FILENO);
 	}
 	else
-	{
 		if (ft_pipeline(tokens, data) == EXIT_FAILURE)
-		{
-			ft_fprintf(stderr, "ft_pipeline return FAILURE\n");
 			ret = EXIT_FAILURE;
-		}
-	}
 	ft_reset_redirections(data);
 	return (ft_free_arr(job), ret);
 }
