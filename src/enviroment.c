@@ -86,7 +86,7 @@ int	ft_sethome(t_data *data)
 		{
 			home = ft_gethome_fstab();
 			if (home == NULL)
-				home = "hey";
+				home = ft_strdup("");
 			need2free = true;
 		}
 	}
