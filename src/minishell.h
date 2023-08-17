@@ -86,6 +86,8 @@ char	*ft_expand_dollar(char *expanded, t_data *data);
 char	*ft_expand_wildcard(char *expanded, t_data *data);
 char	*ft_expand_quotes(char *line, t_data *data);
 char	*ft_quotes_closed(char *line);
+char	*ft_getname(char *ptr);
+char	*ft_getvalue(char *ptr, t_data *data);
 
 /* parse */
 
