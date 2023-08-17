@@ -14,6 +14,7 @@
 
 char			*ft_expand_dollar(char *str, t_data *data);
 static size_t	ft_expand_dollar_len(char *str, t_data *data);
+static size_t	ft_resolve_len(char *ptr, t_data *data, size_t *len_ptr);
 
 char	*ft_expand_dollar(char *ptr, t_data *data)
 {
@@ -69,8 +70,6 @@ static size_t	ft_expand_dollar_len(char *ptr, t_data *data)
 {
 	int		quote;
 	size_t	len;
-	char	*name;
-	char	*value;
 
 	quote = '\0';
 	len = 0;
@@ -81,19 +80,29 @@ static size_t	ft_expand_dollar_len(char *ptr, t_data *data)
 		else if (quote != '\0' && quote == *ptr)
 			quote = '\0';
 		else if ((quote == '\0' || quote == 042) && *ptr == '$')
-		{
-			name = ft_getname(ptr);
-			if (name != NULL)
-			{
-				--len;
-				value = ft_getvalue(name, data);
-				if (value != NULL)
-					len += ft_strlen(value);
-				ptr = ptr + ft_strlen(name);
-			}
-		}
+			ptr += ft_resolve_len(ptr, data, &len);
 		++len;
 		++ptr;
 	}
 	return (len);
+}
+
+static size_t	ft_resolve_len(char *ptr, t_data *data, size_t *len_ptr)
+{
+	char	*name;
+	char	*value;
+	size_t	len;
+
+	len = *len_ptr;
+	name = ft_getname(ptr);
+	if (name != NULL)
+	{
+		--len;
+		value = ft_getvalue(name, data);
+		if (value != NULL)
+			len += ft_strlen(value);
+		*len_ptr = len;
+		return (ft_strlen(name));
+	}
+	return (0);
 }
