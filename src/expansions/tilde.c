@@ -20,9 +20,12 @@ char	*ft_expand_tilde(char *str, t_data *data)
 	expanded = ft_strdup(str);
 	if (str != NULL && *str == 0176)
 	{
-		temp = expanded;
-		expanded = ft_strpjoin_replace(expanded, data->home, 0);
-		free(temp);
+		if (*(str + 1) == '\0' || *(str + 1) == '/')
+		{
+			temp = expanded;
+			expanded = ft_strpjoin_replace(expanded, data->home, 0);
+			free(temp);
+		}
 	}
 	return (expanded);
 }

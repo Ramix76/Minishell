@@ -26,6 +26,8 @@ int	ft_command_do(char **tokens, t_data *data)
 	int		sequence[2];
 
 	i = 0;
+	if (tokens != NULL && tokens[i] != NULL && *tokens[i] == '\0')
+		return (EXIT_SUCCESS);
 	while (tokens != NULL && tokens[i] != NULL)
 	{
 		sequence[START] = i;
