@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/17 13:34:05 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/18 12:53:08 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,7 @@ static int	ft_empty_values(char *t, t_data *data)
 		return (ft_fprintf(stderr, "%s: export: `%s': not a valid identifier\n",
 				SH_NAME, t), (data->exit_code = 1), EXIT_FAILURE);
 	if (ft_strchr(t, '=') == NULL)
-	{
-		printf("hey\n");
 		name = ft_strdup(t);
-	}
 	else
 		name = ft_strndup(t, ft_strchr(t, '=') - t);
 	if (ft_getenv(name, (const char **) data->exported_vars) != NULL)
