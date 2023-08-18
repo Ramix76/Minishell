@@ -30,10 +30,7 @@ int	ft_syntax_check(char **tokens, t_data *data)
 			|| ft_operators(tokens, i) == EXIT_FAILURE
 			|| ft_redir_out(tokens, i) == EXIT_FAILURE
 			|| ft_syntax_parenthesis(tokens, i) == EXIT_FAILURE)
-		{
-			data->exit_code = 2;
-			return (EXIT_FAILURE);
-		}
+			return ((data->exit_code = 2), EXIT_FAILURE);
 		++i;
 	}
 	return (EXIT_SUCCESS);
