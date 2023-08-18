@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:36:55 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/16 14:41:34 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/18 18:20:13 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_exit(t_cmd *cmd, t_data *data)
 	size_t		len;
 
 	len = ft_arrlen(cmd->tokens);
-	if (isatty(STDIN_FILENO))
+	if (isatty(STDIN_FILENO) && data->pipe != 1)
 		ft_fprintf(stderr, "exit\n");
 	if (len > 1 && !ft_is_numeric_argument(cmd->tokens[1]))
 	{
