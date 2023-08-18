@@ -59,7 +59,8 @@ static int	ft_operators(char **tokens, int i)
 
 	max_allowed = 2;
 	token = tokens[i];
-	if (*token == 0174 || *token == 074 || *token == 076)
+	if (*token == 0174 || *token == 074 || *token == 076 || *token == 046
+		|| *token == 050 || *token == 051)
 	{
 		c = *token;
 		while (max_allowed-- > 0 && *token != '\0' && *token == c)
@@ -73,14 +74,14 @@ static int	ft_operators(char **tokens, int i)
 static int	ft_operators_stderr(char *token, char **tokens, int i)
 {
 	if (*(tokens[i]) == 0174 && i == 0)
-		return (ft_fprintf(stderr, "%s: %s: near unexpected token `%s'\n",
+		return (ft_fprintf(stderr, "%s: %s near unexpected token `%s'\n",
 				SH_NAME, SYNERR, tokens[i]), EXIT_FAILURE);
 	if (*token == '\0' && tokens[i + 1] == NULL)
 		return (ft_fprintf(stderr, "%s: %s near unexpected token `newline'\n",
 				SH_NAME, SYNERR), EXIT_FAILURE);
 	else if (*token == '\0'
 		&& ft_strchr(METACHARACTERS, *(tokens[i + 1])) != 0)
-		return (ft_fprintf(stderr, "%s: %s: near unexpected token `%s'\n",
+		return (ft_fprintf(stderr, "%s: %s near unexpected token `%s'\n",
 				SH_NAME, SYNERR, tokens[i + 1]), EXIT_FAILURE);
 	else if (*token != '\0')
 		return (ft_fprintf(stderr, "%s: %s near unexpected token `%s'\n",
