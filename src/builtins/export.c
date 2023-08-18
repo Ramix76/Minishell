@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/18 12:53:08 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/18 13:20:23 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,3 @@ static bool	ft_is_valid_var_name(const char *name)
 		return (true);
 	return (true);
 }
-
-
