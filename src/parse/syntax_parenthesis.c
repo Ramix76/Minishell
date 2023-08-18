@@ -21,13 +21,13 @@ int	ft_syntax_parenthesis(char **tokens, int i)
 					SH_NAME)), EXIT_FAILURE);
 	}
 	else if (ft_strcmp(tokens[i], "()") == 0
-			&& i > 0 && ft_strchr(METACHARACTERS, *(tokens[i - 1])) != 0)
+		&& i > 0 && ft_strchr(METACHARACTERS, *(tokens[i - 1])) != 0)
 		return ((ft_fprintf(stderr,
 					"%s: syntax error near unexpected token `)'\n",
 					SH_NAME)), EXIT_FAILURE);
 	if (*(tokens[i]) == ')'
-			&& tokens[i + 1] != NULL
-			&& ft_strchr("|&", *tokens[i + 1]) == NULL)
+		&& tokens[i + 1] != NULL
+		&& ft_strchr("|&", *tokens[i + 1]) == NULL)
 	{
 		return ((ft_fprintf(stderr,
 					"%s: syntax error near unexpected token here `)'\n",
