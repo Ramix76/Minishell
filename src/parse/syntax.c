@@ -56,8 +56,7 @@ static int	ft_operators(char **tokens, int i)
 
 	max_allowed = 2;
 	token = tokens[i];
-	if (*token == 0174 || *token == 074 || *token == 076 || *token == 046
-		|| *token == 050 || *token == 051)
+	if (*token == 0174 || *token == 074 || *token == 076 || *token == 046)
 	{
 		c = *token;
 		while (max_allowed-- > 0 && *token != '\0' && *token == c)
