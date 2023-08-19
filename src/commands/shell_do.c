@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_shell_do(t_data *data)
+int	ft_shell_loop(t_data *data)
 {
 	char	*line;
 	char	**tokens;
@@ -40,5 +40,3 @@ int	ft_shell_do(t_data *data)
 	}
 	return (rl_clear_history(), EXIT_SUCCESS);
 }
-
-// when ctrl+D will need to rl_clear_history();

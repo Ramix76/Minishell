@@ -64,7 +64,7 @@ int		ft_exit(t_cmd *cmd, t_data *data);
 
 /* commands */
 
-int		ft_shell_do(t_data *data);
+int		ft_shell_loop(t_data *data);
 int		ft_command_do(char **tokens, t_data *data);
 int		ft_simple_command_do(char **job, t_data *data);
 int		ft_sequence_do(char **tokens, int start, int end, t_data *data);
