@@ -21,7 +21,7 @@ int	ft_shell_loop(t_data *data)
 		line = readline(PROMPT);
 		if (line == NULL)
 		{
-			if (isatty(STDOUT_FILENO))
+			if (isatty(STDIN_FILENO))
 				ft_fprintf(stderr, "exit\n");
 			exit(data->exit_code);
 		}
