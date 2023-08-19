@@ -55,6 +55,7 @@ static void	ft_execute_cmd(char *exec, t_cmd *cmd, t_data *data, int frk)
 		ft_fprintf(stderr, "%s: %s: Is a directory\n", SH_NAME, exec);
 		return ;
 	}
+	ft_setenv("_", exec, 1, &data->envp);
 	if (frk == 0)
 		ft_execvpe(exec, (char const **) cmd->tokens,
 			(const char **) data->envp);
