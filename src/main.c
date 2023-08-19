@@ -45,9 +45,6 @@ static int	ft_init_data(int argc, char **argv, char **envp, t_data *data)
 	(void) argc;
 	(void) argv;
 	ft_init_env(envp, data);
-	data->path = ft_getenv("PATH", (const char **) envp);
-	if (data->path == NULL)
-		data->path = _PATH_DEFPATH;
 	data->exec_dir = (char *) malloc(sizeof(char) * PATH_MAX);
 	data->exec_dir = getcwd(data->exec_dir, PATH_MAX);
 	data->exit_code = 0;

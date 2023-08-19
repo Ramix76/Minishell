@@ -21,7 +21,6 @@ typedef struct s_data
 	int		out;
 	int		pipe;
 	int		running;
-	char	*path;
 	char	*home;
 	char	*exec_dir;
 	char	**envp;
