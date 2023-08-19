@@ -25,7 +25,10 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_args(argc, argv);
 	ft_init_data(argc, argv, envp, &data);
 	ft_init_signals(3, &data);
-	ft_shell_loop(&data);
+	if (argc > 2 && ft_strcmp("-c", argv[1]) == 0)
+		ft_shell_do(&data, argv[2]);
+	else
+		ft_shell_loop(&data);
 	ft_free_some_stuff(&data);
 	return (data.exit_code);
 }
