@@ -13,6 +13,7 @@
 #include "minishell.h"
 
 static int	ft_simple_command(t_cmd *cmd, t_data *data);
+static int	ft_shell_expand_only_quotes(char **tokens, t_data *data);
 
 int	ft_simple_command_do(char **job, t_data *data)
 {
@@ -20,6 +21,8 @@ int	ft_simple_command_do(char **job, t_data *data)
 	t_cmd	cmd;
 
 	ret = EXIT_SUCCESS;
+	// duplicate job, parse quotes
+	ft_shell_expand_only_quotes(job, data);
 	cmd.tokens = job;
 	if (ft_redirections_do(job, data) == EXIT_FAILURE
 		|| ft_redirections_rm(job) == EXIT_FAILURE)
@@ -39,5 +42,21 @@ static int	ft_simple_command(t_cmd *cmd, t_data *data)
 		ft_execute_command(cmd, data, 0);
 	else
 		ft_execute_command(cmd, data, 1);
+	return (EXIT_SUCCESS);
+}
+
+static int	ft_shell_expand_only_quotes(char **tokens, t_data *data)
+{
+	int		i;
+	char	*token;
+
+	i = 0;
+	while (tokens != NULL && tokens[i] != NULL)
+	{
+		token = tokens[i];
+		tokens[i] = ft_expand_quotes(tokens[i], data);
+		free(token);
+		++i;
+	}
 	return (EXIT_SUCCESS);
 }

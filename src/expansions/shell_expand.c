@@ -51,8 +51,9 @@ static char	*ft_expand_token(char *str, t_data *data)
 	temp = expanded;
 	expanded = ft_strtrim(expanded, " ");
 	free(temp);
-	temp = expanded;
-	expanded = ft_expand_quotes(expanded, data);
-	free(temp);
 	return (expanded);
 }
+
+// 	temp = expanded;
+//	expanded = ft_expand_quotes(expanded, data);
+//	free(temp);
