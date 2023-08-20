@@ -17,19 +17,23 @@ static int	ft_shell_expand_only_quotes(char **tokens, t_data *data);
 
 int	ft_simple_command_do(char **job, t_data *data)
 {
+	char	*reinterpreted_line;
 	int		ret;
 	t_cmd	cmd;
 
 	ret = EXIT_SUCCESS;
-	ft_shell_expand_only_quotes(job, data);
-	cmd.tokens = job;
-	if (ft_redirections_do(job, data) == EXIT_FAILURE
-		|| ft_redirections_rm(job) == EXIT_FAILURE)
+	reinterpreted_line = ft_arr2str(job);
+	cmd.tokens = ft_parse2tokens(reinterpreted_line);
+	free(reinterpreted_line);
+	ft_shell_expand_only_quotes(cmd.tokens, data);
+	if (ft_redirections_do(cmd.tokens, data) == EXIT_FAILURE
+		|| ft_redirections_rm(cmd.tokens) == EXIT_FAILURE)
 		ret = EXIT_FAILURE;
 	if (ft_strcmp("exit", *(cmd.tokens)) == 0)
 		return (ft_exit(&cmd, data));
 	if (ft_simple_command(&cmd, data) == EXIT_FAILURE)
 		ret = EXIT_FAILURE;
+	ft_free_str_arr(cmd.tokens);
 	return (ret);
 }
 

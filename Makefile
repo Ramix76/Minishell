@@ -78,6 +78,7 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/utils/utils_exported.c \
 					$(SRC_DIR)/utils/utils_list.c \
 					$(SRC_DIR)/utils/utils_quotes.c \
+					$(SRC_DIR)/utils/utils_str.c \
 					$(SRC_DIR)/builtins/exit.c
 
 OBJ_FILES		=	$(SRC_FILES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
