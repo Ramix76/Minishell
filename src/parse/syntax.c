@@ -76,7 +76,7 @@ static int	ft_operators_stderr(char *token, char **tokens, int i)
 		return (ft_fprintf(stderr, "%s: %s near unexpected token `newline'\n",
 				SH_NAME, SYNERR), EXIT_FAILURE);
 	else if (*token == '\0'
-		&& ft_strchr(METACHARACTERS, *(tokens[i + 1])) != 0)
+		&& ft_strchr("&|<>", *(tokens[i + 1])) != 0)
 		return (ft_fprintf(stderr, "%s: %s near unexpected token `%s'\n",
 				SH_NAME, SYNERR, tokens[i + 1]), EXIT_FAILURE);
 	else if (*token != '\0')
