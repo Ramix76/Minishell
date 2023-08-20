@@ -78,8 +78,8 @@ static int	ft_pre_execute_check(t_cmd *cmd, t_data *data)
 		return (EXIT_SUCCESS);
 	else if (ft_strcmp(".", cmd->tokens[0]) == 0)
 	{
-		ft_fprintf(stderr, "%s: %s: filename argument required\n", 
-				SH_NAME, cmd->tokens[0]);
+		ft_fprintf(stderr, "%s: %s: filename argument required\n",
+			SH_NAME, cmd->tokens[0]);
 		ft_fprintf(stderr, ".: usage: . filename [arguments]\n");
 		data->exit_code = 2;
 		return (EXIT_SUCCESS);
