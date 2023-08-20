@@ -21,7 +21,6 @@ int	ft_simple_command_do(char **job, t_data *data)
 	t_cmd	cmd;
 
 	ret = EXIT_SUCCESS;
-	// duplicate job, parse quotes
 	ft_shell_expand_only_quotes(job, data);
 	cmd.tokens = job;
 	if (ft_redirections_do(job, data) == EXIT_FAILURE
