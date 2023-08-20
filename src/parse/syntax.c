@@ -33,6 +33,8 @@ int	ft_syntax_check(char **tokens, t_data *data)
 			return ((data->exit_code = 2), EXIT_FAILURE);
 		++i;
 	}
+	if (ft_parenthesis_closed(tokens) == EXIT_FAILURE)
+		return ((data->exit_code = 2), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 

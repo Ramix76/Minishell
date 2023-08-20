@@ -96,6 +96,7 @@ char	**ft_parse2tokens(char *str);
 char	**ft_parse_operators(char **tokens);
 int		ft_syntax_check(char **tokens, t_data *data);
 int		ft_syntax_parenthesis(char **tokens, int i);
+int		ft_parenthesis_closed(char **tokens);
 
 /* redirections */
 
