@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/08/09 17:44:34 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/08/21 09:23:19 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ BUILD_DIR		:=	build
 CC				:=	gcc
 CFLAGS			:=	-Wall -Wextra -Werror -MMD
 CFLAGS			+=	-O3
-CFLAGS			+=	-g -fsanitize='address,undefined'# uncomment for debugging
+CFLAGS			+=	-Og -g -fsanitize='address,undefined'
 INC				=	-I $(SRC_DIR) -I $(SRC_DIR)/builtins -I $(SRC_DIR)/libft/src
 INC				+=	$(shell pkg-config --cflags readline)
 LDFLAGS			=	-L $(SRC_DIR)/libft 
