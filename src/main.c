@@ -15,16 +15,15 @@
 static int		ft_init_args(int argc, char **argv);
 static int		ft_init_data(int argc, char **argv, char **envp, t_data *data);
 static void		ft_free_some_stuff(t_data *data);
-int	g_in_heredoc;
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	g_in_heredoc = 0;
+	g_exit_code = 0;
 	ft_init_args(argc, argv);
 	ft_init_data(argc, argv, envp, &data);
-	ft_init_signals(3, &data);
+	ft_init_signals(0, &data);
 	if (argc > 2 && ft_strcmp("-c", argv[1]) == 0)
 		ft_shell_do(&data, argv[2]);
 	else
