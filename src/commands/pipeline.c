@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:36:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/11 12:13:57 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:52:49 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 		ft_simple_command_do(job, data);
 		exit (data->exit_code);
 	}
-	else
-		ft_pipe_do_parent(pid, fildes, data);
+	ft_pipe_do_parent(pid, fildes, data);
 	return (EXIT_SUCCESS);
 }
 
