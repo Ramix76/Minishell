@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:24:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/11 12:04:47 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/21 16:22:34 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_simple_command_do(char **job, t_data *data)
 		|| ft_redirections_rm(cmd.tokens) == EXIT_FAILURE)
 		ret = EXIT_FAILURE;
 	if (ft_strcmp("exit", *(cmd.tokens)) == 0)
-		return (ft_exit(&cmd, data));
+		return (ret = ft_exit(&cmd, data), ft_free_str_arr(cmd.tokens), ret);
 	if (ft_simple_command(&cmd, data) == EXIT_FAILURE)
 		ret = EXIT_FAILURE;
 	ft_free_str_arr(cmd.tokens);

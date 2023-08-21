@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:32:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/21 16:00:08 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/21 16:29:49 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,11 @@ char	*ft_expand_dollar(char *ptr, t_data *data)
 			{
 				ptr = ptr + ft_strlen(name) + 1;
 				i += ft_expand_dollar_value(expanded, name, len, data);
+				free(name);
 				continue ;
 			}
 		}
-		expanded[i] = *ptr;
-		++i;
-		++ptr;
+		expanded[i++] = *ptr++;
 	}
 	return (expanded);
 }
@@ -107,6 +106,7 @@ static size_t	ft_resolve_len(char *ptr, t_data *data, size_t *len_ptr)
 		if (value != NULL)
 			len += ft_strlen(value);
 		*len_ptr = len;
+		free(name);
 		return (ft_strlen(name));
 	}
 	return (0);
