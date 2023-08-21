@@ -25,7 +25,10 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_args(argc, argv);
 	ft_init_data(argc, argv, envp, &data);
 	ft_init_signals(3, &data);
-	ft_shell_do(&data);
+	if (argc > 2 && ft_strcmp("-c", argv[1]) == 0)
+		ft_shell_do(&data, argv[2]);
+	else
+		ft_shell_loop(&data);
 	ft_free_some_stuff(&data);
 	return (data.exit_code);
 }
@@ -45,9 +48,6 @@ static int	ft_init_data(int argc, char **argv, char **envp, t_data *data)
 	(void) argc;
 	(void) argv;
 	ft_init_env(envp, data);
-	data->path = ft_getenv("PATH", (const char **) envp);
-	if (data->path == NULL)
-		data->path = _PATH_DEFPATH;
 	data->exec_dir = (char *) malloc(sizeof(char) * PATH_MAX);
 	data->exec_dir = getcwd(data->exec_dir, PATH_MAX);
 	data->exit_code = 0;

@@ -12,10 +12,9 @@
 
 #include "minishell.h"
 
-int	ft_shell_do(t_data *data)
+int	ft_shell_loop(t_data *data)
 {
 	char	*line;
-	char	**tokens;
 
 	while (data->running)
 	{
@@ -28,17 +27,24 @@ int	ft_shell_do(t_data *data)
 		}
 		if (line[0] != '\0')
 			add_history(line);
-		tokens = ft_parse2tokens(line);
-		if (ft_syntax_check(tokens, data) != EXIT_FAILURE)
-		{
-			ft_shell_expand(tokens, data);
-			ft_command_do(tokens, data);
-		}
+		if (ft_shell_do(data, line) == EXIT_FAILURE)
+			data->running = 0;
 		free(line);
-		ft_free_str_arr(tokens);
 		rl_on_new_line();
 	}
 	return (rl_clear_history(), EXIT_SUCCESS);
 }
 
-// when ctrl+D will need to rl_clear_history();
+int	ft_shell_do(t_data *data, char *line)
+{
+	char	**tokens;
+
+	tokens = ft_parse2tokens(line);
+	if (ft_syntax_check(tokens, data) != EXIT_FAILURE)
+	{
+		ft_shell_expand(tokens, data);
+		ft_command_do(tokens, data);
+	}
+	ft_free_str_arr(tokens);
+	return (EXIT_SUCCESS);
+}

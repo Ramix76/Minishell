@@ -13,12 +13,13 @@
 #include "minishell.h"
 
 static void	ft_execute_cmd(char *exec, t_cmd *cmd, t_data *data, int fork);
+static int	ft_pre_execute_check(t_cmd *cmd, t_data *data);
 
 int	ft_execute_command(t_cmd *cmd, t_data *data, int fork)
 {
 	char	*exec;
 
-	if (cmd->tokens[0] == NULL)
+	if (ft_pre_execute_check(cmd, data) == EXIT_SUCCESS)
 		return (EXIT_SUCCESS);
 	if (cmd->tokens[0][0] != '.' && cmd->tokens[0][0] != '/')
 		exec = ft_which(cmd->tokens[0],
@@ -52,9 +53,10 @@ static void	ft_execute_cmd(char *exec, t_cmd *cmd, t_data *data, int frk)
 	if (stat(exec, &s) == 0 && s.st_mode & S_IFDIR)
 	{
 		data->exit_code = 126;
-		ft_fprintf(stderr, "%s: %s: Is a directory\n", SH_NAME, exec);
+		ft_fprintf(stderr, "%s: %s: Is a directory\n", SH_NAME, cmd->tokens[0]);
 		return ;
 	}
+	ft_setenv("_", exec, 1, &data->envp);
 	if (frk == 0)
 		ft_execvpe(exec, (char const **) cmd->tokens,
 			(const char **) data->envp);
@@ -68,4 +70,25 @@ static void	ft_execute_cmd(char *exec, t_cmd *cmd, t_data *data, int frk)
 			if (waitpid(pid, &status, 0) && WIFEXITED(status))
 				data->exit_code = WEXITSTATUS(status);
 	}
+}
+
+static int	ft_pre_execute_check(t_cmd *cmd, t_data *data)
+{
+	if (cmd->tokens[0] == NULL)
+		return (EXIT_SUCCESS);
+	else if (ft_strcmp(".", cmd->tokens[0]) == 0)
+	{
+		ft_fprintf(stderr, "%s: %s: filename argument required\n",
+			SH_NAME, cmd->tokens[0]);
+		ft_fprintf(stderr, ".: usage: . filename [arguments]\n");
+		data->exit_code = 2;
+		return (EXIT_SUCCESS);
+	}
+	else if (ft_strcmp("..", cmd->tokens[0]) == 0)
+	{
+		ft_fprintf(stderr, "%s: ..: command not found\n", SH_NAME);
+		data->exit_code = 127;
+		return (EXIT_SUCCESS);
+	}
+	return (EXIT_FAILURE);
 }

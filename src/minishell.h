@@ -64,7 +64,8 @@ int		ft_exit(t_cmd *cmd, t_data *data);
 
 /* commands */
 
-int		ft_shell_do(t_data *data);
+int		ft_shell_loop(t_data *data);
+int		ft_shell_do(t_data *data, char *line);
 int		ft_command_do(char **tokens, t_data *data);
 int		ft_simple_command_do(char **job, t_data *data);
 int		ft_sequence_do(char **tokens, int start, int end, t_data *data);
@@ -95,6 +96,7 @@ char	**ft_parse2tokens(char *str);
 char	**ft_parse_operators(char **tokens);
 int		ft_syntax_check(char **tokens, t_data *data);
 int		ft_syntax_parenthesis(char **tokens, int i);
+int		ft_parenthesis_closed(char **tokens);
 
 /* redirections */
 
@@ -129,5 +131,6 @@ void	ft_free_vars(char **vars);
 int		ft_cd_check_arguments(t_cmd *cmd);
 char	*ft_concat_list(t_list *list);
 int		ft_sort_list(t_list *list);
+char	*ft_arr2str(char **arr);
 
 #endif /* minishell.h */

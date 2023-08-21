@@ -76,6 +76,7 @@ static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 	if (pid == 0)
 	{
 		dup2(data->fd, STDIN_FILENO);
+		close(data->fd);
 		if (data->pipe == 1)
 			dup2(fildes[WR], STDOUT_FILENO);
 		else
@@ -96,7 +97,10 @@ static void	ft_pipe_do_parent(pid_t pid, int *fildes, t_data *data)
 	if (waitpid(pid, &status, 0) && WIFEXITED(status))
 		data->exit_code = WEXITSTATUS(status);
 	if (data->pipe == 1)
-		data->fd = fildes[RD];
+	{
+		data->fd = dup(fildes[RD]);
+		close(fildes[RD]);
+	}
 	else
 		close(data->fd);
 	close(fildes[WR]);
