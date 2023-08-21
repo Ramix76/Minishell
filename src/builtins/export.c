@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/21 13:38:40 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/21 15:16:03 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,12 @@ static bool	ft_is_valid_var_name(const char *name)
 	i = 1;
 	while (name != NULL && name[i] != '\0')
 	{
-		if (ft_isalnum(name[i]) == 0 && name[i] != '_')
+		if (name[i] == '+' && name[i + 1] == '\0')
+			break ;
+		else if (ft_isalnum(name[i]) == 0 && name[i] != '_')
+		{
 			return (false);
+		}
 		++i;
 	}
 	return (true);
