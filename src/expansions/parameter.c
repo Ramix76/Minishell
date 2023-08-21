@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:32:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 11:04:27 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/21 15:27:25 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,9 @@ char	*ft_expand_dollar(char *ptr, t_data *data)
 	while (i < len)
 	{
 		if (quote == '\0' && (*ptr == 042 || *ptr == 047))
-		{
-			expanded[i] = *ptr;
 			quote = *ptr;
-		}
 		else if (quote != '\0' && quote == *ptr)
-		{
-			expanded[i] = *ptr;
 			quote = '\0';
-		}
 		else if ((quote == '\0' || quote == 042) && *ptr == '$')
 		{
 			name = ft_getname(ptr);
@@ -54,12 +48,12 @@ char	*ft_expand_dollar(char *ptr, t_data *data)
 					--i;
 				}
 				ptr = ptr + ft_strlen(name);
+				++i;
+				++ptr;
+				continue ;
 			}
-			else
-				expanded[i] = *ptr;
 		}
-		else
-			expanded[i] = *ptr;
+		expanded[i] = *ptr;
 		++i;
 		++ptr;
 	}
