@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:55:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/21 16:28:44 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/21 17:18:44 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ char	*ft_getname(char *ptr)
 	name_len = 0;
 	if (*ptr == '?')
 		return (ft_strdup("?"));
-	else if (*ptr == 042 || *ptr == 047)
-		return (NULL);
 	else if (*ptr == '\0' || (ft_isalpha(*ptr) == 0 && *ptr != '_'))
 		return (NULL);
 	while (ptr[name_len] != '\0' && (ft_isalnum(ptr[name_len]) != 0
