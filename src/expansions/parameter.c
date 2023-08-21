@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:32:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/08 11:04:27 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/21 16:29:49 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 char			*ft_expand_dollar(char *str, t_data *data);
 static size_t	ft_expand_dollar_len(char *str, t_data *data);
 static size_t	ft_resolve_len(char *ptr, t_data *data, size_t *len_ptr);
+static int		ft_expand_dollar_value(char *expanded, char *name,
+					size_t len, t_data *data);
 
 char	*ft_expand_dollar(char *ptr, t_data *data)
 {
@@ -23,7 +25,6 @@ char	*ft_expand_dollar(char *ptr, t_data *data)
 	size_t	len;
 	int		quote;
 	char	*name;
-	char	*value;
 
 	i = 0;
 	len = ft_expand_dollar_len(ptr, data);
@@ -32,38 +33,41 @@ char	*ft_expand_dollar(char *ptr, t_data *data)
 	while (i < len)
 	{
 		if (quote == '\0' && (*ptr == 042 || *ptr == 047))
-		{
-			expanded[i] = *ptr;
 			quote = *ptr;
-		}
 		else if (quote != '\0' && quote == *ptr)
-		{
-			expanded[i] = *ptr;
 			quote = '\0';
-		}
 		else if ((quote == '\0' || quote == 042) && *ptr == '$')
 		{
 			name = ft_getname(ptr);
 			if (name != NULL)
 			{
-				value = ft_getvalue(name, data);
-				if (value != NULL)
-				{
-					ft_strlcat(expanded, value, len + 1);
-					i += ft_strlen(value);
-					--i;
-				}
-				ptr = ptr + ft_strlen(name);
+				ptr = ptr + ft_strlen(name) + 1;
+				i += ft_expand_dollar_value(expanded, name, len, data);
+				free(name);
+				continue ;
 			}
-			else
-				expanded[i] = *ptr;
 		}
-		else
-			expanded[i] = *ptr;
-		++i;
-		++ptr;
+		expanded[i++] = *ptr++;
 	}
 	return (expanded);
+}
+
+static int	ft_expand_dollar_value(char *expanded, char *name,
+		size_t len, t_data *data)
+{
+	char	*value;
+	size_t	i;
+
+	i = 0;
+	value = ft_getvalue(name, data);
+	if (value != NULL)
+	{
+		ft_strlcat(expanded, value, len + 1);
+		i += ft_strlen(value);
+		--i;
+	}
+	++i;
+	return (i);
 }
 
 static size_t	ft_expand_dollar_len(char *ptr, t_data *data)
@@ -102,6 +106,7 @@ static size_t	ft_resolve_len(char *ptr, t_data *data, size_t *len_ptr)
 		if (value != NULL)
 			len += ft_strlen(value);
 		*len_ptr = len;
+		free(name);
 		return (ft_strlen(name));
 	}
 	return (0);

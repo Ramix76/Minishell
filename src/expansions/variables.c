@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parameter.c                                        :+:      :+:    :+:   */
+/*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:55:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/17 13:55:44 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/21 16:28:44 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char	*ft_getname(char *ptr)
 	name_len = 0;
 	if (*ptr == '?')
 		return (ft_strdup("?"));
+	else if (*ptr == 042 || *ptr == 047)
+		return (NULL);
 	else if (*ptr == '\0' || (ft_isalpha(*ptr) == 0 && *ptr != '_'))
 		return (NULL);
 	while (ptr[name_len] != '\0' && (ft_isalnum(ptr[name_len]) != 0
@@ -58,8 +60,10 @@ char	*ft_getvalue(char *name, t_data *data)
 
 	if (ft_strcmp("?", name) == 0)
 	{
-		value = ft_strdup(ft_itoa(data->exit_code));
-		return (value);
+		if (data->str_exit_code != NULL)
+			free(data->str_exit_code);
+		data->str_exit_code = ft_strdup(ft_itoa(data->exit_code));
+		return (data->str_exit_code);
 	}
 	value = ft_getenv(name, (const char **) data->envp);
 	if (value == NULL)

@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/21 16:08:14 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/21 16:29:14 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static int	ft_init_data(int argc, char **argv, char **envp, t_data *data)
 	data->out = STDOUT_FILENO;
 	data->pipe = 0;
 	data->home = NULL;
+	data->str_exit_code = NULL;
 	data->exported_vars = NULL;
 	ft_shlvl(envp, data);
 	ft_sethome(data);
@@ -69,4 +70,6 @@ static void	ft_free_some_stuff(t_data *data)
 	ft_free_str_arr(data->exported_vars);
 	free(data->home);
 	free(data->exec_dir);
+	if (data->str_exit_code != NULL)
+		free(data->str_exit_code);
 }

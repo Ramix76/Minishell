@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/18 13:20:23 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/21 15:16:03 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	ft_process_export_token(char *t, t_data *data)
 	if (ft_strchr(t, '=') == NULL || *(ft_strchr(t, '=') + 1) == '\0')
 		return (ft_empty_values(t, data));
 	name = ft_strndup(t, ft_strchr(t, '=') - t);
-	if (!ft_is_valid_var_name(name))
+	if (ft_is_valid_var_name(name) == false)
 		return (ft_fprintf(stderr, "%s: export: `%s': not a valid identifier\n",
 				SH_NAME, t), (data->exit_code = 1), EXIT_SUCCESS);
 	if (ft_strchr(name, '-') != NULL || ft_quotes_closed(name) != NULL)
@@ -71,13 +71,13 @@ static int	ft_empty_values(char *t, t_data *data)
 {
 	char	*name;
 
-	if (ft_strchr(t, '-') != NULL)
-		return (ft_fprintf(stderr, "%s: export: `%s': not a valid identifier\n",
-				SH_NAME, t), (data->exit_code = 1), EXIT_FAILURE);
 	if (ft_strchr(t, '=') == NULL)
 		name = ft_strdup(t);
 	else
 		name = ft_strndup(t, ft_strchr(t, '=') - t);
+	if (ft_is_valid_var_name(name) == false)
+		return (ft_fprintf(stderr, "%s: export: `%s': not a valid identifier\n",
+				SH_NAME, t), (data->exit_code = 1), EXIT_FAILURE);
 	if (ft_getenv(name, (const char **) data->exported_vars) != NULL)
 		ft_unsetenv(name, data->exported_vars);
 	if (ft_getenv(name, (const char **)data->envp) != NULL)
@@ -111,20 +111,22 @@ static char	*ft_concatenate_tokens(char *name, char *value, t_data *data)
 
 static bool	ft_is_valid_var_name(const char *name)
 {
-	const char	*invalid_chars;
-	size_t		i;
+	int	i;
 
-	invalid_chars = "-!@#$%^&*()[]{}|;:,.<>?/`~";
-	i = 0;
-	while (invalid_chars[i] != '\0')
-	{
-		if (ft_strchr(name, invalid_chars[i]) != NULL)
-			return (false);
-		i++;
-	}
-	if (ft_isdigit(name[0]) || ft_strchr(name, ' ') != NULL)
+	if (name == NULL || name[0] == '\0'
+		|| ft_isdigit(name[0]) == 1
+		|| (ft_isalnum(name[0]) == 0 && name[0] != '_'))
 		return (false);
-	if (ft_strnstr(name, "+=", strlen(name)) != NULL)
-		return (true);
+	i = 1;
+	while (name != NULL && name[i] != '\0')
+	{
+		if (name[i] == '+' && name[i + 1] == '\0')
+			break ;
+		else if (ft_isalnum(name[i]) == 0 && name[i] != '_')
+		{
+			return (false);
+		}
+		++i;
+	}
 	return (true);
 }

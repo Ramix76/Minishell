@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:36:58 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/10 14:30:45 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/21 16:28:00 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_data
 	int		running;
 	char	*home;
 	char	*exec_dir;
+	char	*str_exit_code;
 	char	**envp;
 	char	**exported_vars;
 }			t_data;
