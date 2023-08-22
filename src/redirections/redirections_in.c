@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 14:27:04 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/10 12:29:46 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:11:39 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_in(char *operator, char *value, t_data *data)
 	else
 		ft_file_in(value, data);
 	dup2(data->in, STDIN_FILENO);
+	close(data->in);
 	return (EXIT_SUCCESS);
 }
 
@@ -32,7 +33,7 @@ static int	ft_file_in(char *filename, t_data *data)
 		return (EXIT_FAILURE);
 	else
 	{
-		if (data->in != STDIN_FILENO)
+		if (isatty(data->in) == 0)
 			close(data->in);
 		fd = open(filename, O_RDONLY);
 		if (fd == -1)
