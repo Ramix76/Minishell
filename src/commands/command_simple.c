@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:24:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/21 16:22:34 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:41:51 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ int	ft_simple_command_do(char **job, t_data *data)
 	char	*reinterpreted_line;
 	int		ret;
 	t_cmd	cmd;
+	int		fd_in;
 
 	ret = EXIT_SUCCESS;
+	fd_in = STDIN_FILENO;
+	if (isatty(fd_in) == 1)
+		fd_in = dup(STDIN_FILENO);
 	reinterpreted_line = ft_arr2str(job);
 	cmd.tokens = ft_parse2tokens(reinterpreted_line);
 	free(reinterpreted_line);
@@ -31,9 +35,11 @@ int	ft_simple_command_do(char **job, t_data *data)
 		ret = EXIT_FAILURE;
 	if (ft_strcmp("exit", *(cmd.tokens)) == 0)
 		return (ret = ft_exit(&cmd, data), ft_free_str_arr(cmd.tokens), ret);
-	if (ft_simple_command(&cmd, data) == EXIT_FAILURE)
+	if (ret != EXIT_FAILURE && ft_simple_command(&cmd, data) == EXIT_FAILURE)
 		ret = EXIT_FAILURE;
 	ft_free_str_arr(cmd.tokens);
+	dup2(fd_in, STDIN_FILENO);
+	close(fd_in);
 	return (ret);
 }
 

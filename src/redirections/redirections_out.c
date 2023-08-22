@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 14:28:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/11 12:53:37 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 10:20:48 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ int	ft_out(char *operator, char *value, t_data *data)
 	}
 	data->out = fd;
 	if (data->pipe == 0)
+	{
 		dup2(data->out, STDOUT_FILENO);
+		close(data->out);
+	}
 	return (EXIT_SUCCESS);
 }

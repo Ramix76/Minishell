@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:19:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/21 16:26:45 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/21 16:53:08 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_execute_command(t_cmd *cmd, t_data *data, int fork)
 				(ft_fprintf(stderr, "%s: %s: No such file or directory\n",
 						SH_NAME, cmd->tokens[0])), EXIT_FAILURE);
 	}
-	return ((ft_execute_cmd(exec, cmd, data, fork)), EXIT_SUCCESS);
+	return ((ft_execute_cmd(exec, cmd, data, fork)), free(exec), EXIT_SUCCESS);
 }
 
 static void	ft_execute_cmd(char *exec, t_cmd *cmd, t_data *data, int frk)
