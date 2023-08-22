@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/21 16:25:16 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:14:15 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ int	ft_shell_loop(t_data *data)
 		line = readline(PROMPT);
 		if (line == NULL)
 		{
-			if (isatty(STDIN_FILENO))
+			if (isatty(STDOUT_FILENO))
 				ft_fprintf(stderr, "exit\n");
-			exit(data->exit_code);
+			return (EXIT_SUCCESS);
 		}
-		if (line[0] == '\0')
-			g_exit_code = 0;
-		else
+		g_exit_code = 0;
+		if (line && *line != '\0')
 			add_history(line);
 		if (ft_shell_do(data, line) == EXIT_FAILURE)
 			data->running = 0;
