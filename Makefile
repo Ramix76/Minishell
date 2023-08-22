@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/08/21 09:23:19 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/08/22 15:14:29 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ BUILD_DIR		:=	build
 CC				:=	gcc
 CFLAGS			:=	-Wall -Wextra -Werror -MMD
 CFLAGS			+=	-O3
-CFLAGS			+=	-Og -g -fsanitize='address,undefined'
+#CFLAGS			+=	-Og -g -fsanitize='address,undefined'
 INC				=	-I $(SRC_DIR) -I $(SRC_DIR)/builtins -I $(SRC_DIR)/libft/src
 INC				+=	$(shell pkg-config --cflags readline)
 LDFLAGS			=	-L $(SRC_DIR)/libft 
@@ -55,7 +55,6 @@ SRC_FILES		:=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/commands/pipeline.c \
 					$(SRC_DIR)/commands/sequence_do.c \
 					$(SRC_DIR)/commands/shell_do.c \
-					$(SRC_DIR)/expansions/filename.c \
 					$(SRC_DIR)/expansions/parameter.c \
 					$(SRC_DIR)/expansions/quote_removal.c \
 					$(SRC_DIR)/expansions/shell_expand.c \
