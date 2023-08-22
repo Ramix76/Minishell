@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:36:58 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/22 12:51:05 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:51:16 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ typedef struct s_data
 	int		exit_code;
 	int		fd;
 	int		in;
+	int		fd_in;
 	int		out;
 	int		pipe;
 	int		running;

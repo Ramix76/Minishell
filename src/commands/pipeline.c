@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:36:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/21 12:52:49 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:48:49 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	ft_pipeline(char **tokens, t_data *data)
 		if (tokens[i + 1] == NULL)
 			data->pipe = 0;
 		ft_pipe_do(tokens, pipeline[START], pipeline[END], data);
+		if (data->exit_code != 0)
+			break ;
 		++i;
 	}
 	data->pipe = 0;
@@ -79,8 +81,7 @@ static int	ft_pipe_do(char **tokens, int start, int end, t_data *data)
 		close(data->fd);
 		if (data->pipe == 1)
 			dup2(fildes[WR], STDOUT_FILENO);
-		else
-			close(fildes[WR]);
+		close(fildes[WR]);
 		close(fildes[RD]);
 		ft_simple_command_do(job, data);
 		exit (data->exit_code);

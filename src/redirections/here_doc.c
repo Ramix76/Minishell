@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:17:18 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/22 14:45:32 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:52:56 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	ft_here_doc(char *limiter, t_data *data)
 	pid_t	pid;
 	int		status;
 
+	if (isatty(data->fd_in) != 0)
+		dup2(data->fd_in, STDIN_FILENO);
 	status = 0;
 	if (pipe(fildes) == -1)
 		return (EXIT_FAILURE);
