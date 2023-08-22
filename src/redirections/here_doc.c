@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:17:18 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/21 16:28:20 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:21:27 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_here_doc(char *limiter, t_data *data)
 	{
 		close(fildes[RD]);
 		ft_read_stdin(fildes[WR], limiter, data);
-		exit (0);
+		exit (data->exit_code);
 	}
 	waitpid(pid, NULL, 0);
 	close(fildes[WR]);
