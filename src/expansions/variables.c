@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:55:44 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/21 17:18:44 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:13:42 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_getvalue(char *name, t_data *data)
 	{
 		if (data->str_exit_code != NULL)
 			free(data->str_exit_code);
-		data->str_exit_code = ft_strdup(ft_itoa(data->exit_code));
+		data->str_exit_code = ft_itoa(data->exit_code);
 		return (data->str_exit_code);
 	}
 	value = ft_getenv(name, (const char **) data->envp);
