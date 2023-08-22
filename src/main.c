@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/22 14:49:36 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/22 18:42:57 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	main(int argc, char **argv, char **envp)
 	else
 		ft_shell_loop(&data);
 	ft_free_some_stuff(&data);
+	if (g_exit_code != 0)
+		data.exit_code = g_exit_code;
 	return (data.exit_code);
 }
 
