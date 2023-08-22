@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:32:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/21 16:29:49 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 09:46:31 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,7 @@ static size_t	ft_resolve_len(char *ptr, t_data *data, size_t *len_ptr)
 		if (value != NULL)
 			len += ft_strlen(value);
 		*len_ptr = len;
-		free(name);
-		return (ft_strlen(name));
+		return (len = ft_strlen(name), free(name), len);
 	}
 	return (0);
 }
