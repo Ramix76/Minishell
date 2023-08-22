@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:19:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/21 16:53:08 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 14:50:09 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	ft_execute_cmd(char *exec, t_cmd *cmd, t_data *data, int frk)
 			(const char **) data->envp);
 	else
 	{
-		ft_init_signals(1, data);
+		ft_init_signals(1);
 		pid = fork();
 		if (pid == 0)
 			ft_execvpe(exec, (char const **) cmd->tokens,
