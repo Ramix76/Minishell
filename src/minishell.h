@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/21 15:36:19 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:09:25 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,8 @@ int		ft_out(char *op, char *value, t_data *data);
 
 /* signals */
 
-//void	ft_signal_handler(int signal);
-//void	ft_handle_signals_heredoc(int signal);
-void	ft_set_term(void);
-int		ft_init_signals(int mode, t_data *data);
+int		ft_init_signals(int mode);
+void	ft_do_sigign(int signal);
 
 /* utils */
 

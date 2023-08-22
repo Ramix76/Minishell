@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/22 11:14:15 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 14:45:31 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ int	ft_shell_loop(t_data *data)
 {
 	char	*line;
 
+	g_exit_code = 0;
 	while (data->running)
 	{
-		ft_init_signals(0, data);
+		ft_init_signals(0);
 		line = readline(PROMPT);
 		if (line == NULL)
 		{
@@ -26,13 +27,11 @@ int	ft_shell_loop(t_data *data)
 				ft_fprintf(stderr, "exit\n");
 			return (EXIT_SUCCESS);
 		}
-		g_exit_code = 0;
 		if (line && *line != '\0')
 			add_history(line);
 		if (ft_shell_do(data, line) == EXIT_FAILURE)
 			data->running = 0;
 		free(line);
-		rl_on_new_line();
 	}
 	return (rl_clear_history(), EXIT_SUCCESS);
 }

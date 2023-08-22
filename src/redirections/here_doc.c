@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:17:18 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/22 11:33:27 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 14:45:32 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,24 @@ int	ft_here_doc(char *limiter, t_data *data)
 {
 	int		fildes[2];
 	pid_t	pid;
+	int		status;
 
+	status = 0;
 	if (pipe(fildes) == -1)
 		return (EXIT_FAILURE);
-	ft_init_signals(2, data);
+	ft_init_signals(3);
 	pid = fork();
 	if (pid == -1)
 		return (EXIT_FAILURE);
 	if (pid == 0)
 	{
+		ft_init_signals(2);
 		close(fildes[RD]);
 		ft_read_stdin(fildes[WR], limiter, data);
-		exit (0);
+		exit(g_exit_code);
 	}
-	waitpid(pid, NULL, 0);
+	if (waitpid(pid, &status, 0) && WIFEXITED(status))
+		data->exit_code = WEXITSTATUS(status);
 	close(fildes[WR]);
 	data->in = fildes[RD];
 	return (EXIT_SUCCESS);
