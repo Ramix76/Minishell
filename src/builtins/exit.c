@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:36:55 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/18 18:20:13 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:07:35 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static int	ft_is_numeric_argument(char *str)
 	if (ft_strlen(str) > ft_strlen("-9223372036854775808")
 		|| (ft_strlen(str) == ft_strlen("-9223372036854775807")
 			&& ft_strncmp(str, "-9223372036854775808", ft_strlen(str)) > 0))
-		return (0);
+		return (free(temp), 0);
 	else if (ft_strlen(str) == ft_strlen("9223372036854775807")
 		&& ft_strncmp(str, "9223372036854775807", ft_strlen(str)) > 0)
-		return (0);
+		return (free(temp), 0);
 	if (*str == '-' || *str == '+')
 		str++;
 	if (*str == '\0')
@@ -60,11 +60,10 @@ static int	ft_is_numeric_argument(char *str)
 	while (*str != '\0')
 	{
 		if (!ft_isdigit(*str))
-			return (0);
+			return (free(temp), 0);
 		str++;
 	}
-	free(temp);
-	return (1);
+	return (free(temp), 1);
 }
 
 static long long	ft_atoll(const char *str)
