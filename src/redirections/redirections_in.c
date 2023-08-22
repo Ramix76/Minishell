@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 14:27:04 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/22 11:42:20 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 12:45:35 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	ft_file_in(char *filename, t_data *data)
 	if (access(filename, R_OK) == -1)
 	{
 		ft_fprintf(stderr, "%s: %s: %s\n",
-				SH_NAME, filename, strerror(errno));
+			SH_NAME, filename, strerror(errno));
 		data->exit_code = 1;
 		return (EXIT_FAILURE);
 	}
@@ -47,7 +47,7 @@ static int	ft_file_in(char *filename, t_data *data)
 		if (fd == -1)
 		{
 			ft_fprintf(stderr, "%s: %s: %s\n",
-					SH_NAME, filename, strerror(errno));
+				SH_NAME, filename, strerror(errno));
 			data->exit_code = 1;
 			return (EXIT_FAILURE);
 		}
