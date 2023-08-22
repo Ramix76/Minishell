@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:51:56 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/21 15:16:03 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:04:13 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ static int	ft_process_export_token(char *t, t_data *data)
 	name = ft_strndup(t, ft_strchr(t, '=') - t);
 	if (ft_is_valid_var_name(name) == false)
 		return (ft_fprintf(stderr, "%s: export: `%s': not a valid identifier\n",
-				SH_NAME, t), (data->exit_code = 1), EXIT_SUCCESS);
+				SH_NAME, t), free(name), (data->exit_code = 1), EXIT_SUCCESS);
 	if (ft_strchr(name, '-') != NULL || ft_quotes_closed(name) != NULL)
 		return (ft_fprintf(stderr, "%s: export: `%s': not a valid identifier\n",
-				SH_NAME, name), (data->exit_code = 1), EXIT_FAILURE);
+				SH_NAME, name), free(name),
+			(data->exit_code = 1), EXIT_FAILURE);
 	value = ft_strdup(ft_strchr(t, '=') + 1);
 	if (ft_getenv(name, (const char **) data->exported_vars) != NULL)
 		ft_unsetenv(name, data->exported_vars);
@@ -63,8 +64,7 @@ static int	ft_process_export_token(char *t, t_data *data)
 		value = ft_concatenate_tokens(name, value, data);
 	}
 	ft_setenv(name, value, 1, &data->envp);
-	free(name);
-	return (free(value), EXIT_SUCCESS);
+	return (free(name), free(value), EXIT_SUCCESS);
 }
 
 static int	ft_empty_values(char *t, t_data *data)
@@ -77,23 +77,21 @@ static int	ft_empty_values(char *t, t_data *data)
 		name = ft_strndup(t, ft_strchr(t, '=') - t);
 	if (ft_is_valid_var_name(name) == false)
 		return (ft_fprintf(stderr, "%s: export: `%s': not a valid identifier\n",
-				SH_NAME, t), (data->exit_code = 1), EXIT_FAILURE);
+				SH_NAME, t), free(name), (data->exit_code = 1), EXIT_FAILURE);
 	if (ft_getenv(name, (const char **) data->exported_vars) != NULL)
 		ft_unsetenv(name, data->exported_vars);
 	if (ft_getenv(name, (const char **)data->envp) != NULL)
 	{
-		free(name);
 		data->exit_code = 0;
-		return (EXIT_SUCCESS);
+		return (free(name), EXIT_SUCCESS);
 	}
 	ft_unsetenv(name, data->envp);
 	if (ft_strchr(t, '=') == NULL)
 		ft_setenv(name, "", 1, &data->exported_vars);
 	else
 		ft_setenv(name, "", 1, &data->envp);
-	free(name);
 	data->exit_code = 0;
-	return (EXIT_SUCCESS);
+	return (free(name), EXIT_SUCCESS);
 }
 
 static char	*ft_concatenate_tokens(char *name, char *value, t_data *data)
