@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:20:28 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/08/11 13:07:11 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 10:37:50 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_sequence_do(char **tokens, int start, int end, t_data *data)
 		fd_out = dup(STDOUT_FILENO);
 		ret = ft_simple_command_do(job, data);
 		dup2(fd_out, STDOUT_FILENO);
+		close(fd_out);
 	}
 	else
 		if (ft_pipeline(tokens, data) == EXIT_FAILURE)
