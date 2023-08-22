@@ -85,12 +85,21 @@ void	ft_print_sorted_vars(char **vars)
 	i = 0;
 	while (vars[i])
 	{
-		name = ft_strndup(vars[i], ft_strchr(vars[i], '=') - vars[i]);
-		value = ft_strchr(vars[i], '=') + 1;
-		if (*value == '\0')
+		value = NULL;
+		name = vars[i];
+		if (ft_strchr(vars[i], '=') != NULL)
+		{
+			name = ft_strndup(vars[i], ft_strchr(vars[i], '=') - vars[i]);
+			value = ft_strchr(vars[i], '=') + 1;
+		}
+		if (value == NULL)
+			printf("declare -x %s\n", name);
+		else if (*value == '\0')
 			printf("declare -x %s=\"\"\n", name);
 		else
 			printf("declare -x %s=\"%s\"\n", name, value);
+		if (ft_strchr(vars[i], '=') != NULL)
+			free(name);
 		i++;
 	}
 }

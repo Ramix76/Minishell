@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 12:47:52 by framos-p          #+#    #+#              #
-#    Updated: 2023/07/31 17:58:18 by framos-p         ###   ########.fr        #
+#    Updated: 2023/08/22 15:14:29 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ AUTHOR			?=	framos-p, mpuig-ma
 BUILD_DIR		:=	build
 CC				:=	gcc
 CFLAGS			:=	-Wall -Wextra -Werror -MMD
-CFLAGS			+=	-g -fsanitize='address,undefined'# uncomment for debugging
+CFLAGS			+=	-O3
+#CFLAGS			+=	-Og -g -fsanitize='address,undefined'
 INC				=	-I $(SRC_DIR) -I $(SRC_DIR)/builtins -I $(SRC_DIR)/libft/src
 INC				+=	$(shell pkg-config --cflags readline)
 LDFLAGS			=	-L $(SRC_DIR)/libft 
@@ -38,9 +39,8 @@ endif
 
 #/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 
-SRC_FILES		:=	$(SRC_DIR)/enviroment.c \
-					$(SRC_DIR)/main.c \
-					$(SRC_DIR)/parse.c \
+SRC_FILES		:=	$(SRC_DIR)/main.c \
+					$(SRC_DIR)/enviroment.c\
 					$(SRC_DIR)/builtins/builtin_do.c \
 					$(SRC_DIR)/builtins/echo.c \
 					$(SRC_DIR)/builtins/pwd.c \
@@ -48,23 +48,37 @@ SRC_FILES		:=	$(SRC_DIR)/enviroment.c \
 					$(SRC_DIR)/builtins/cd.c \
 					$(SRC_DIR)/builtins/unset.c \
 					$(SRC_DIR)/builtins/export.c \
-					$(SRC_DIR)/expansions/filename.c \
+					$(SRC_DIR)/commands/command_do.c \
+					$(SRC_DIR)/commands/command_simple.c \
+					$(SRC_DIR)/commands/execute.c \
+					$(SRC_DIR)/commands/parenthesis.c \
+					$(SRC_DIR)/commands/pipeline.c \
+					$(SRC_DIR)/commands/sequence_do.c \
+					$(SRC_DIR)/commands/shell_do.c \
 					$(SRC_DIR)/expansions/parameter.c \
 					$(SRC_DIR)/expansions/quote_removal.c \
 					$(SRC_DIR)/expansions/shell_expand.c \
 					$(SRC_DIR)/expansions/tilde.c \
-					$(SRC_DIR)/job/execute.c \
-					$(SRC_DIR)/job/here_doc.c \
-					$(SRC_DIR)/job/job_control.c \
-					$(SRC_DIR)/job/pipe_do.c \
-					$(SRC_DIR)/job/shell_do.c \
-					$(SRC_DIR)/utils/utils.c \
-					$(SRC_DIR)/utils/utils_export.c \
-					$(SRC_DIR)/utils/utils_errors.c \
-					$(SRC_DIR)/utils/utils_exported.c \
-					$(SRC_DIR)/utils/utils_cd.c \
+					$(SRC_DIR)/expansions/variables.c \
+					$(SRC_DIR)/expansions/wildcard.c \
+					$(SRC_DIR)/parse/operators.c \
+					$(SRC_DIR)/parse/parse.c \
+					$(SRC_DIR)/parse/syntax.c \
+					$(SRC_DIR)/parse/syntax_parenthesis.c \
 					$(SRC_DIR)/signals/handling.c \
-					$(SRC_DIR)/wildcard/wildcard.c
+					$(SRC_DIR)/redirections/here_doc.c \
+					$(SRC_DIR)/redirections/redirections.c \
+					$(SRC_DIR)/redirections/redirections_in.c \
+					$(SRC_DIR)/redirections/redirections_out.c \
+					$(SRC_DIR)/utils/utils_arr.c \
+					$(SRC_DIR)/utils/utils_cd.c \
+					$(SRC_DIR)/utils/utils_errors.c \
+					$(SRC_DIR)/utils/utils_export.c \
+					$(SRC_DIR)/utils/utils_exported.c \
+					$(SRC_DIR)/utils/utils_list.c \
+					$(SRC_DIR)/utils/utils_quotes.c \
+					$(SRC_DIR)/utils/utils_str.c \
+					$(SRC_DIR)/builtins/exit.c
 
 OBJ_FILES		=	$(SRC_FILES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEP_FILES		=	$(OBJ_FILES:.o=.d)

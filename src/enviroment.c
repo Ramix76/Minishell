@@ -40,10 +40,19 @@ int	ft_shlvl(char **envp, t_data *data)
 	char	*temp;
 
 	shlvl = ft_getenv("SHLVL", (const char **) envp);
-	if (shlvl == NULL)
+	if (shlvl == NULL || *shlvl == '\0')
 		sh_lvl = 0;
 	else
 		sh_lvl = ft_atoi(shlvl);
+	if (sh_lvl < 0)
+		sh_lvl = -1;
+	else if (sh_lvl > 999)
+	{
+		ft_fprintf(stderr,
+			"%s: warning: shell level (%d) too high, resetting to 1",
+			SH_NAME, sh_lvl + 1);
+		sh_lvl = 0;
+	}
 	temp = ft_itoa(++sh_lvl);
 	ft_setenv("SHLVL", temp, 1, &data->envp);
 	free(temp);
@@ -77,7 +86,7 @@ int	ft_sethome(t_data *data)
 		{
 			home = ft_gethome_fstab();
 			if (home == NULL)
-				home = "hey";
+				home = ft_strdup("");
 			need2free = true;
 		}
 	}
@@ -112,6 +121,7 @@ static char	*ft_gethome_fstab(void)
 	char	*prev_line;
 	char	**split;
 
+	prev_line = NULL;
 	file = open(_PATH_FSTAB, O_RDONLY);
 	if (file == -1)
 		return (NULL);
@@ -128,6 +138,5 @@ static char	*ft_gethome_fstab(void)
 	split = ft_split(prev_line, ' ');
 	free(prev_line);
 	home = ft_strdup(split[1]);
-	ft_free_str_arr(split);
-	return (home);
+	return (ft_free_str_arr(split), home);
 }

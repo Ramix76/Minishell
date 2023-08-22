@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:12:12 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/29 17:19:50 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:11:14 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ int	ft_env(t_data *data)
 	while (data->envp[i])
 	{
 		if (ft_putendl_fd(data->envp[i], STDOUT_FILENO) == -1)
-			return (EXIT_FAILURE);
+		{
+			return ((data->exit_code = 1), EXIT_FAILURE);
+		}
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return ((data->exit_code = 0), EXIT_SUCCESS);
 }

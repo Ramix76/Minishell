@@ -15,3 +15,5 @@ README
 .config/*
 minishell
 .dSYM
+minishell_tester/
+mpanic/

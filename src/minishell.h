@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:02:07 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/31 16:02:52 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:09:25 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@
 # include <sys/stat.h>		/* lstat */
 # include <dirent.h>		/* opendir, closedir */
 # include <signal.h>		/* signal handling */
+# include <termios.h>		/* avoid echoing */
 
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# include "libft.h"			/* */
+# include "libft.h"			/* ... */
 # include "_minishell.h"	/* t_data, t_cmd */
 
 # ifndef EXIT_SUCCESS
@@ -39,23 +40,38 @@
 #  define EXIT_FAILURE		1
 # endif
 
-/* CONSIDER moving WR RD to file pipes */
-
-# define WR					1
-# define RD					0
-
 # define SH_NAME			"homersh"
-# define PROMPT				"homersh$ "
-# define SH_VERSION			"homersh, version 0.1-alpha"
+# define SH_VERSION			"version 0.1-alpha"
+# define METACHARACTERS		" \n\t|<>&()"	// `;' not implemented
 
-# define METACHARACTERS		" \n\t|&;()<>\0"
-# define OPERATORS			"\n|&;()<>"
-# define CONTROLOP			"\n|&"
-# define REDIRECTOP			"<>"
+// consider allocating prompt in main.c -> data init
+# define PROMPT				"homersh$ "
 
 /* used for: <insert reason> */
 
-extern sig_atomic_t			g_running;
+int					g_exit_code;
+
+/* builtins */
+
+int		ft_builtin_do(t_cmd *cmd, t_data *data);
+int		ft_env(t_data *data);
+int		ft_echo(t_cmd *cmd, t_data *data);
+int		ft_pwd(t_data *data);
+int		ft_cd(t_cmd *cmd, t_data *data);
+int		ft_unset(t_cmd *cmd, t_data *data);
+int		ft_export(t_cmd *cmd, t_data *data);
+int		ft_exit(t_cmd *cmd, t_data *data);
+
+/* commands */
+
+int		ft_shell_loop(t_data *data);
+int		ft_shell_do(t_data *data, char *line);
+int		ft_command_do(char **tokens, t_data *data);
+int		ft_simple_command_do(char **job, t_data *data);
+int		ft_sequence_do(char **tokens, int start, int end, t_data *data);
+int		ft_parenthesis_do(char **tokens, int start, int end, t_data *data);
+int		ft_pipeline(char **tokens, t_data *data);
+int		ft_execute_command(t_cmd *cmd, t_data *data, int fork);
 
 /* enviroment.c */
 
@@ -63,62 +79,56 @@ int		ft_init_env(char **envp, t_data *data);
 int		ft_shlvl(char **envp, t_data *data);
 int		ft_sethome(t_data *data);
 
-/* parse.c */
-
-char	**ft_parse2tokens(char *str);
-
-/* builtins */
-
-int		ft_builtin_do(t_cmd *cmd, t_data *data);
-int		ft_is_builtin(char *str);
-int		ft_env(t_data *data);
-int		ft_echo(t_cmd *cmd);
-int		ft_pwd(t_data *data);
-int		ft_cd(t_cmd *cmd, t_data *data);
-int		ft_unset(t_cmd *cmd, t_data *data);
-int		ft_export(t_cmd *cmd, t_data *data);
-
-/* commands */
-
-int		ft_execute_command(char *argv, char **envp, int *fd);
-int		ft_shell_do(t_data *data);
-int		ft_job_control(char *line, t_data *data);
-int		ft_command_do(char *line, t_data *data);
-int		ft_pipe_do(char *line, t_data *data);
-
 /* expansions */
 
-char	*ft_shell_expand(char *str, t_data *data);
+int		ft_shell_expand(char **tokens, t_data *data);
 char	*ft_expand_tilde(char *line, t_data *data);
 char	*ft_expand_dollar(char *expanded, t_data *data);
+char	*ft_expand_wildcard(char *expanded, t_data *data);
 char	*ft_expand_quotes(char *line, t_data *data);
+char	*ft_quotes_closed(char *line);
+char	*ft_getname(char *ptr);
+char	*ft_getvalue(char *ptr, t_data *data);
+
+/* parse */
+
+char	**ft_parse2tokens(char *str);
+char	**ft_parse_operators(char **tokens);
+int		ft_syntax_check(char **tokens, t_data *data);
+int		ft_syntax_parenthesis(char **tokens, int i);
+int		ft_parenthesis_closed(char **tokens);
 
 /* redirections */
 
-int		ft_here_doc(char *limiter);
-int		ft_read_stdin(int wr_fd, char *limiter);
-int		ft_write_output(int fd, char *output);
-int		ft_redirect_in(char *line, int *fd);
+int		ft_redirections_do(char **job, t_data *data);
+int		ft_redirections_rm(char **job);
+int		ft_reset_redirections(t_data *data);
+int		ft_here_doc(char *limiter, t_data *data);
+int		ft_in(char *op, char *value, t_data *data);
+int		ft_out(char *op, char *value, t_data *data);
+
+/* signals */
+
+int		ft_init_signals(int mode);
+void	ft_do_sigign(int signal);
 
 /* utils */
 
+size_t	ft_arrlen(char **arr);
+char	**ft_arrdup(char **arr);
+char	**ft_arrndup(char **arr, size_t n);
+void	ft_arr_rm_item(char **arr, int position);
 char	*ft_cmd_path(char *argv, const char **envp);
 void	ft_free_str_arr(char **split);
 void	ft_error(const char *comd, const char *dir);
 bool	ft_is_valid_var_format(const char *var);
-char	**ft_strduparr(char **arr);
 void	ft_print_combined_vars(t_data *data);
 void	ft_sort_vars(char **vars);
 void	ft_print_sorted_vars(char **vars);
 void	ft_free_vars(char **vars);
 int		ft_cd_check_arguments(t_cmd *cmd);
-
-/* signals */
-
-void	ft_signal_handler(int signal);
-
-/* wildcard */
-
-char	**ft_files_and_dirs(void);
+char	*ft_concat_list(t_list *list);
+int		ft_sort_list(t_list *list);
+char	*ft_arr2str(char **arr);
 
 #endif /* minishell.h */

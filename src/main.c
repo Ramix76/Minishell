@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:31:44 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/27 17:43:50 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 14:49:36 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 
 static int		ft_init_args(int argc, char **argv);
 static int		ft_init_data(int argc, char **argv, char **envp, t_data *data);
-static int		ft_init_signals(void);
-sig_atomic_t	g_running = 1;
+static void		ft_free_some_stuff(t_data *data);
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
+	g_exit_code = 0;
 	ft_init_args(argc, argv);
 	ft_init_data(argc, argv, envp, &data);
-	data.exit_code = ft_shell_do(&data);
-	ft_free_str_arr(data.envp);
-	ft_free_str_arr(data.exported_vars);
+	ft_init_signals(0);
+	if (argc > 2 && ft_strcmp("-c", argv[1]) == 0)
+		ft_shell_do(&data, argv[2]);
+	else
+		ft_shell_loop(&data);
+	ft_free_some_stuff(&data);
 	return (data.exit_code);
 }
 
@@ -33,7 +36,7 @@ static int	ft_init_args(int argc, char **argv)
 {
 	if (argc >= 2 && ft_strcmp(argv[1], "--version") == 0)
 	{
-		printf("%s\n", SH_VERSION);
+		printf("%s, %s\n", SH_NAME, SH_VERSION);
 		exit(EXIT_SUCCESS);
 	}
 	return (EXIT_SUCCESS);
@@ -44,30 +47,29 @@ static int	ft_init_data(int argc, char **argv, char **envp, t_data *data)
 	(void) argc;
 	(void) argv;
 	ft_init_env(envp, data);
-	data->path = ft_getenv("PATH", (const char **) envp);
-	if (data->path == NULL)
-		data->path = _PATH_DEFPATH;
 	data->exec_dir = (char *) malloc(sizeof(char) * PATH_MAX);
 	data->exec_dir = getcwd(data->exec_dir, PATH_MAX);
 	data->exit_code = 0;
+	data->running = 1;
+	data->in = STDIN_FILENO;
+	data->out = STDOUT_FILENO;
+	data->pipe = 0;
 	data->home = NULL;
+	data->str_exit_code = NULL;
 	data->exported_vars = NULL;
 	ft_shlvl(envp, data);
 	ft_sethome(data);
-	ft_init_signals();
 	data->exported_vars = (char **) malloc(sizeof(char *) * (1 + 1));
 	*data->exported_vars = NULL;
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_init_signals(void)
+static void	ft_free_some_stuff(t_data *data)
 {
-	struct sigaction	sa;
-
-	g_running = 1;
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_handler = &ft_signal_handler;
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
-	return (EXIT_SUCCESS);
+	ft_free_str_arr(data->envp);
+	ft_free_str_arr(data->exported_vars);
+	free(data->home);
+	free(data->exec_dir);
+	if (data->str_exit_code != NULL)
+		free(data->str_exit_code);
 }

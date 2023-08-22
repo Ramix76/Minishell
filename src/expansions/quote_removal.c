@@ -6,53 +6,35 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:12:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/25 17:22:06 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/04 13:07:19 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ft_quotes_closed(char *line);
-
-char	*ft_expand_quotes(char *line, t_data *data)
+char	*ft_expand_quotes(char *str, t_data *data)
 {
+	size_t	len;
+	int		quote;
 	char	*expanded;
 
 	(void) data;
-	expanded = line;
-	if (ft_quotes_closed(expanded) != NULL)
-		return (expanded);
-	return (expanded);
-}
-
-/*
- * ft_quotes_closed
- * if quotes (single or double) are closed, returns NULL
- * else (if not closed) returns position
- * of last unclosed quote (simple or double).
- */
-
-static char	*ft_quotes_closed(char *line)
-{
-	char	c;
-	char	*s;
-	char	*ss;
-
-	s = line;
-	while (s != NULL && *s != '\0')
+	len = 0;
+	quote = '\0';
+	expanded = (char *) malloc(sizeof(char) * ft_strlen(str) + 1);
+	ft_memset(expanded, '\0', ft_strlen(str) + 1);
+	if (str != NULL && ft_quotes_closed(str) == NULL)
 	{
-		if (*s == 042 || *s == 047)
+		while (*str != '\0')
 		{
-			c = *s;
-			ss = s + 1;
-			while (*ss != '\0' && *ss != c)
-				++ss;
-			if (*ss == '\0')
-				return (s);
+			if ((*str == 042 || *str == 047) && quote == '\0')
+				quote = *str;
+			else if ((*str == 042 || *str == 047) && quote == *str)
+				quote = '\0';
 			else
-				s = ss;
+				expanded[len++] = *str;
+			++str;
 		}
-		++s;
 	}
-	return (NULL);
+	return (expanded);
 }

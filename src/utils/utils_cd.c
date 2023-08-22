@@ -19,3 +19,18 @@ int	ft_cd_ultra_specific_situation(void)
 		strerror(errno));
 	return (EXIT_FAILURE);
 }
+
+int	ft_cd_check_arguments(t_cmd *cmd)
+{
+	int	i;
+	int	count;
+
+	i = 1;
+	count = 0;
+	while (cmd->tokens[i++] != NULL)
+		count++;
+	if (count > 1)
+		return (ft_fprintf(stderr, "%s: %s: too many arguments\n",
+				SH_NAME, cmd->tokens[0]), EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}

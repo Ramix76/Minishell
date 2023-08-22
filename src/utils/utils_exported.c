@@ -71,15 +71,15 @@ char	**ft_combine_vars(char **env_vars, char **exported_vars)
 	combined_vars = ft_allocate_combined_vars(env_count, exported_count);
 	if (combined_vars == NULL)
 		return (NULL);
-	i = 0;
-	while (i < env_count)
-	{
+	i = -1;
+	while (++i < env_count)
 		combined_vars[i] = ft_strdup(env_vars[i]);
-		i++;
-	}
 	j = 0;
 	while (j < exported_count)
 	{
+		if (ft_strrchr(exported_vars[j], '=') != NULL
+			&& *(ft_strrchr(exported_vars[j], '=') + 1) == '\0')
+			ft_memset(ft_strrchr(exported_vars[j], '='), '\0', 1);
 		combined_vars[i + j] = ft_strdup(exported_vars[j]);
 		j++;
 	}
@@ -100,8 +100,8 @@ void	ft_print_combined_vars(t_data *data)
 		while (data->envp[env_count])
 			env_count++;
 	}
-	env_copy = ft_strduparr(data->envp);
-	exported_copy = ft_strduparr(data->exported_vars);
+	env_copy = ft_arrdup(data->envp);
+	exported_copy = ft_arrdup(data->exported_vars);
 	combined_vars = ft_combine_vars(env_copy, exported_copy);
 	if (combined_vars != NULL)
 	{

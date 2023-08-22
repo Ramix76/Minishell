@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:52:40 by framos-p          #+#    #+#             */
-/*   Updated: 2023/07/13 11:55:47 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/14 12:30:38 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ static void	ft_echoed(char **tokens, int newline)
 	{
 		ft_putstr_fd(tokens[i], 1);
 		if (tokens[i + 1] && write(1, " ", 1) < 1)
-		{
 			printf("Error\n");
-			return ;
-		}
 	}
 	if (tokens == NULL || (newline && write(1, "\n", 1) < 0))
 	{
@@ -35,7 +32,7 @@ static void	ft_echoed(char **tokens, int newline)
 	}
 }
 
-int	ft_echo(t_cmd *cmd)
+int	ft_echo(t_cmd *cmd, t_data *data)
 {
 	int		i;
 	int		j;
@@ -54,5 +51,5 @@ int	ft_echo(t_cmd *cmd)
 		newline = 0;
 	}
 	ft_echoed(&cmd->tokens[i], newline);
-	return (EXIT_SUCCESS);
+	return ((data->exit_code = 0), EXIT_SUCCESS);
 }

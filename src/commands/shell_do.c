@@ -6,33 +6,51 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:56:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/07/27 11:15:56 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/08/22 14:45:31 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_shell_do(t_data *data)
+int	ft_shell_loop(t_data *data)
 {
 	char	*line;
-	char	*parsed_line;
 
-	while (g_running)
+	g_exit_code = 0;
+	while (data->running)
 	{
+		ft_init_signals(0);
 		line = readline(PROMPT);
 		if (line == NULL)
-			return (printf("exit\n"), EXIT_SUCCESS);
-		if (line[0] != '\0')
+		{
+			if (isatty(STDOUT_FILENO))
+				ft_fprintf(stderr, "exit\n");
+			return (EXIT_SUCCESS);
+		}
+		if (line && *line != '\0')
 			add_history(line);
-		parsed_line = ft_shell_expand(line, data);
-		printf("parsed_line: \"%s\"\n", parsed_line);
+		if (ft_shell_do(data, line) == EXIT_FAILURE)
+			data->running = 0;
 		free(line);
-		data->exit_code = ft_job_control(parsed_line, data);
-		free(parsed_line);
-		rl_on_new_line();
 	}
-	rl_clear_history();
-	return (EXIT_SUCCESS);
+	return (rl_clear_history(), EXIT_SUCCESS);
 }
 
-// when ctrl+D will need to rl_clear_history();
+int	ft_shell_do(t_data *data, char *line)
+{
+	char	**tokens;
+
+	if (g_exit_code > 0)
+	{
+		data->exit_code = g_exit_code;
+		g_exit_code = 0;
+	}
+	tokens = ft_parse2tokens(line);
+	if (ft_syntax_check(tokens, data) != EXIT_FAILURE)
+	{
+		ft_shell_expand(tokens, data);
+		ft_command_do(tokens, data);
+	}
+	ft_free_str_arr(tokens);
+	return (EXIT_SUCCESS);
+}
