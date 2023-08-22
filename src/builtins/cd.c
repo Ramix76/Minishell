@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:58:13 by framos-p          #+#    #+#             */
-/*   Updated: 2023/08/18 14:19:09 by framos-p         ###   ########.fr       */
+/*   Updated: 2023/08/22 18:11:23 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int	ft_cd(t_cmd *cmd, t_data *data)
 		return (ft_change_to_home_directory(cmd->tokens[1], data),
 			(data->exit_code = 0), EXIT_SUCCESS);
 	}
-	else if (ft_strncmp(cmd->tokens[1], "..", 2) == 0)
+	else if (ft_strcmp(cmd->tokens[1], "..") == 0)
 		return (ft_change_to_parent_directory(cmd->tokens[1], data),
 			(data->exit_code = 0), EXIT_SUCCESS);
 	else if (ft_strcmp("-", cmd->tokens[1]) == 0)
